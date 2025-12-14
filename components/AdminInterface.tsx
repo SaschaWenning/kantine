@@ -445,83 +445,87 @@ export default function AdminInterface({
                           key={employee.id}
                           className="flex items-center justify-between p-3 bg-white rounded-lg border"
                         >
-                          {editingEmployee?.id === employee.id ? (
-                            <Input
-                              value={editingEmployee.name}
-                              onChange={(e) => setEditingEmployee({ ...editingEmployee, name: e.target.value })}
-                            />
-                          ) : (
-                            employee.name
-                          )}
-                          {editingEmployee?.id === employee.id ? (
-                            <select
-                              value={editingEmployee.group}
-                              onChange={(e) =>
-                                setEditingEmployee({ ...editingEmployee, group: e.target.value as Employee["group"] })
-                              }
-                              className="px-3 py-2 border rounded-md"
-                            >
-                              <option value="group1">{groupNames.group1}</option>
-                              <option value="group2">{groupNames.group2}</option>
-                              <option value="group3">{groupNames.group3}</option>
-                            </select>
-                          ) : (
-                            groupNames[employee.group as keyof typeof groupNames]
-                          )}
-                          {editingEmployee?.id === employee.id ? (
-                            <Input
-                              type="number"
-                              value={editingEmployee.balance || ""}
-                              onChange={(e) =>
-                                setEditingEmployee({
-                                  ...editingEmployee,
-                                  balance: Number.parseFloat(e.target.value) || 0,
-                                })
-                              }
-                            />
-                          ) : (
+                          <div className="flex-1 mr-4">
+                            {editingEmployee?.id === employee.id ? (
+                              <Input
+                                value={editingEmployee.name}
+                                onChange={(e) => setEditingEmployee({ ...editingEmployee, name: e.target.value })}
+                                placeholder="Name"
+                              />
+                            ) : (
+                              <span className="font-medium">{employee.name}</span>
+                            )}
+                          </div>
+
+                          <div className="flex-1 mr-4">
+                            {editingEmployee?.id === employee.id ? (
+                              <select
+                                value={editingEmployee.group}
+                                onChange={(e) =>
+                                  setEditingEmployee({ ...editingEmployee, group: e.target.value as Employee["group"] })
+                                }
+                                className="w-full px-3 py-2 border rounded-md"
+                              >
+                                <option value="group1">{groupNames.group1}</option>
+                                <option value="group2">{groupNames.group2}</option>
+                                <option value="group3">{groupNames.group3}</option>
+                              </select>
+                            ) : (
+                              <span className="text-sm text-gray-600">
+                                {groupNames[employee.group as keyof typeof groupNames]}
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="flex-1 mr-4">
                             <Badge variant={employee.balance > 0 ? "destructive" : "secondary"}>
-                              €{employee.balance.toFixed(2)}
+                              {employee.balance >= 0 ? "+" : ""}€{employee.balance.toFixed(2)}
                             </Badge>
-                          )}
-                          {editingEmployee?.id === employee.id ? (
+                          </div>
+
+                          <div className="flex items-center gap-2 mr-4">
                             <Checkbox
-                              checked={editingEmployee.hideCoffee || false}
-                              onCheckedChange={(checked) =>
-                                setEditingEmployee({ ...editingEmployee, hideCoffee: checked as boolean })
+                              checked={
+                                editingEmployee?.id === employee.id
+                                  ? editingEmployee.hideCoffee || false
+                                  : employee.hideCoffee || false
                               }
-                            />
-                          ) : (
-                            <Checkbox
-                              checked={employee.hideCoffee || false}
                               onCheckedChange={(checked) => {
-                                const updatedEmployee = { ...employee, hideCoffee: checked as boolean }
-                                updateEmployee(updatedEmployee)
+                                if (editingEmployee?.id === employee.id) {
+                                  setEditingEmployee({ ...editingEmployee, hideCoffee: checked as boolean })
+                                } else {
+                                  const updatedEmployee = { ...employee, hideCoffee: checked as boolean }
+                                  updateEmployee(updatedEmployee)
+                                }
                               }}
                             />
-                          )}
-                          {editingEmployee?.id === employee.id ? (
-                            <>
-                              <Button size="sm" onClick={() => updateEmployee(editingEmployee)}>
-                                Speichern
-                              </Button>
-                              <Button size="sm" variant="outline" onClick={() => setEditingEmployee(null)}>
-                                Abbrechen
-                              </Button>
-                            </>
-                          ) : (
-                            <>
-                              <Button size="sm" variant="outline" onClick={() => setEditingEmployee(employee)}>
-                                <Edit className="h-4 w-4" />
-                              </Button>
-                              <Button size="sm" variant="outline" onClick={() => clearEmployeeBalance(employee.id)}>
-                                Bezahlung verbuchen
-                              </Button>
-                              <Button size="sm" variant="destructive" onClick={() => removeEmployee(employee.id)}>
-                                <Trash2 className="h-4 w-4" />
-                              </Button>
-                            </>
-                          )}
+                            <span className="text-xs text-gray-600">Kaffee ausblenden</span>
+                          </div>
+
+                          <div className="flex gap-2">
+                            {editingEmployee?.id === employee.id ? (
+                              <>
+                                <Button size="sm" onClick={() => updateEmployee(editingEmployee)}>
+                                  Speichern
+                                </Button>
+                                <Button size="sm" variant="outline" onClick={() => setEditingEmployee(null)}>
+                                  Abbrechen
+                                </Button>
+                              </>
+                            ) : (
+                              <>
+                                <Button size="sm" variant="outline" onClick={() => setEditingEmployee(employee)}>
+                                  <Edit className="h-4 w-4" />
+                                </Button>
+                                <Button size="sm" variant="outline" onClick={() => clearEmployeeBalance(employee.id)}>
+                                  Bezahlung verbuchen
+                                </Button>
+                                <Button size="sm" variant="destructive" onClick={() => removeEmployee(employee.id)}>
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </>
+                            )}
+                          </div>
                         </div>
                       ))}
                     </div>

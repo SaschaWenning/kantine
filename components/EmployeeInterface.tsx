@@ -15,6 +15,7 @@ interface EmployeeInterfaceProps {
   transactions: Transaction[]
   updateDailyStats: (productName: string, quantity: number) => void
   addEmployeeToMealList: (employeeName: string) => void
+  onUpdateProducts?: (products: Product[]) => void
 }
 
 export default function EmployeeInterface({
@@ -25,6 +26,7 @@ export default function EmployeeInterface({
   transactions,
   updateDailyStats,
   addEmployeeToMealList,
+  onUpdateProducts,
 }: EmployeeInterfaceProps) {
   const [showConfirmation, setShowConfirmation] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
@@ -153,6 +155,19 @@ export default function EmployeeInterface({
       playSound("success")
     }
 
+    const updatedProduct = {
+      ...selectedProduct,
+      stock: Math.max(0, selectedProduct.stock - selectedQuantity),
+    }
+
+    // Update products array with new stock
+    const updatedProducts = products.map((p) => (p.id === selectedProduct.id ? updatedProduct : p))
+
+    // Send updated products to parent component
+    if (onUpdateProducts) {
+      onUpdateProducts(updatedProducts)
+    }
+
     const transaction: Transaction = {
       id: Date.now().toString(),
       employeeId: employee.id,
@@ -160,7 +175,7 @@ export default function EmployeeInterface({
       productId: selectedProduct.id,
       productName: selectedProduct.name,
       price: selectedProduct.price * selectedQuantity,
-      quantity: selectedQuantity, // Add quantity field
+      quantity: selectedQuantity,
       timestamp: new Date(),
     }
 
@@ -194,7 +209,7 @@ export default function EmployeeInterface({
       productId: "manual",
       productName: manualDescription || (isCreditMode ? "Guthaben eingezahlt" : "Manueller Betrag"),
       price: finalAmount,
-      quantity: 1, // Add quantity field
+      quantity: 1,
       timestamp: new Date(),
     }
 

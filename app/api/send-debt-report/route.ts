@@ -1,5 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { createEmailService } from "@/lib/email-service"
+import { writeFile, mkdir } from "fs/promises"
+import { join } from "path"
 
 export async function POST(request: NextRequest) {
   try {
@@ -24,12 +26,35 @@ export async function POST(request: NextRequest) {
 
     const totalDebt = employeesWithDebts.reduce((sum: number, emp: any) => sum + emp.balance, 0)
 
+    const reportDate = new Date()
+    const reportData = {
+      date: reportDate.toISOString(),
+      totalDebt,
+      employeesWithDebts,
+      transactions: transactions.filter((t: any) => employeesWithDebts.some((e: any) => e.id === t.employeeId)),
+    }
+
+    try {
+      // Create reports directory if it doesn't exist
+      const reportsDir = join(process.cwd(), "reports")
+      await mkdir(reportsDir, { recursive: true })
+
+      // Save report as JSON file
+      const filename = `schulden-report-${reportDate.toISOString().split("T")[0]}-${Date.now()}.json`
+      const filepath = join(reportsDir, filename)
+      await writeFile(filepath, JSON.stringify(reportData, null, 2))
+      console.log("[v0] Report saved locally:", filepath)
+    } catch (fileError) {
+      console.error("[v0] Error saving report locally:", fileError)
+      // Continue with email sending even if local save fails
+    }
+
     // Create email service and send report
     const emailService = createEmailService()
     const emailResult = await emailService.sendDebtReport({
       employees: employeesWithDebts,
       totalDebt,
-      reportDate: new Date(),
+      reportDate,
       recipientEmail: paypalEmail || "kantinewache4@hotmail.com",
     })
 

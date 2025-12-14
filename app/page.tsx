@@ -17,6 +17,7 @@ import AdminInterface from "@/components/AdminInterface"
 import EmployeeInterface from "@/components/EmployeeInterface"
 import storage from "@/lib/storage"
 import type { KantineUser, Employee, Product, Transaction, ManualTransaction } from "@/lib/storage"
+import ToastNotifications from "@/components/ToastNotifications" // Declared the ToastNotifications variable
 
 const initialProducts: Omit<Product, "id" | "userId">[] = [
   { name: "Brötchen", price: 1.0, stock: 100, category: "essen" },
@@ -75,6 +76,7 @@ export default function KantineApp() {
     kaffee: 0,
   })
   const [employeesWithLunch, setEmployeesWithLunch] = useState<string[]>([])
+  const [isLoadingReport, setIsLoadingReport] = useState(false) // Added state for loading report
 
   useEffect(() => {
     const loadUser = async () => {
@@ -351,6 +353,34 @@ export default function KantineApp() {
     setPasswordDialogAction(null)
   }
 
+  // Added debt report handler with feedback
+  const handleSendDebtReport = async () => {
+    setIsLoadingReport(true)
+    try {
+      const result = await storage.sendDebtReport(currentUser.id, currentUser.paypalEmail)
+
+      // Show success toast
+      const event = new CustomEvent("showToast", {
+        detail: {
+          message: `Schulden-Report erfolgreich gesendet! ${result.employeesWithDebts} Mitarbeiter mit Schulden (${result.totalDebt.toFixed(2)}€). Report wurde auch lokal gespeichert.`,
+          type: "success",
+        },
+      })
+      window.dispatchEvent(event)
+    } catch (error) {
+      // Show error toast
+      const event = new CustomEvent("showToast", {
+        detail: {
+          message: `Fehler beim Senden: ${error instanceof Error ? error.message : "Unbekannter Fehler"}`,
+          type: "error",
+        },
+      })
+      window.dispatchEvent(event)
+    } finally {
+      setIsLoadingReport(false)
+    }
+  }
+
   if (selectedEmployee) {
     const employee = employees.find((e) => e.id === selectedEmployee)
     if (employee) {
@@ -369,6 +399,7 @@ export default function KantineApp() {
             setEmployeesWithLunch(newList)
             storage.setEmployeesWithLunch(currentUser!.id, newList)
           }}
+          onUpdateProducts={handleUpdateProducts}
         />
       )
     }
@@ -510,7 +541,10 @@ export default function KantineApp() {
   if (!currentUser) return null
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      {/* Added toast notifications */}
+      <ToastNotifications />
+
       <div className="max-w-6xl mx-auto space-y-6">
         <div className="text-center space-y-2">
           <div className="flex justify-between items-center">
@@ -636,10 +670,11 @@ export default function KantineApp() {
           </CardHeader>
           <CardContent>
             <Button
-              onClick={() => storage.sendDebtReport(currentUser.id, currentUser.paypalEmail)}
+              onClick={handleSendDebtReport}
+              disabled={isLoadingReport}
               className="w-full bg-blue-600 hover:bg-blue-700"
             >
-              Schulden-Report jetzt senden
+              {isLoadingReport ? "Wird gesendet..." : "Schulden-Report jetzt senden"}
             </Button>
           </CardContent>
         </Card>
