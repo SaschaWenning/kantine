@@ -73,7 +73,9 @@ export default function KantineApp() {
   const [dailyStats, setDailyStats] = useState({
     mittagessen: 0,
     broetchen: 0,
+    eier: 0,
     kaffee: 0,
+    date: null as string | null,
   })
   const [employeesWithLunch, setEmployeesWithLunch] = useState<string[]>([])
   const [isLoadingReport, setIsLoadingReport] = useState(false) // Added state for loading report
@@ -139,11 +141,17 @@ export default function KantineApp() {
       const today = new Date().toDateString()
 
       if (stats.date === today) {
-        setDailyStats({ mittagessen: stats.mittagessen, broetchen: stats.broetchen, kaffee: stats.kaffee })
+        setDailyStats({
+          mittagessen: stats.mittagessen,
+          broetchen: stats.broetchen,
+          eier: stats.eier,
+          kaffee: stats.kaffee,
+          date: today,
+        })
       } else {
-        const newStats = { mittagessen: 0, broetchen: 0, kaffee: 0 }
+        const newStats = { mittagessen: 0, broetchen: 0, eier: 0, kaffee: 0, date: today }
         setDailyStats(newStats)
-        await storage.setDailyStats(currentUser.id, { ...newStats, date: today })
+        await storage.setDailyStats(currentUser.id, newStats)
         await storage.setEmployeesWithLunch(currentUser.id, [])
       }
     }
@@ -253,9 +261,11 @@ export default function KantineApp() {
     const newStats = { ...dailyStats }
     if (transaction.productName === "Mittagessen") {
       newStats.mittagessen += transaction.quantity
-    } else if (transaction.productName === "Brötchen") {
+    } else if (transaction.productName.toLowerCase().includes("brötchen")) {
       newStats.broetchen += transaction.quantity
-    } else if (transaction.productName === "Kaffee") {
+    } else if (transaction.productName === "Eier") {
+      newStats.eier += transaction.quantity
+    } else if (transaction.productName.toLowerCase().includes("kaffee")) {
       newStats.kaffee += transaction.quantity
     }
     setDailyStats(newStats)
@@ -268,17 +278,24 @@ export default function KantineApp() {
     }
   }
 
-  const updateDailyStats = async (productName: string, quantity: number) => {
-    const newStats = { ...dailyStats }
-    if (productName === "Mittagessen") {
-      newStats.mittagessen += quantity
-    } else if (productName === "Brötchen") {
-      newStats.broetchen += quantity
-    } else if (productName === "Kaffee") {
-      newStats.kaffee += quantity
-    }
-    setDailyStats(newStats)
-    await storage.setDailyStats(currentUser!.id, { ...newStats, date: new Date().toDateString() })
+  const updateDailyStats = (productName: string, quantity: number) => {
+    setDailyStats((prev) => {
+      const updated = { ...prev }
+      if (productName === "Mittagessen") {
+        updated.mittagessen += quantity
+      }
+      if (productName.toLowerCase().includes("brötchen")) {
+        updated.broetchen += quantity
+      }
+      if (productName.toLowerCase().includes("eier")) {
+        updated.eier += quantity
+      }
+      if (productName.toLowerCase().includes("kaffee")) {
+        updated.kaffee += quantity
+      }
+      storage.setDailyStats(currentUser!.id, { ...updated, date: new Date().toDateString() })
+      return updated
+    })
   }
 
   const updateTransactions = async (newTransactions: (Transaction | ManualTransaction)[]) => {
@@ -582,15 +599,6 @@ export default function KantineApp() {
           </Card>
           <Card>
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium">Heutige Brötchen</CardTitle>
-              <CardDescription className="text-xs">unter 5 Stück</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-blue-600">{dailyStats.broetchen}</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium">Mittagessen</CardTitle>
               <CardDescription className="text-xs">heute gebucht</CardDescription>
             </CardHeader>
@@ -605,6 +613,15 @@ export default function KantineApp() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{dailyStats.broetchen}</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium">Eier</CardTitle>
+              <CardDescription className="text-xs">heute gebucht</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{dailyStats.eier}</div>
             </CardContent>
           </Card>
           <Card>

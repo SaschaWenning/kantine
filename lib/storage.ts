@@ -122,7 +122,7 @@ class StorageAPI {
 
   async getDailyStats(userId: string) {
     const data = await this.fetchData()
-    return data.dailyStats?.[userId] || { mittagessen: 0, broetchen: 0, kaffee: 0, date: null }
+    return data.dailyStats?.[userId] || { mittagessen: 0, broetchen: 0, eier: 0, kaffee: 0, date: null }
   }
 
   async setDailyStats(userId: string, stats: any) {
