@@ -24,6 +24,7 @@ const initialProducts: Omit<Product, "id" | "userId">[] = [
   { name: "Mittagessen", price: 4.5, stock: 50, category: "essen" },
   { name: "Frühstück ausgegeben", price: 40.0, stock: 50, category: "essen" },
   { name: "Kaffee", price: 1.5, stock: 100, category: "essen" },
+  { name: "Ei", price: 0.3, stock: 200, category: "essen" },
   { name: "Wasser 0,5l", price: 0.5, stock: 100, category: "getränke" },
   { name: "Cola 0,5l", price: 1.0, stock: 50, category: "getränke" },
   { name: "Sirup 0,5l", price: 0.3, stock: 50, category: "getränke" },
@@ -263,7 +264,7 @@ export default function KantineApp() {
       newStats.mittagessen += transaction.quantity
     } else if (transaction.productName.toLowerCase().includes("brötchen")) {
       newStats.broetchen += transaction.quantity
-    } else if (transaction.productName === "Eier") {
+    } else if (transaction.productName === "Ei" || transaction.productName.toLowerCase().includes("eier")) {
       newStats.eier += transaction.quantity
     } else if (transaction.productName.toLowerCase().includes("kaffee")) {
       newStats.kaffee += transaction.quantity
@@ -287,7 +288,7 @@ export default function KantineApp() {
       if (productName.toLowerCase().includes("brötchen")) {
         updated.broetchen += quantity
       }
-      if (productName.toLowerCase().includes("eier")) {
+      if (productName.toLowerCase().includes("eier") || productName.toLowerCase() === "ei") {
         updated.eier += quantity
       }
       if (productName.toLowerCase().includes("kaffee")) {
