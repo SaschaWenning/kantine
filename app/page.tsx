@@ -1,1301 +1,688 @@
 "use client"
-
-import type React from "react"
-
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { ShoppingCart, BarChart3, Settings, Trash2, Plus, History, ArrowLeft, Package } from "lucide-react"
+import { Label } from "@/components/ui/label"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import { Settings } from "lucide-react"
+import AdminInterface from "@/components/AdminInterface"
+import EmployeeInterface from "@/components/EmployeeInterface"
+import storage from "@/lib/storage"
+import type { KantineUser, Employee, Product, Transaction, ManualTransaction } from "@/lib/storage"
 
-export interface Employee {
-  id: string
-  name: string
-  balance: number
-  group: "4te Tour" | "2Tour" | "Gäste"
-}
+const initialProducts: Omit<Product, "id" | "userId">[] = [
+  { name: "Brötchen", price: 1.0, stock: 100, category: "essen" },
+  { name: "Mittagessen", price: 4.5, stock: 50, category: "essen" },
+  { name: "Frühstück ausgegeben", price: 40.0, stock: 50, category: "essen" },
+  { name: "Kaffee", price: 1.5, stock: 100, category: "essen" },
+  { name: "Wasser 0,5l", price: 0.5, stock: 100, category: "getränke" },
+  { name: "Cola 0,5l", price: 1.0, stock: 50, category: "getränke" },
+  { name: "Sirup 0,5l", price: 0.3, stock: 50, category: "getränke" },
+  { name: "Sirup 1l", price: 0.6, stock: 50, category: "getränke" },
+  { name: "Schokoriegel", price: 1.2, stock: 200, category: "süßigkeiten" },
+  { name: "Gummibärchen", price: 0.8, stock: 150, category: "süßigkeiten" },
+  { name: "Chips", price: 1.5, stock: 100, category: "snacks" },
+  { name: "Nüsse", price: 2.0, stock: 80, category: "snacks" },
+  { name: "Sonstiges 5€", price: 5.0, stock: 100, category: "sonstige" },
+  { name: "Sonstiges 10€", price: 10.0, stock: 100, category: "sonstige" },
+]
 
-export interface Product {
-  id: string
-  name: string
-  price: number
-  stock: number
-  category: "süßigkeiten" | "getränke" | "snacks" | "essen"
-}
-
-export interface Transaction {
-  id: string
-  employeeId: string
-  employeeName: string
-  productId: string
-  productName: string
-  price: number
-  timestamp: Date
-  category?: string
-}
-
-const STORAGE_KEYS = {
-  employees: "kantine_employees",
-  products: "kantine_products",
-  transactions: "kantine_transactions",
-}
-
-export const storage = {
-  getEmployees: (): Employee[] => {
-    if (typeof window === "undefined") return []
-    const data = localStorage.getItem(STORAGE_KEYS.employees)
-    return data ? JSON.parse(data) : []
-  },
-
-  setEmployees: (employees: Employee[]) => {
-    if (typeof window === "undefined") return
-    localStorage.setItem(STORAGE_KEYS.employees, JSON.stringify(employees))
-  },
-
-  getProducts: (): Product[] => {
-    if (typeof window === "undefined") return []
-    const data = localStorage.getItem(STORAGE_KEYS.products)
-    return data
-      ? JSON.parse(data)
-      : [
-          { id: "1", name: "Mittagessen", price: 6.0, stock: 10, category: "essen" },
-          { id: "2", name: "Brötchen", price: 1.0, stock: 20, category: "essen" },
-          { id: "3", name: "Kaffee", price: 1.5, stock: 25, category: "getränke" },
-          { id: "4", name: "Ei", price: 0.3, stock: 30, category: "essen" },
-          { id: "5", name: "1 Weingummi", price: 0.1, stock: 100, category: "süßigkeiten" },
-          { id: "6", name: "Kinderriegel/Duplo", price: 0.3, stock: 25, category: "süßigkeiten" },
-          { id: "7", name: "Wasser", price: 0.6, stock: 40, category: "getränke" },
-          { id: "8", name: "Eis", price: 0.8, stock: 15, category: "süßigkeiten" },
-          { id: "9", name: "Cola/Fanta/Iso/Apfelschorle", price: 1.5, stock: 30, category: "getränke" },
-          { id: "10", name: "Erdnüsse", price: 1.5, stock: 20, category: "snacks" },
-          { id: "11", name: "Mars/Snickers/Kitkat", price: 0.8, stock: 25, category: "süßigkeiten" },
-        ]
-  },
-
-  setProducts: (products: Product[]) => {
-    if (typeof window === "undefined") return
-    localStorage.setItem(STORAGE_KEYS.products, JSON.stringify(products))
-  },
-
-  getTransactions: (): Transaction[] => {
-    if (typeof window === "undefined") return []
-    const data = localStorage.getItem(STORAGE_KEYS.transactions)
-    if (!data) return []
-    const transactions = JSON.parse(data)
-    return transactions.map((t: any) => ({
-      ...t,
-      timestamp: new Date(t.timestamp),
-    }))
-  },
-
-  setTransactions: (transactions: Transaction[]) => {
-    if (typeof window === "undefined") return
-    localStorage.setItem(STORAGE_KEYS.transactions, JSON.stringify(transactions))
-  },
+function calculateEmployeeBalances(
+  employees: Employee[],
+  transactions: (Transaction | ManualTransaction)[],
+): Employee[] {
+  return employees.map((employee) => {
+    const employeeTransactions = transactions.filter((t) => t.employeeId === employee.id)
+    const balance = employeeTransactions.reduce((sum, t) => {
+      if ("price" in t) {
+        return sum + t.price
+      }
+      return sum + t.amount
+    }, 0)
+    return { ...employee, balance }
+  })
 }
 
 export default function KantineApp() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [currentUser, setCurrentUser] = useState<KantineUser | null>(null)
+  const [allUsers, setAllUsers] = useState<KantineUser[]>([])
+  const [selectedUserForLogin, setSelectedUserForLogin] = useState<KantineUser | null>(null)
+  const [loginPassword, setLoginPassword] = useState("")
+  const [showLoginPasswordDialog, setShowLoginPasswordDialog] = useState(false)
+  const [showRegisterDialog, setShowRegisterDialog] = useState(false)
+  const [showPasswordDialog, setShowPasswordDialog] = useState(false)
+  const [passwordDialogAction, setPasswordDialogAction] = useState<"admin" | "newEmployee" | null>(null)
+  const [registerUsername, setRegisterUsername] = useState("")
+  const [registerPassword, setRegisterPassword] = useState("")
+  const [registerPaypalEmail, setRegisterPaypalEmail] = useState("")
   const [employees, setEmployees] = useState<Employee[]>([])
   const [products, setProducts] = useState<Product[]>([])
   const [transactions, setTransactions] = useState<Transaction[]>([])
-  const [selectedEmployee, setSelectedEmployee] = useState<string>("")
-  const [selectedProduct, setSelectedProduct] = useState<string>("")
-  const [showAdmin, setShowAdmin] = useState(false)
-
-  const calculateEmployeeBalances = (employees: Employee[], transactions: Transaction[]): Employee[] => {
-    return employees.map((employee) => {
-      const employeeTransactions = transactions.filter((t) => t.employeeId === employee.id)
-      const balance = employeeTransactions.reduce((sum, transaction) => sum + transaction.price, 0)
-      return { ...employee, balance }
-    })
-  }
+  const [selectedEmployee, setSelectedEmployee] = useState<string | null>(null)
+  const [showAdminInterface, setShowAdminInterface] = useState(false)
+  const [dailyStats, setDailyStats] = useState({
+    mittagessen: 0,
+    broetchen: 0,
+    kaffee: 0,
+  })
+  const [employeesWithLunch, setEmployeesWithLunch] = useState<string[]>([])
 
   useEffect(() => {
-    const loadedEmployees = storage.getEmployees()
-    const loadedProducts = storage.getProducts()
-    const loadedTransactions = storage.getTransactions()
-
-    const employeesWithCalculatedBalances = calculateEmployeeBalances(loadedEmployees, loadedTransactions)
-
-    setEmployees(employeesWithCalculatedBalances)
-    setProducts(loadedProducts)
-    setTransactions(loadedTransactions)
+    const loadUser = async () => {
+      const user = await storage.getCurrentUser()
+      if (user) {
+        setCurrentUser(user)
+        setIsLoggedIn(true)
+      }
+    }
+    loadUser()
   }, [])
 
-  const [currentView, setCurrentView] = useState<"home" | "employee" | "admin">("home")
-  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false)
-  const [adminPassword, setAdminPassword] = useState("")
-  const [importData, setImportData] = useState<(event: React.ChangeEvent<HTMLInputElement>) => void>(() => {
-    return (event: React.ChangeEvent<HTMLInputElement>) => {
-      const file = event.target.files?.[0]
-      if (!file) return
-
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        try {
-          const data = JSON.parse(e.target?.result as string)
-          if (data.employees && data.products && data.transactions) {
-            setEmployees(data.employees)
-            setProducts(data.products)
-            setTransactions(data.transactions)
-            alert("Daten erfolgreich importiert!")
-          } else {
-            alert("Ungültiges Backup-Format!")
-          }
-        } catch (error) {
-          alert("Fehler beim Importieren der Daten!")
-        }
-      }
-      reader.readAsText(file)
+  useEffect(() => {
+    const loadUsers = async () => {
+      const users = await storage.getUsers()
+      setAllUsers(users)
     }
-  })
+    loadUsers()
+  }, [])
 
-  const updateEmployees = (newEmployees: Employee[]) => {
-    setEmployees(newEmployees)
-    storage.setEmployees(newEmployees)
+  useEffect(() => {
+    if (!currentUser) return
+
+    const loadData = async () => {
+      const allEmployees = await storage.getEmployees()
+      const allProducts = await storage.getProducts()
+      const allTransactions = await storage.getTransactions()
+
+      const userEmployees = allEmployees.filter((e) => e.userId === currentUser.id)
+      const userProducts = allProducts.filter((p) => p.userId === currentUser.id)
+      const userTransactions = allTransactions.filter((t) => t.userId === currentUser.id)
+
+      if (userProducts.length === 0) {
+        const newProducts = initialProducts.map((p) => ({
+          ...p,
+          id: Date.now().toString() + Math.random(),
+          userId: currentUser.id,
+        }))
+        await storage.setProducts([...allProducts, ...newProducts])
+        setProducts(newProducts)
+      } else {
+        setProducts(userProducts)
+      }
+
+      setEmployees(calculateEmployeeBalances(userEmployees, userTransactions as Transaction[]))
+      setTransactions(userTransactions as Transaction[])
+    }
+
+    loadData()
+
+    const interval = setInterval(loadData, 2000)
+    return () => clearInterval(interval)
+  }, [currentUser])
+
+  useEffect(() => {
+    if (!currentUser) return
+
+    const loadDailyStats = async () => {
+      const stats = await storage.getDailyStats(currentUser.id)
+      const today = new Date().toDateString()
+
+      if (stats.date === today) {
+        setDailyStats({ mittagessen: stats.mittagessen, broetchen: stats.broetchen, kaffee: stats.kaffee })
+      } else {
+        const newStats = { mittagessen: 0, broetchen: 0, kaffee: 0 }
+        setDailyStats(newStats)
+        await storage.setDailyStats(currentUser.id, { ...newStats, date: today })
+        await storage.setEmployeesWithLunch(currentUser.id, [])
+      }
+    }
+
+    loadDailyStats()
+  }, [currentUser])
+
+  useEffect(() => {
+    if (!currentUser) return
+
+    const loadEmployeesWithLunch = async () => {
+      const employees = await storage.getEmployeesWithLunch(currentUser.id)
+      setEmployeesWithLunch(employees)
+    }
+
+    loadEmployeesWithLunch()
+  }, [currentUser])
+
+  const handleUserButtonClick = (user: KantineUser) => {
+    setSelectedUserForLogin(user)
+    setLoginPassword("")
+    setShowLoginPasswordDialog(true)
   }
 
-  const updateProducts = (newProducts: Product[]) => {
-    setProducts(newProducts)
-    storage.setProducts(newProducts)
-  }
+  const handleLoginWithPassword = async () => {
+    if (!selectedUserForLogin) return
 
-  useEffect(() => {
-    if (employees.length === 0) {
-      const defaultEmployees: Employee[] = [
-        // 4te Tour (alphabetically sorted)
-        { id: "1", name: "Barth", balance: 0, group: "4te Tour" },
-        { id: "2", name: "Braun", balance: 0, group: "4te Tour" },
-        { id: "3", name: "Decka", balance: 0, group: "4te Tour" },
-        { id: "4", name: "Ehrenfried", balance: 0, group: "4te Tour" },
-        { id: "5", name: "Hamplewski", balance: 0, group: "4te Tour" },
-        { id: "6", name: "Karney", balance: 0, group: "4te Tour" },
-        { id: "7", name: "Kehnen", balance: 0, group: "4te Tour" },
-        { id: "8", name: "Lindemann", balance: 0, group: "4te Tour" },
-        { id: "9", name: "Lipka", balance: 0, group: "4te Tour" },
-        { id: "10", name: "Manders", balance: 0, group: "4te Tour" },
-        { id: "11", name: "Minta", balance: 0, group: "4te Tour" },
-        { id: "12", name: "Pahlmeyer", balance: 0, group: "4te Tour" },
-        { id: "13", name: "Paul", balance: 0, group: "4te Tour" },
-        { id: "14", name: "Rautenberg", balance: 0, group: "4te Tour" },
-        { id: "15", name: "Roßmöller", balance: 0, group: "4te Tour" },
-        { id: "16", name: "Schmatz", balance: 0, group: "4te Tour" },
-        { id: "17", name: "Spelleken", balance: 0, group: "4te Tour" },
-        { id: "18", name: "Sperlich", balance: 0, group: "4te Tour" },
-        { id: "19", name: "Szymkowiak", balance: 0, group: "4te Tour" },
-        { id: "20", name: "Wenning", balance: 0, group: "4te Tour" },
-        { id: "21", name: "Zinser", balance: 0, group: "4te Tour" },
-
-        // 2Tour (alphabetically sorted)
-        { id: "22", name: "Boegner", balance: 0, group: "2Tour" },
-        { id: "23", name: "Casaccia", balance: 0, group: "2Tour" },
-        { id: "24", name: "Frisson", balance: 0, group: "2Tour" },
-        { id: "25", name: "Füllgraf", balance: 0, group: "2Tour" },
-        { id: "26", name: "Geue", balance: 0, group: "2Tour" },
-        { id: "27", name: "Groh", balance: 0, group: "2Tour" },
-        { id: "28", name: "Grüneis", balance: 0, group: "2Tour" },
-        { id: "29", name: "Honermann", balance: 0, group: "2Tour" },
-        { id: "30", name: "Kahlert", balance: 0, group: "2Tour" },
-        { id: "31", name: "Käufer", balance: 0, group: "2Tour" },
-        { id: "32", name: "Knott", balance: 0, group: "2Tour" },
-        { id: "33", name: "Kohl", balance: 0, group: "2Tour" },
-        { id: "34", name: "Ludewig", balance: 0, group: "2Tour" },
-        { id: "35", name: "Röthel", balance: 0, group: "2Tour" },
-        { id: "36", name: "Schmitz", balance: 0, group: "2Tour" },
-        { id: "37", name: "Tataro", balance: 0, group: "2Tour" },
-        { id: "38", name: "Wortelkamp", balance: 0, group: "2Tour" },
-
-        // Gäste (alphabetically sorted)
-        { id: "39", name: "Bieling", balance: 0, group: "Gäste" },
-        { id: "40", name: "Omraie", balance: 0, group: "Gäste" },
-      ]
-      setEmployees(defaultEmployees)
-      storage.setEmployees(defaultEmployees)
-    }
-  }, [employees.length])
-
-  useEffect(() => {
-    const autoBackup = () => {
-      const data = {
-        employees,
-        products,
-        transactions,
-        exportDate: new Date().toISOString(),
-      }
-
-      const dataStr = JSON.stringify(data, null, 2)
-      const dataBlob = new Blob([dataStr], { type: "application/json" })
-      const url = URL.createObjectURL(dataBlob)
-
-      const link = document.createElement("a")
-      link.href = url
-      link.download = `kantine-auto-backup-${new Date().toISOString().split("T")[0]}-${new Date().getHours()}-${new Date().getMinutes()}.json`
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
-      URL.revokeObjectURL(url)
-    }
-
-    const interval = setInterval(autoBackup, 8 * 60 * 60 * 1000)
-
-    return () => clearInterval(interval)
-  }, [employees, products, transactions])
-
-  useEffect(() => {
-    const checkDailyReset = () => {
-      const now = new Date()
-      const today = now.toDateString()
-      const hour = now.getHours()
-
-      // Prüfe ob es 8 Uhr oder später ist und ob heute noch nicht zurückgesetzt wurde
-      const lastResetDate = localStorage.getItem("lastStatsReset")
-
-      if (hour >= 8 && lastResetDate !== today) {
-        // Filtere alle Transaktionen von heute heraus (nur Mittagessen, Brötchen, Kaffee)
-        const updatedTransactions = transactions.filter((transaction) => {
-          const transactionDate = new Date(transaction.timestamp).toDateString()
-          const isToday = transactionDate === today
-          const isTargetProduct = ["Mittagessen", "Brötchen", "Kaffee"].includes(transaction.productName)
-
-          // Behalte Transaktionen, die NICHT heute UND NICHT die Zielprodukte sind
-          return !(isToday && isTargetProduct)
-        })
-
-        // Speichere die gefilterten Transaktionen
-        localStorage.setItem(STORAGE_KEYS.transactions, JSON.stringify(updatedTransactions))
-        localStorage.setItem("lastStatsReset", today)
-
-        // Aktualisiere den State
-        setTransactions(updatedTransactions)
-
-        console.log("[v0] Tägliche Statistiken um 8 Uhr zurückgesetzt")
-      }
-    }
-
-    // Prüfe sofort beim Laden
-    checkDailyReset()
-
-    // Prüfe alle 30 Minuten
-    const interval = setInterval(checkDailyReset, 30 * 60 * 1000)
-
-    return () => clearInterval(interval)
-  }, [transactions])
-
-  const totalDebt = employees.reduce((sum, emp) => sum + emp.balance, 0)
-  const totalTransactions = transactions.length
-  const lowStockProducts = products.filter((p) => p.stock < 5).length
-
-  const handleAdminLogin = () => {
-    const ADMIN_PASSWORD = "kantinewache4"
-    if (adminPassword === ADMIN_PASSWORD) {
-      setIsAdminAuthenticated(true)
-      setAdminPassword("")
+    if (selectedUserForLogin.password === loginPassword) {
+      await storage.setCurrentUser(selectedUserForLogin)
+      setIsLoggedIn(true)
+      setCurrentUser(selectedUserForLogin)
+      setShowLoginPasswordDialog(false)
+      setLoginPassword("")
+      setSelectedUserForLogin(null)
     } else {
+      alert("Falsches Passwort.")
+    }
+  }
+
+  const handleRegister = async () => {
+    if (!registerUsername || !registerPassword || !registerPaypalEmail) {
+      alert("Bitte füllen Sie alle Felder aus.")
+      return
+    }
+
+    const newUser: KantineUser = {
+      id: Date.now().toString() + Math.random(),
+      username: registerUsername,
+      password: registerPassword,
+      paypalEmail: registerPaypalEmail,
+      groupNames: {
+        group1: "4te Tour",
+        group2: "2Tour",
+        group3: "Gäste",
+      },
+    }
+
+    const users = await storage.getUsers()
+    const updatedUsers = [...users, newUser]
+    await storage.setUsers(updatedUsers)
+    setAllUsers(updatedUsers)
+    setRegisterUsername("")
+    setRegisterPassword("")
+    setRegisterPaypalEmail("")
+    setShowRegisterDialog(false)
+  }
+
+  const handleLogout = async () => {
+    await storage.setCurrentUser(null)
+    setIsLoggedIn(false)
+    setCurrentUser(null)
+    setShowAdminInterface(false)
+  }
+
+  const addEmployee = async (name: string, group: string) => {
+    const newEmployee: Employee = {
+      id: Date.now().toString() + Math.random(),
+      name,
+      balance: 0,
+      group,
+      hideCoffee: false,
+      userId: currentUser!.id,
+    }
+
+    const allEmployees = await storage.getEmployees()
+    await storage.setEmployees([...allEmployees, newEmployee])
+    setEmployees([...employees, newEmployee])
+  }
+
+  const updateEmployees = async (updatedEmployees: Employee[]) => {
+    setEmployees(updatedEmployees)
+    const allEmployees = await storage.getEmployees()
+    const otherEmployees = allEmployees.filter((e) => e.userId !== currentUser?.id)
+    await storage.setEmployees([...otherEmployees, ...updatedEmployees])
+  }
+
+  const addTransaction = async (transaction: Transaction) => {
+    const transactionWithUserId = {
+      ...transaction,
+      userId: currentUser!.id,
+    }
+
+    const allTransactions = await storage.getTransactions()
+    await storage.setTransactions([...allTransactions, transactionWithUserId])
+    setTransactions((prev) => [...prev, transactionWithUserId])
+
+    const newStats = { ...dailyStats }
+    if (transaction.productName === "Mittagessen") {
+      newStats.mittagessen += transaction.quantity
+    } else if (transaction.productName === "Brötchen") {
+      newStats.broetchen += transaction.quantity
+    } else if (transaction.productName === "Kaffee") {
+      newStats.kaffee += transaction.quantity
+    }
+    setDailyStats(newStats)
+    await storage.setDailyStats(currentUser!.id, { ...newStats, date: new Date().toDateString() })
+
+    if (transaction.productName === "Mittagessen") {
+      const newList = [...employeesWithLunch, transaction.employeeName]
+      setEmployeesWithLunch(newList)
+      await storage.setEmployeesWithLunch(currentUser!.id, newList)
+    }
+  }
+
+  const updateDailyStats = async (productName: string, quantity: number) => {
+    const newStats = { ...dailyStats }
+    if (productName === "Mittagessen") {
+      newStats.mittagessen += quantity
+    } else if (productName === "Brötchen") {
+      newStats.broetchen += quantity
+    } else if (productName === "Kaffee") {
+      newStats.kaffee += quantity
+    }
+    setDailyStats(newStats)
+    await storage.setDailyStats(currentUser!.id, { ...newStats, date: new Date().toDateString() })
+  }
+
+  const updateTransactions = async (newTransactions: (Transaction | ManualTransaction)[]) => {
+    setTransactions(newTransactions as Transaction[])
+    const allTransactions = await storage.getTransactions()
+    const otherTransactions = allTransactions.filter((t) => t.userId !== currentUser?.id)
+    await storage.setTransactions([...otherTransactions, ...newTransactions])
+  }
+
+  const handleUpdateProducts = async (updatedProducts: Product[]) => {
+    setProducts(updatedProducts)
+
+    const allProducts = await storage.getProducts()
+    const otherProducts = allProducts.filter((p) => p.userId !== currentUser.id)
+    await storage.setProducts([...otherProducts, ...updatedProducts])
+  }
+
+  const handleGroupNamesUpdate = async (groupNames: { group1: string; group2: string; group3: string }) => {
+    if (!currentUser) return
+
+    const updatedUser = { ...currentUser, groupNames }
+    setCurrentUser(updatedUser)
+    await storage.setCurrentUser(updatedUser)
+
+    const users = await storage.getUsers()
+    const updatedUsers = users.map((u) => (u.id === currentUser.id ? updatedUser : u))
+    await storage.setUsers(updatedUsers)
+  }
+
+  const groupedEmployees = currentUser
+    ? {
+        [currentUser.groupNames.group1]: employees
+          .filter((e) => e.group === "group1")
+          .sort((a, b) => a.name.localeCompare(b.name)),
+        [currentUser.groupNames.group2]: employees
+          .filter((e) => e.group === "group2")
+          .sort((a, b) => a.name.localeCompare(b.name)),
+        [currentUser.groupNames.group3]: employees
+          .filter((e) => e.group === "group3")
+          .sort((a, b) => a.name.localeCompare(b.name)),
+      }
+    : {}
+
+  const openNewEmployeeDialog = () => {
+    setPasswordDialogAction("newEmployee")
+    setShowPasswordDialog(true)
+  }
+
+  const openAdminDashboard = () => {
+    setPasswordDialogAction("admin")
+    setShowPasswordDialog(true)
+  }
+
+  const handlePasswordSubmit = () => {
+    if (!currentUser) return
+
+    if (loginPassword !== currentUser.password) {
       alert("Falsches Passwort!")
-      setAdminPassword("")
-    }
-  }
-
-  const exportData = () => {
-    const data = {
-      employees,
-      products,
-      transactions,
-      exportDate: new Date().toISOString(),
+      return
     }
 
-    const dataStr = JSON.stringify(data, null, 2)
-    const dataBlob = new Blob([dataStr], { type: "application/json" })
-    const url = URL.createObjectURL(dataBlob)
+    setShowPasswordDialog(false)
+    setLoginPassword("")
 
-    const link = document.createElement("a")
-    link.href = url
-    link.download = `kantine-backup-${new Date().toISOString().split("T")[0]}.json`
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-    URL.revokeObjectURL(url)
+    if (passwordDialogAction === "admin") {
+      setShowAdminInterface(true)
+    } else if (passwordDialogAction === "newEmployee") {
+      // Open AdminInterface with focus on adding new employee
+      setShowAdminInterface(true)
+    }
+
+    setPasswordDialogAction(null)
   }
 
-  if (currentView === "employee") {
-    const employee = employees.find((emp) => emp.id === selectedEmployee)
-    if (!employee) return <div>No employee selected</div>
-
-    return (
-      <EmployeeInterface
-        employee={employee}
-        products={products}
-        onBack={() => setCurrentView("home")}
-        onTransaction={(transaction) => {
-          const newTransactions = [...transactions, transaction]
-          setTransactions(newTransactions)
-          storage.setTransactions(newTransactions)
-
-          // Mitarbeiter-Schulden aktualisieren
-          const updatedEmployees = employees.map((emp) =>
-            emp.id === transaction.employeeId ? { ...emp, balance: emp.balance + transaction.price } : emp,
-          )
-          setEmployees(updatedEmployees)
-          storage.setEmployees(updatedEmployees)
-
-          // Bestand reduzieren
-          const updatedProducts = products.map((prod) =>
-            prod.id === transaction.productId ? { ...prod, stock: prod.stock - transaction.price / prod.price } : prod,
-          )
-          setProducts(updatedProducts)
-          storage.setProducts(updatedProducts)
-        }}
-      />
-    )
-  }
-
-  if (currentView === "admin") {
-    if (!isAdminAuthenticated) {
+  if (selectedEmployee) {
+    const employee = employees.find((e) => e.id === selectedEmployee)
+    if (employee) {
       return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <Card className="w-96">
-            <CardHeader>
-              <CardTitle>Admin-Anmeldung</CardTitle>
-              <CardDescription>Bitte geben Sie das Admin-Passwort ein</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <Input
-                type="password"
-                placeholder="Passwort"
-                value={adminPassword}
-                onChange={(e) => setAdminPassword(e.target.value)}
-                onKeyPress={(e) => e.key === "Enter" && handleAdminLogin()}
-              />
-              <div className="flex gap-2">
-                <Button onClick={handleAdminLogin} className="flex-1">
-                  Anmelden
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    setCurrentView("home")
-                    setAdminPassword("")
-                  }}
-                >
-                  Abbrechen
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        <EmployeeInterface
+          employee={employee}
+          products={products}
+          onBack={() => setSelectedEmployee(null)}
+          onTransaction={(transaction) => {
+            addTransaction(transaction)
+          }}
+          transactions={transactions}
+          updateDailyStats={updateDailyStats}
+          addEmployeeToMealList={(employeeName) => {
+            const newList = [...employeesWithLunch, employeeName]
+            setEmployeesWithLunch(newList)
+            storage.setEmployeesWithLunch(currentUser!.id, newList)
+          }}
+        />
       )
     }
+  }
 
+  if (showAdminInterface) {
     return (
       <AdminInterface
         employees={employees}
         products={products}
         transactions={transactions}
-        onBack={() => {
-          setCurrentView("home")
-          setIsAdminAuthenticated(false)
-        }}
+        onClose={() => setShowAdminInterface(false)}
         onUpdateEmployees={updateEmployees}
-        onUpdateProducts={updateProducts}
-        importData={importData}
+        onUpdateProducts={handleUpdateProducts}
+        onUpdateTransactions={updateTransactions}
+        userId={currentUser.id}
+        userEmail={currentUser.paypalEmail}
+        groupNames={currentUser.groupNames}
+        onUpdateGroupNames={handleGroupNamesUpdate}
       />
     )
   }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Kantine Wache 4 2/4 Tour</h1>
-          <p className="text-lg text-gray-600">Zentrale Verwaltung für Süßigkeiten, Getränke & Snacks</p>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-8">
-          <Card className="col-span-1">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-xs font-medium">Gesamtschulden</CardTitle>
-              <BarChart3 className="h-3 w-3 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-lg font-bold text-red-600">€{totalDebt.toFixed(2)}</div>
-              <p className="text-xs text-muted-foreground">{employees.length} Mitarbeiter</p>
-            </CardContent>
-          </Card>
-
-          <Card className="col-span-1">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-xs font-medium">Transaktionen</CardTitle>
-              <ShoppingCart className="h-3 w-3 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-lg font-bold">{totalTransactions}</div>
-              <p className="text-xs text-muted-foreground">
-                heute:{" "}
-                {transactions.filter((t) => new Date(t.timestamp).toDateString() === new Date().toDateString()).length}
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="col-span-1">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-xs font-medium">Niedrige Bestände</CardTitle>
-              <Settings className="h-3 w-3 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-lg font-bold text-orange-600">{lowStockProducts}</div>
-              <p className="text-xs text-muted-foreground">unter 5 Stück</p>
-            </CardContent>
-          </Card>
-
-          <Card className="col-span-1">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-xs font-medium">Mittagessen</CardTitle>
-              <span className="text-lg">🍽️</span>
-            </CardHeader>
-            <CardContent>
-              <div className="text-lg font-bold text-blue-600">
-                {transactions.filter((t) => t.productName === "Mittagessen").length}
-              </div>
-              <p className="text-xs text-muted-foreground">heute gebucht</p>
-            </CardContent>
-          </Card>
-
-          <Card className="col-span-1">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-xs font-medium">Brötchen</CardTitle>
-              <span className="text-lg">🥨</span>
-            </CardHeader>
-            <CardContent>
-              <div className="text-lg font-bold text-green-600">
-                {transactions.filter((t) => t.productName === "Brötchen").length}
-              </div>
-              <p className="text-xs text-muted-foreground">heute gebucht</p>
-            </CardContent>
-          </Card>
-
-          <Card className="col-span-1">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-xs font-medium">Kaffee</CardTitle>
-              <span className="text-lg">☕</span>
-            </CardHeader>
-            <CardContent>
-              <div className="text-lg font-bold text-amber-600">
-                {transactions.filter((t) => t.productName === "Kaffee").length}
-              </div>
-              <p className="text-xs text-muted-foreground">heute gebucht</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className="space-y-6 mb-8">
-          {["4te Tour", "2Tour", "Gäste"].map((group) => {
-            const groupEmployees = employees.filter((emp) => emp.group === group)
-            return (
-              <Card key={group}>
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle>{group}</CardTitle>
-                      <CardDescription>Klicken Sie auf einen Namen um Produkte einzutragen</CardDescription>
-                    </div>
+  if (!isLoggedIn) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <CardTitle className="text-2xl font-bold">Kantine Management System</CardTitle>
+            <CardDescription>Wählen Sie Ihre Kantine oder registrieren Sie eine neue</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {allUsers.length > 0 && (
+              <div className="space-y-2">
+                <Label>Bestehende Kantinen:</Label>
+                <div className="grid gap-2">
+                  {allUsers.map((user) => (
                     <Button
+                      key={user.id}
+                      onClick={() => handleUserButtonClick(user)}
+                      className="w-full"
                       variant="outline"
-                      size="sm"
-                      onClick={() => {
-                        const name = prompt(`Neuen Mitarbeiter zu ${group} hinzufügen:`)
-                        if (name && name.trim()) {
-                          const newEmployee = {
-                            id: Date.now().toString(),
-                            name: name.trim(),
-                            balance: 0,
-                            group: group,
-                          }
-                          setEmployees([...employees, newEmployee])
-                          storage.setEmployees([...employees, newEmployee])
-                        }
-                      }}
-                      className="bg-green-600 hover:bg-green-700 text-white"
                     >
-                      + Neuer Mitarbeiter
+                      {user.username}
                     </Button>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {groupEmployees.map((employee) => (
-                      <Button
-                        key={employee.id}
-                        variant="outline"
-                        className="flex items-center justify-between p-4 h-auto hover:bg-blue-50 bg-transparent"
-                        onClick={() => {
-                          setSelectedEmployee(employee.id)
-                          setCurrentView("employee")
-                        }}
-                      >
-                        <span className="font-medium">{employee.name}</span>
-                        <Badge variant={employee.balance > 0 ? "destructive" : "secondary"}>
-                          €{employee.balance.toFixed(2)}
-                        </Badge>
-                      </Button>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            )
-          })}
+                  ))}
+                </div>
+              </div>
+            )}
+            <Button onClick={() => setShowRegisterDialog(true)} className="w-full">
+              Neue Kantine registrieren
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Dialog open={showLoginPasswordDialog} onOpenChange={setShowLoginPasswordDialog}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Anmeldung</DialogTitle>
+              <DialogDescription>Geben Sie das Passwort für {selectedUserForLogin?.username} ein</DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="loginPassword">Passwort</Label>
+                <Input
+                  id="loginPassword"
+                  type="password"
+                  placeholder="Passwort eingeben"
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleLoginWithPassword()
+                    }
+                  }}
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setShowLoginPasswordDialog(false)}>
+                Abbrechen
+              </Button>
+              <Button onClick={handleLoginWithPassword}>Anmelden</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog open={showRegisterDialog} onOpenChange={setShowRegisterDialog}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Neue Kantine registrieren</DialogTitle>
+              <DialogDescription>
+                Geben Sie Ihre Unternehmensdaten ein, um eine neue Kantine anzulegen.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="username">Unternehmensname</Label>
+                <Input
+                  id="username"
+                  placeholder="z.B. Wache 4 2/4 Tour"
+                  value={registerUsername}
+                  onChange={(e) => setRegisterUsername(e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="paypal">PayPal-Adresse</Label>
+                <Input
+                  id="paypal"
+                  type="email"
+                  placeholder="kantinewache4@hotmail.com"
+                  value={registerPaypalEmail}
+                  onChange={(e) => setRegisterPaypalEmail(e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="password">Passwort</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="Passwort eingeben"
+                  value={registerPassword}
+                  onChange={(e) => setRegisterPassword(e.target.value)}
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setShowRegisterDialog(false)}>
+                Abbrechen
+              </Button>
+              <Button onClick={handleRegister}>Kantine erstellen</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </div>
+    )
+  }
+
+  if (!currentUser) return null
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+      <div className="max-w-6xl mx-auto space-y-6">
+        <div className="text-center space-y-2">
+          <div className="flex justify-between items-center">
+            <div className="flex-1"></div>
+            <h1 className="text-4xl font-bold tracking-tight text-slate-900">Kantine {currentUser.username}</h1>
+            <div className="flex-1 flex justify-end">
+              <Button variant="outline" size="sm" onClick={handleLogout}>
+                Abmelden
+              </Button>
+            </div>
+          </div>
+          <p className="text-slate-600">Paypal {currentUser.paypalEmail}</p>
         </div>
 
-        <Card className="cursor-pointer hover:shadow-lg transition-shadow" onClick={() => setCurrentView("admin")}>
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium">Gesamtschulden</CardTitle>
+              <CardDescription className="text-xs">{employees.length} Mitarbeiter</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-red-600">
+                {employees.reduce((sum, emp) => sum + Math.max(0, emp.balance), 0).toFixed(2)} €
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium">Transaktionen</CardTitle>
+              <CardDescription className="text-xs">heute: {transactions.length}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{transactions.length}</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium">Heutige Brötchen</CardTitle>
+              <CardDescription className="text-xs">unter 5 Stück</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-blue-600">{dailyStats.broetchen}</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium">Mittagessen</CardTitle>
+              <CardDescription className="text-xs">heute gebucht</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-blue-600">{dailyStats.mittagessen}</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium">Brötchen</CardTitle>
+              <CardDescription className="text-xs">heute gebucht</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{dailyStats.broetchen}</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium">Kaffee</CardTitle>
+              <CardDescription className="text-xs">heute gebucht</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{dailyStats.kaffee}</div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {Object.entries(groupedEmployees).map(([groupName, groupEmployees]) => (
+          <Card key={groupName}>
+            <CardHeader>
+              <div className="flex justify-between items-center">
+                <div>
+                  <CardTitle>{groupName}</CardTitle>
+                  <CardDescription>Klicken Sie auf einen Namen um Produkte einzutragen</CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {groupEmployees.map((employee) => (
+                  <Button
+                    key={employee.id}
+                    variant="outline"
+                    className="justify-between bg-transparent"
+                    onClick={() => setSelectedEmployee(employee.id)}
+                  >
+                    <span>{employee.name}</span>
+                    <span className={employee.balance >= 0 ? "text-red-600" : "text-green-600"}>
+                      {employee.balance >= 0 ? "-" : "+"} {Math.abs(employee.balance).toFixed(2)} €
+                    </span>
+                  </Button>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+
+        <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Settings className="h-5 w-5 text-green-600" />
               Administrator-Bereich
             </CardTitle>
-            <CardDescription>Verwaltung, Bestände und Abrechnungen</CardDescription>
+            <CardDescription>Verwaltung, Buchungen und Abrechnungen</CardDescription>
           </CardHeader>
           <CardContent>
-            <Button className="w-full bg-transparent" variant="outline" size="lg">
+            <Button onClick={openAdminDashboard} className="w-full">
               Admin-Dashboard
             </Button>
-          </CardContent>
-        </Card>
-      </div>
-
-      {isAdminAuthenticated && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <Card className="w-96">
-            <CardHeader>
-              <CardTitle>Aktion bestätigen</CardTitle>
-              <CardDescription>Bitte geben Sie das Admin-Passwort ein</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <Input
-                type="password"
-                placeholder="Passwort"
-                value={adminPassword}
-                onChange={(e) => setAdminPassword(e.target.value)}
-                onKeyPress={(e) => e.key === "Enter" && handleAdminLogin()}
-              />
-              <div className="flex gap-2">
-                <Button onClick={handleAdminLogin} className="flex-1">
-                  Bestätigen
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    setIsAdminAuthenticated(false)
-                    setAdminPassword("")
-                  }}
-                >
-                  Abbrechen
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      )}
-    </div>
-  )
-}
-
-function EmployeeInterface({
-  employee,
-  products,
-  onBack,
-  onTransaction,
-}: {
-  employee: Employee
-  products: Product[]
-  onBack: () => void
-  onTransaction: (transaction: Transaction) => void
-}) {
-  const [showConfirmation, setShowConfirmation] = useState(false)
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
-  const [selectedQuantity, setSelectedQuantity] = useState(1)
-  const [employeeTransactions, setEmployeeTransactions] = useState<Transaction[]>([])
-
-  useEffect(() => {
-    const allTransactions = storage.getTransactions()
-    const employeeHistory = allTransactions
-      .filter((t) => t.employeeId === employee.id)
-      .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
-      .slice(0, 100)
-    setEmployeeTransactions(employeeHistory)
-  }, [employee.id])
-
-  const handleProductSelect = (product: Product) => {
-    setSelectedProduct(product)
-    setSelectedQuantity(1)
-    setShowConfirmation(true)
-  }
-
-  const handleConfirmedTransaction = () => {
-    if (!selectedProduct) return
-
-    const transaction: Transaction = {
-      id: Date.now().toString(),
-      employeeId: employee.id,
-      employeeName: employee.name,
-      productId: selectedProduct.id,
-      productName: selectedProduct.name,
-      price: selectedProduct.price * selectedQuantity,
-      timestamp: new Date(),
-    }
-
-    onTransaction(transaction)
-    setShowConfirmation(false)
-    setSelectedProduct(null)
-    setSelectedQuantity(1)
-
-    setTimeout(() => {
-      onBack()
-    }, 10000)
-  }
-
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case "süßigkeiten":
-        return "🍬"
-      case "getränke":
-        return "🥤"
-      case "snacks":
-        return "🥨"
-      case "essen":
-        return "🍽️"
-      default:
-        return "🛒"
-    }
-  }
-
-  const groupedProducts = products.reduce(
-    (acc, product) => {
-      if (!acc[product.category]) {
-        acc[product.category] = []
-      }
-      acc[product.category].push(product)
-      return acc
-    },
-    {} as Record<string, Product[]>,
-  )
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 p-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <Button onClick={onBack} variant="outline" size="lg">
-            ← Zurück zur Übersicht
-          </Button>
-          <h1 className="text-3xl font-bold text-gray-900">Kantine Tablet</h1>
-          <div className="w-32" />
-        </div>
-
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <ShoppingCart className="h-5 w-5 text-green-600" />
-              Mitarbeiter ausgewählt
-            </CardTitle>
-            <CardDescription>
-              Eingeloggt als: <strong>{employee.name}</strong> (Aktueller Stand: €{employee.balance.toFixed(2)})
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-6">
-              {Object.entries(groupedProducts).map(([category, categoryProducts]) => (
-                <div key={category}>
-                  <h3 className="text-lg font-semibold mb-3 capitalize flex items-center gap-2">
-                    <span className="text-2xl">{getCategoryIcon(category)}</span>
-                    {category}
-                  </h3>
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {categoryProducts.map((product) => (
-                      <Button
-                        key={product.id}
-                        onClick={() => handleProductSelect(product)}
-                        variant="outline"
-                        className="h-auto p-4 flex flex-col items-center gap-2 hover:bg-green-50 hover:border-green-300 transition-colors"
-                      >
-                        <span className="text-3xl">{getCategoryIcon(product.category)}</span>
-                        <div className="text-center">
-                          <div className="font-medium text-sm">{product.name}</div>
-                          <div className="text-lg font-bold text-green-600">€{product.price.toFixed(2)}</div>
-                          <div className="text-xs text-gray-500">Bestand: {product.stock}</div>
-                        </div>
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <History className="h-5 w-5 text-blue-600" />
-              Meine letzten Eintragungen
-            </CardTitle>
+            <CardTitle>Schulden-Report</CardTitle>
+            <CardDescription>Aktuellen Schulden-Report per E-Mail versenden</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-2 max-h-64 overflow-y-auto">
-              {employeeTransactions.map((transaction) => (
-                <div key={transaction.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <div className="text-sm">
-                      <div className="font-medium">{transaction.productName}</div>
-                      <div className="text-gray-500">
-                        {new Date(transaction.timestamp).toLocaleDateString("de-DE")} um{" "}
-                        {new Date(transaction.timestamp).toLocaleTimeString("de-DE", {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}
-                      </div>
-                    </div>
-                  </div>
-                  <Badge variant={transaction.price < 0 ? "default" : "secondary"}>
-                    {transaction.price < 0 ? "+" : ""}€{Math.abs(transaction.price).toFixed(2)}
-                  </Badge>
-                </div>
-              ))}
-              {employeeTransactions.length === 0 && (
-                <div className="text-center py-4">
-                  <p className="text-gray-500">Noch keine Eintragungen vorhanden.</p>
-                </div>
-              )}
-            </div>
+            <Button
+              onClick={() => storage.sendDebtReport(currentUser.id, currentUser.paypalEmail)}
+              className="w-full bg-blue-600 hover:bg-blue-700"
+            >
+              Schulden-Report jetzt senden
+            </Button>
           </CardContent>
         </Card>
       </div>
 
-      {showConfirmation && selectedProduct && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <Card className="w-full max-w-md">
-            <CardHeader>
-              <CardTitle>Bestätigung</CardTitle>
-              <CardDescription>Möchten Sie dieses Produkt wirklich hinzufügen?</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-center mb-4">
-                <div className="text-4xl mb-2">{getCategoryIcon(selectedProduct.category)}</div>
-                <h3 className="text-xl font-semibold">{selectedProduct.name}</h3>
-                <p className="text-lg text-gray-600">€{selectedProduct.price.toFixed(2)} pro Stück</p>
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium mb-2">Anzahl:</label>
-                <div className="flex items-center justify-center gap-3">
-                  <Button variant="outline" size="sm" onClick={() => setSelectedQuantity(selectedQuantity - 1)}>
-                    -
-                  </Button>
-                  <span className="text-xl font-bold w-12 text-center">{selectedQuantity}</span>
-                  <Button variant="outline" size="sm" onClick={() => setSelectedQuantity(selectedQuantity + 1)}>
-                    +
-                  </Button>
-                </div>
-                <div className="text-center mt-2">
-                  {selectedQuantity < 0 && <p className="text-sm text-red-600 mb-1">⚠️ Stornierung/Korrektur</p>}
-                  <p className={`text-lg font-bold ${selectedQuantity >= 0 ? "text-green-600" : "text-red-600"}`}>
-                    Gesamt: €{(selectedProduct.price * selectedQuantity).toFixed(2)}
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-2">
-                <Button variant="outline" onClick={() => setShowConfirmation(false)} className="flex-1">
-                  Abbrechen
-                </Button>
-                <Button onClick={handleConfirmedTransaction} className="flex-1">
-                  Bestätigen
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      )}
-    </div>
-  )
-}
-
-function AdminInterface({
-  employees,
-  products,
-  transactions,
-  onBack,
-  onUpdateEmployees,
-  onUpdateProducts,
-  importData,
-}: {
-  employees: Employee[]
-  products: Product[]
-  transactions: Transaction[]
-  onBack: () => void
-  onUpdateEmployees: (employees: Employee[]) => void
-  onUpdateProducts: (products: Product[]) => void
-  importData: (event: React.ChangeEvent<HTMLInputElement>) => void
-}) {
-  const [activeTab, setActiveTab] = useState("overview")
-  const [editingProduct, setEditingProduct] = useState<Product | null>(null)
-  const [newProduct, setNewProduct] = useState({ name: "", price: 0, stock: 0, category: "getränke" as const })
-  const [newEmployee, setNewEmployee] = useState({ name: "", group: "4te Tour" as const })
-
-  const markEmployeePaid = (employeeId: string) => {
-    const employee = employees.find((emp) => emp.id === employeeId)
-    if (!employee) return
-
-    // Erstelle eine "Bezahlt"-Transaktion für die Historie
-    const paymentTransaction: Transaction = {
-      id: Date.now().toString(),
-      employeeId: employeeId,
-      employeeName: employee.name,
-      productId: "payment",
-      productName: `Zahlung erhalten (€${employee.balance.toFixed(2)})`,
-      price: -employee.balance, // Negativer Betrag für Zahlung
-      timestamp: new Date(),
-      category: "payment",
-    }
-
-    const newTransactions = [...transactions, paymentTransaction]
-    storage.setTransactions(newTransactions)
-
-    // Schulden auf 0 setzen
-    const updatedEmployees = employees.map((emp) => (emp.id === employeeId ? { ...emp, balance: 0 } : emp))
-    onUpdateEmployees(updatedEmployees)
-  }
-
-  const updateProductStock = (productId: string, newStock: number) => {
-    const updatedProducts = products.map((prod) => (prod.id === productId ? { ...prod, stock: newStock } : prod))
-    onUpdateProducts(updatedProducts)
-  }
-
-  const addProduct = () => {
-    if (!newProduct.name.trim() || newProduct.price <= 0) return
-
-    const product: Product = {
-      id: Date.now().toString(),
-      name: newProduct.name.trim(),
-      price: newProduct.price,
-      stock: newProduct.stock,
-      category: newProduct.category,
-    }
-
-    const updatedProducts = [...products, product]
-    onUpdateProducts(updatedProducts)
-    setNewProduct({ name: "", price: 0, stock: 0, category: "getränke" })
-  }
-
-  const updateProduct = () => {
-    if (!editingProduct) return
-
-    const updatedProducts = products.map((prod) => (prod.id === editingProduct.id ? editingProduct : prod))
-    onUpdateProducts(updatedProducts)
-    setEditingProduct(null)
-  }
-
-  const deleteProduct = (productId: string) => {
-    const updatedProducts = products.filter((prod) => prod.id !== productId)
-    onUpdateProducts(updatedProducts)
-  }
-
-  const addEmployee = () => {
-    if (!newEmployee.name.trim()) return
-
-    const employee: Employee = {
-      id: Date.now().toString(),
-      name: newEmployee.name.trim(),
-      balance: 0,
-      group: newEmployee.group,
-    }
-
-    const updatedEmployees = [...employees, employee]
-    onUpdateEmployees(updatedEmployees)
-    setNewEmployee({ name: "", group: "4te Tour" })
-  }
-
-  const removeEmployee = (employeeId: string) => {
-    const updatedEmployees = employees.filter((emp) => emp.id !== employeeId)
-    onUpdateEmployees(updatedEmployees)
-  }
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-3xl font-bold text-gray-900">Administrator-Dashboard</h1>
-          <Button variant="outline" onClick={onBack}>
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Zurück
-          </Button>
-        </div>
-
-        <div className="flex space-x-1 mb-6 bg-white rounded-lg p-1">
-          {[
-            { id: "overview", label: "Übersicht" },
-            { id: "employees", label: "Mitarbeiter" },
-            { id: "products", label: "Produkte" },
-            { id: "transactions", label: "Transaktionen" },
-          ].map((tab) => (
-            <Button
-              key={tab.id}
-              variant={activeTab === tab.id ? "default" : "ghost"}
-              onClick={() => setActiveTab(tab.id)}
-              className="flex-1"
-            >
-              {tab.label}
-            </Button>
-          ))}
-        </div>
-
-        {activeTab === "overview" && (
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Gesamtschulden</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-3xl font-bold text-red-600">
-                    €{employees.reduce((sum, emp) => sum + emp.balance, 0).toFixed(2)}
-                  </div>
-                  <p className="text-sm text-gray-600">von {employees.length} Mitarbeitern</p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Heute</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-3xl font-bold text-green-600">
-                    €
-                    {transactions
-                      .filter((t) => new Date(t.timestamp).toDateString() === new Date().toDateString())
-                      .reduce((sum, t) => sum + t.price, 0)
-                      .toFixed(2)}
-                  </div>
-                  <p className="text-sm text-gray-600">
-                    {
-                      transactions.filter((t) => new Date(t.timestamp).toDateString() === new Date().toDateString())
-                        .length
-                    }{" "}
-                    Transaktionen
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Niedrige Bestände</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-3xl font-bold text-orange-600">{products.filter((p) => p.stock < 5).length}</div>
-                  <p className="text-sm text-gray-600">Produkte unter 5 Stück</p>
-                </CardContent>
-              </Card>
+      <Dialog open={showPasswordDialog} onOpenChange={setShowPasswordDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{passwordDialogAction === "admin" ? "Admin-Dashboard" : "Neuer Mitarbeiter"}</DialogTitle>
+            <DialogDescription>Bitte geben Sie Ihr Passwort ein, um fortzufahren.</DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="password">Passwort</Label>
+              <Input
+                id="password"
+                type="password"
+                value={loginPassword}
+                onChange={(e) => setLoginPassword(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handlePasswordSubmit()
+                  }
+                }}
+                placeholder="Passwort eingeben"
+              />
             </div>
-
-            {/* Datensicherungs-Bereich */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Datensicherung</CardTitle>
-                <CardDescription>Automatische Backups alle 8 Stunden. Manuelle Sicherung auch möglich.</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex gap-4">
-                  <Button
-                    onClick={() => {
-                      const data = {
-                        employees,
-                        products,
-                        transactions,
-                        exportDate: new Date().toISOString(),
-                      }
-
-                      const dataStr = JSON.stringify(data, null, 2)
-                      const dataBlob = new Blob([dataStr], { type: "application/json" })
-                      const url = URL.createObjectURL(dataBlob)
-
-                      const link = document.createElement("a")
-                      link.href = url
-                      link.download = `kantine-backup-${new Date().toISOString().split("T")[0]}.json`
-                      document.body.appendChild(link)
-                      link.click()
-                      document.body.removeChild(link)
-                      URL.revokeObjectURL(url)
-                    }}
-                    className="bg-green-600 hover:bg-green-700"
-                  >
-                    Manuelles Backup
-                  </Button>
-                  <div>
-                    <input type="file" accept=".json" id="import-file" className="hidden" onChange={importData} />
-                    <Button variant="outline" onClick={() => document.getElementById("import-file")?.click()}>
-                      Daten importieren
-                    </Button>
-                  </div>
-                </div>
-                <p className="text-sm text-green-600">✓ Automatische Backups sind aktiviert (alle 8 Stunden)</p>
-              </CardContent>
-            </Card>
-
-            {/* Aktuelle Schulden Übersicht */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Aktuelle Schulden</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  {employees
-                    .filter((emp) => emp.balance > 0)
-                    .sort((a, b) => b.balance - a.balance)
-                    .map((employee) => (
-                      <div key={employee.id} className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
-                        <div>
-                          <span className="font-medium">{employee.name}</span>
-                          <Badge className="ml-2" variant="secondary">
-                            {employee.group}
-                          </Badge>
-                        </div>
-                        <div className="flex gap-3">
-                          <Badge variant="destructive" className="text-lg">
-                            €{employee.balance.toFixed(2)}
-                          </Badge>
-                          {/* Als bezahlt markieren */}
-                          <Button
-                            size="sm"
-                            onClick={() => markEmployeePaid(employee.id)}
-                            className="bg-green-600 hover:bg-green-700"
-                          >
-                            Als bezahlt markieren
-                          </Button>
-                        </div>
-                      </div>
-                    ))}
-                  {employees.filter((emp) => emp.balance > 0).length === 0 && (
-                    <div className="text-center py-8">
-                      <p className="text-gray-500">Keine offenen Schulden vorhanden.</p>
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
           </div>
-        )}
-
-        {activeTab === "employees" && (
-          <div className="space-y-6">
-            {["4te Tour", "2Tour", "Gäste"].map((group) => {
-              const groupEmployees = employees.filter((emp) => emp.group === group)
-              return (
-                <Card key={group}>
-                  <CardHeader>
-                    <CardTitle>
-                      {group} ({groupEmployees.length} Mitarbeiter)
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-2">
-                      {groupEmployees.map((employee) => (
-                        <div key={employee.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                          <div>
-                            <span className="font-medium">{employee.name}</span>
-                            <Badge className="ml-2" variant={employee.balance > 0 ? "destructive" : "secondary"}>
-                              €{employee.balance.toFixed(2)}
-                            </Badge>
-                          </div>
-                          <div className="flex gap-2">
-                            {/* Als bezahlt markieren */}
-                            <Button size="sm" variant="outline" onClick={() => markEmployeePaid(employee.id)}>
-                              Als bezahlt markieren
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="destructive"
-                              onClick={() => {
-                                const name = prompt(`Mitarbeiter ${employee.name} entfernen:`)
-                                if (name && name.trim() === employee.name) {
-                                  removeEmployee(employee.id)
-                                }
-                              }}
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              )
-            })}
-          </div>
-        )}
-
-        {activeTab === "products" && (
-          <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Neues Produkt hinzufügen</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-                  <Input
-                    placeholder="Produktname"
-                    value={newProduct.name}
-                    onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
-                  />
-                  <Input
-                    type="number"
-                    placeholder="Preis (€)"
-                    step="0.01"
-                    value={newProduct.price || ""}
-                    onChange={(e) => setNewProduct({ ...newProduct, price: Number.parseFloat(e.target.value) || 0 })}
-                  />
-                  <Input
-                    type="number"
-                    placeholder="Bestand"
-                    value={newProduct.stock || ""}
-                    onChange={(e) => setNewProduct({ ...newProduct, stock: Number.parseInt(e.target.value) || 0 })}
-                  />
-                  <select
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                    value={newProduct.category}
-                    onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value as any })}
-                  >
-                    <option value="getränke">Getränke</option>
-                    <option value="süßigkeiten">Süßigkeiten</option>
-                    <option value="snacks">Snacks</option>
-                    <option value="essen">Essen</option>
-                  </select>
-                  <Button onClick={addProduct}>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Hinzufügen
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Produktbestand verwalten</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Name</TableHead>
-                      <TableHead>Kategorie</TableHead>
-                      <TableHead>Preis</TableHead>
-                      <TableHead>Bestand</TableHead>
-                      <TableHead>Aktionen</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {products.map((product) => (
-                      <TableRow key={product.id}>
-                        <TableCell className="font-medium">{product.name}</TableCell>
-                        <TableCell className="capitalize">{product.category}</TableCell>
-                        <TableCell>€{product.price.toFixed(2)}</TableCell>
-                        <TableCell>
-                          <Badge
-                            variant={product.stock <= 0 ? "destructive" : product.stock <= 5 ? "secondary" : "default"}
-                          >
-                            {product.stock} Stück
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex gap-2">
-                            <input
-                              type="number"
-                              min="0"
-                              placeholder="Neuer Bestand"
-                              className="w-24 px-2 py-1 border rounded text-sm"
-                              onKeyDown={(e) => {
-                                if (e.key === "Enter") {
-                                  const newStock = Number.parseInt((e.target as HTMLInputElement).value)
-                                  if (!isNaN(newStock) && newStock >= 0) {
-                                    updateProductStock(product.id, newStock)
-                                    ;(e.target as HTMLInputElement).value = ""
-                                  }
-                                }
-                              }}
-                            />
-                            <Button
-                              size="sm"
-                              onClick={() => {
-                                const input = document.querySelector(
-                                  `input[placeholder="Neuer Bestand"]`,
-                                ) as HTMLInputElement
-                                const newStock = Number.parseInt(input?.value || "0")
-                                if (!isNaN(newStock) && newStock >= 0) {
-                                  updateProductStock(product.id, newStock)
-                                  if (input) input.value = ""
-                                }
-                              }}
-                              className="bg-blue-600 hover:bg-blue-700"
-                            >
-                              <Package className="h-4 w-4" />
-                            </Button>
-                            {/* Löschen-Button für Produkte */}
-                            <Button
-                              size="sm"
-                              variant="destructive"
-                              onClick={() => {
-                                if (confirm(`Möchten Sie das Produkt "${product.name}" wirklich löschen?`)) {
-                                  deleteProduct(product.id)
-                                }
-                              }}
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-                {products.length === 0 && (
-                  <div className="text-center py-8">
-                    <p className="text-gray-500">Noch keine Produkte vorhanden.</p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          </div>
-        )}
-
-        {activeTab === "transactions" && (
-          <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Transaktionshistorie</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Datum/Zeit</TableHead>
-                      <TableHead>Mitarbeiter</TableHead>
-                      <TableHead>Produkt</TableHead>
-                      <TableHead>Preis</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {transactions.map((transaction) => (
-                      <TableRow key={transaction.id}>
-                        <TableCell>{transaction.timestamp.toLocaleString()}</TableCell>
-                        <TableCell>{transaction.employeeName}</TableCell>
-                        <TableCell>{transaction.productName}</TableCell>
-                        <TableCell>€{transaction.price.toFixed(2)}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </CardContent>
-            </Card>
-          </div>
-        )}
-      </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setShowPasswordDialog(false)
+                setLoginPassword("")
+                setPasswordDialogAction(null)
+              }}
+            >
+              Abbrechen
+            </Button>
+            <Button onClick={handlePasswordSubmit}>Bestätigen</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
