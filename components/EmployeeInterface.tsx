@@ -274,9 +274,9 @@ export default function EmployeeInterface({
               Mitarbeiter ausgewählt
             </CardTitle>
             <CardDescription>
-              Eingeloggt als: <strong>{employee.name}</strong> (Aktueller Stand:
-              <span className={employee.balance >= 0 ? "text-green-600 font-bold" : "text-red-600 font-bold"}>
-                €{employee.balance.toFixed(2)}
+              Eingeloggt als: <strong>{employee.name}</strong> (Aktueller Stand:{" "}
+              <span className={employee.balance <= 0 ? "text-green-600 font-bold" : "text-red-600 font-bold"}>
+                {employee.balance <= 0 ? "+" : "-"}€{Math.abs(employee.balance).toFixed(2)}
               </span>
               )
             </CardDescription>
