@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ArrowLeft, Users, Package, BarChart3, Mail, Download, Upload, Trash2, Edit, Plus } from "lucide-react"
+import { storage } from "@/lib/storage" // Added storage import here
 
 type Employee = {
   id: string
@@ -319,16 +320,49 @@ export default function AdminInterface({
     onUpdateGroupNames(editingGroupNames)
   }
 
+  const handleDeleteKantine = async () => {
+    if (
+      !confirm(
+        "Möchten Sie diese Kantine wirklich löschen? Alle Daten (Mitarbeiter, Produkte, Transaktionen) werden unwiderruflich gelöscht.",
+      )
+    ) {
+      return
+    }
+
+    try {
+      const allUsers = await storage.getUsers()
+      const allEmployees = await storage.getEmployees()
+      const allProducts = await storage.getProducts()
+      const allTransactions = await storage.getTransactions()
+
+      const updatedUsers = allUsers.filter((u) => u.id !== userId)
+      const updatedEmployees = allEmployees.filter((e) => e.userId !== userId)
+      const updatedProducts = allProducts.filter((p) => p.userId !== userId)
+      const updatedTransactions = allTransactions.filter((t) => t.userId !== userId)
+
+      await storage.setUsers(updatedUsers)
+      await storage.setEmployees(updatedEmployees)
+      await storage.setProducts(updatedProducts)
+      await storage.setTransactions(updatedTransactions)
+
+      onClose()
+    } catch (error) {
+      console.error("Error deleting kantine:", error)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-4">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <Button onClick={onClose} variant="outline" size="lg">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Zurück zur Übersicht
+      <div className="max-w-6xl mx-auto space-y-6">
+        <div className="flex items-center justify-between">
+          <Button onClick={onClose} variant="ghost" size="icon">
+            <ArrowLeft className="h-5 w-5" />
           </Button>
           <h1 className="text-3xl font-bold text-gray-900">Admin-Dashboard</h1>
-          <div className="w-32" />
+          <Button onClick={handleDeleteKantine} variant="destructive" size="sm">
+            <Trash2 className="h-4 w-4 mr-2" />
+            Kantine löschen
+          </Button>
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
