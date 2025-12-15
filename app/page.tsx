@@ -1,5 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
+import type React from "react"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -12,7 +14,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { Settings } from "lucide-react"
+import { Settings, Trash2 } from "lucide-react"
 import AdminInterface from "@/components/AdminInterface"
 import EmployeeInterface from "@/components/EmployeeInterface"
 import storage from "@/lib/storage"
@@ -63,6 +65,9 @@ export default function KantineApp() {
   const [showRegisterDialog, setShowRegisterDialog] = useState(false)
   const [showPasswordDialog, setShowPasswordDialog] = useState(false)
   const [passwordDialogAction, setPasswordDialogAction] = useState<"admin" | "newEmployee" | null>(null)
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
+  const [userToDelete, setUserToDelete] = useState<KantineUser | null>(null)
+  const [deletePassword, setDeletePassword] = useState("")
   const [registerUsername, setRegisterUsername] = useState("")
   const [registerPassword, setRegisterPassword] = useState("")
   const [registerPaypalEmail, setRegisterPaypalEmail] = useState("")
@@ -382,7 +387,6 @@ export default function KantineApp() {
     setPasswordDialogAction(null)
   }
 
-  // Added debt report handler with feedback
   const handleSendDebtReport = async () => {
     setIsLoadingReport(true)
     try {
@@ -407,6 +411,53 @@ export default function KantineApp() {
       window.dispatchEvent(event)
     } finally {
       setIsLoadingReport(false)
+    }
+  }
+
+  const handleDeleteKantine = (user: KantineUser, e: React.MouseEvent) => {
+    e.stopPropagation() // Prevent triggering login
+    setUserToDelete(user)
+    setDeletePassword("")
+    setShowDeleteDialog(true)
+  }
+
+  const handleConfirmDelete = async () => {
+    if (deletePassword !== "01832500") {
+      alert("Falsches Passwort.")
+      return
+    }
+
+    if (!userToDelete) return
+
+    try {
+      // Delete all data associated with this user
+      const allEmployees = await storage.getEmployees()
+      const allProducts = await storage.getProducts()
+      const allTransactions = await storage.getTransactions()
+      const allUsers = await storage.getUsers()
+
+      // Filter out data belonging to the deleted user
+      const remainingEmployees = allEmployees.filter((emp) => emp.userId !== userToDelete.id)
+      const remainingProducts = allProducts.filter((prod) => prod.userId !== userToDelete.id)
+      const remainingTransactions = allTransactions.filter((trans) => trans.userId !== userToDelete.id)
+      const remainingUsers = allUsers.filter((u) => u.id !== userToDelete.id)
+
+      // Save filtered data
+      await storage.saveEmployees(remainingEmployees)
+      await storage.saveProducts(remainingProducts)
+      await storage.saveTransactions(remainingTransactions)
+      await storage.saveUsers(remainingUsers)
+
+      // Update local state
+      setAllUsers(remainingUsers)
+      setShowDeleteDialog(false)
+      setUserToDelete(null)
+      setDeletePassword("")
+
+      alert("Kantine erfolgreich gelöscht.")
+    } catch (error) {
+      console.error("Error deleting kantine:", error)
+      alert("Fehler beim Löschen der Kantine.")
     }
   }
 
@@ -466,14 +517,19 @@ export default function KantineApp() {
                 <Label>Bestehende Kantinen:</Label>
                 <div className="grid gap-2">
                   {allUsers.map((user) => (
-                    <Button
-                      key={user.id}
-                      onClick={() => handleUserButtonClick(user)}
-                      className="w-full"
-                      variant="outline"
-                    >
-                      {user.username}
-                    </Button>
+                    <div key={user.id} className="flex gap-2">
+                      <Button onClick={() => handleUserButtonClick(user)} className="flex-1" variant="outline">
+                        {user.username}
+                      </Button>
+                      <Button
+                        onClick={(e) => handleDeleteKantine(user, e)}
+                        variant="destructive"
+                        size="icon"
+                        title="Kantine löschen"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -560,6 +616,43 @@ export default function KantineApp() {
                 Abbrechen
               </Button>
               <Button onClick={handleRegister}>Kantine erstellen</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Kantine löschen</DialogTitle>
+              <DialogDescription>
+                Möchten Sie die Kantine "{userToDelete?.username}" wirklich löschen? Alle zugehörigen Mitarbeiter,
+                Produkte und Transaktionen werden ebenfalls gelöscht.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="deletePassword">Bestätigungs-Passwort</Label>
+                <Input
+                  id="deletePassword"
+                  type="password"
+                  placeholder="Passwort eingeben"
+                  value={deletePassword}
+                  onChange={(e) => setDeletePassword(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleConfirmDelete()
+                    }
+                  }}
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setShowDeleteDialog(false)}>
+                Abbrechen
+              </Button>
+              <Button variant="destructive" onClick={handleConfirmDelete}>
+                Löschen
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -708,45 +801,6 @@ export default function KantineApp() {
           </CardContent>
         </Card>
       </div>
-
-      <Dialog open={showPasswordDialog} onOpenChange={setShowPasswordDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{passwordDialogAction === "admin" ? "Admin-Dashboard" : "Neuer Mitarbeiter"}</DialogTitle>
-            <DialogDescription>Bitte geben Sie Ihr Passwort ein, um fortzufahren.</DialogDescription>
-          </DialogHeader>
-          <div className="space-y-4 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="password">Passwort</Label>
-              <Input
-                id="password"
-                type="password"
-                value={loginPassword}
-                onChange={(e) => setLoginPassword(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    handlePasswordSubmit()
-                  }
-                }}
-                placeholder="Passwort eingeben"
-              />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => {
-                setShowPasswordDialog(false)
-                setLoginPassword("")
-                setPasswordDialogAction(null)
-              }}
-            >
-              Abbrechen
-            </Button>
-            <Button onClick={handlePasswordSubmit}>Bestätigen</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   )
 }
