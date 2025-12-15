@@ -106,6 +106,8 @@ export default function AdminInterface({
   const addEmployee = () => {
     if (!newEmployee.name.trim()) return
 
+    console.log("[v0] Adding new employee with userId:", userId)
+
     const employee: Employee = {
       id: Date.now().toString(),
       name: newEmployee.name.trim(),
@@ -114,6 +116,8 @@ export default function AdminInterface({
       hideCoffee: false,
       userId: userId,
     }
+
+    console.log("[v0] New employee:", employee)
 
     const updatedEmployees = sortEmployeesByGroup([...employees, employee])
     onUpdateEmployees(updatedEmployees)
@@ -164,6 +168,8 @@ export default function AdminInterface({
   const addProduct = () => {
     if (!newProduct.name.trim() || !newProduct.price) return
 
+    console.log("[v0] Adding new product with userId:", userId)
+
     const product: Product = {
       id: Date.now().toString(),
       name: newProduct.name.trim(),
@@ -172,6 +178,8 @@ export default function AdminInterface({
       category: newProduct.category,
       userId: userId,
     }
+
+    console.log("[v0] New product:", product)
 
     onUpdateProducts([...products, product])
     setNewProduct({ name: "", price: "", category: "essen", stock: 0 })

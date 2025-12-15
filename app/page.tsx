@@ -104,15 +104,26 @@ export default function KantineApp() {
     if (!currentUser) return
 
     const loadData = async () => {
+      console.log("[v0] Loading data for user:", currentUser.username, currentUser.id)
+
       const allEmployees = await storage.getEmployees()
       const allProducts = await storage.getProducts()
       const allTransactions = await storage.getTransactions()
+
+      console.log("[v0] Total employees:", allEmployees.length)
+      console.log("[v0] Total products:", allProducts.length)
+      console.log("[v0] Total transactions:", allTransactions.length)
 
       const userEmployees = allEmployees.filter((e) => e.userId === currentUser.id)
       const userProducts = allProducts.filter((p) => p.userId === currentUser.id)
       const userTransactions = allTransactions.filter((t) => t.userId === currentUser.id)
 
+      console.log("[v0] User employees:", userEmployees.length)
+      console.log("[v0] User products:", userProducts.length)
+      console.log("[v0] User transactions:", userTransactions.length)
+
       if (userProducts.length === 0) {
+        console.log("[v0] Creating initial products for new user")
         const newProducts = initialProducts.map((p) => ({
           ...p,
           id: Date.now().toString() + Math.random(),
