@@ -5,11 +5,14 @@ import { join } from "path"
 
 export async function POST(request: NextRequest) {
   try {
-    // Get current data from request body (sent from client-side sync)
     const { employees, transactions, userId, paypalEmail } = await request.json()
 
     if (!employees || !transactions) {
       return NextResponse.json({ error: "No data available. Client-side sync may not be working." }, { status: 400 })
+    }
+
+    if (!paypalEmail) {
+      return NextResponse.json({ error: "PayPal email address not provided" }, { status: 400 })
     }
 
     // Calculate current debts for each employee
@@ -49,18 +52,20 @@ export async function POST(request: NextRequest) {
       // Continue with email sending even if local save fails
     }
 
-    // Create email service and send report
     const emailService = createEmailService()
     const emailResult = await emailService.sendDebtReport({
       employees: employeesWithDebts,
       totalDebt,
       reportDate,
-      recipientEmail: paypalEmail || "kantinewache4@hotmail.com",
+      recipientEmail: paypalEmail,
     })
 
     if (!emailResult.success) {
+      console.error("[v0] Email sending failed:", emailResult.error)
       throw new Error(emailResult.error || "Failed to send email")
     }
+
+    console.log("[v0] Report successfully sent to:", paypalEmail)
 
     return NextResponse.json({
       success: true,
@@ -68,6 +73,7 @@ export async function POST(request: NextRequest) {
       employeesWithDebts: employeesWithDebts.length,
       totalDebt: totalDebt,
       emailId: emailResult.messageId,
+      recipientEmail: paypalEmail,
     })
   } catch (error) {
     console.error("Error sending debt report:", error)
