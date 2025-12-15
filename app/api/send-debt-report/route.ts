@@ -7,25 +7,30 @@ export async function POST(request: NextRequest) {
   try {
     const { employees, transactions, userId, paypalEmail } = await request.json()
 
-    if (!employees || !transactions) {
-      return NextResponse.json({ error: "No data available. Client-side sync may not be working." }, { status: 400 })
-    }
+    console.log("[v0] Debt report request received")
+    console.log("[v0] Data received - employees:", employees?.length || 0, "transactions:", transactions?.length || 0)
+    console.log("[v0] PayPal email:", paypalEmail)
+    console.log("[v0] User ID:", userId)
 
     if (!paypalEmail) {
+      console.log("[v0] Error: PayPal email not provided")
       return NextResponse.json({ error: "PayPal email address not provided" }, { status: 400 })
     }
 
+    const employeesList = Array.isArray(employees) ? employees : []
+    const transactionsList = Array.isArray(transactions) ? transactions : []
+
     // Calculate current debts for each employee
-    const employeesWithDebts = employees
+    const employeesWithDebts = employeesList
       .map((employee: any) => {
-        const employeeTransactions = transactions.filter((t: any) => t.employeeId === employee.id)
+        const employeeTransactions = transactionsList.filter((t: any) => t.employeeId === employee.id)
         const totalDebt = employeeTransactions.reduce((sum: number, t: any) => sum + t.price, 0)
         return {
           ...employee,
           balance: totalDebt,
         }
       })
-      .filter((employee: any) => employee.balance > 0) // Only include employees with debts
+      .filter((employee: any) => employee.balance > 0)
 
     const totalDebt = employeesWithDebts.reduce((sum: number, emp: any) => sum + emp.balance, 0)
 
@@ -34,8 +39,12 @@ export async function POST(request: NextRequest) {
       date: reportDate.toISOString(),
       totalDebt,
       employeesWithDebts,
-      transactions: transactions.filter((t: any) => employeesWithDebts.some((e: any) => e.id === t.employeeId)),
+      employeesCount: employeesList.length,
+      transactionsCount: transactionsList.length,
+      transactions: transactionsList.filter((t: any) => employeesWithDebts.some((e: any) => e.id === t.employeeId)),
     }
+
+    console.log("[v0] Report data prepared - total debt:", totalDebt, "employees with debt:", employeesWithDebts.length)
 
     try {
       // Create reports directory if it doesn't exist
@@ -49,7 +58,6 @@ export async function POST(request: NextRequest) {
       console.log("[v0] Report saved locally:", filepath)
     } catch (fileError) {
       console.error("[v0] Error saving report locally:", fileError)
-      // Continue with email sending even if local save fails
     }
 
     const emailService = createEmailService()
@@ -59,6 +67,8 @@ export async function POST(request: NextRequest) {
       reportDate,
       recipientEmail: paypalEmail,
     })
+
+    console.log("[v0] Email service result:", emailResult)
 
     if (!emailResult.success) {
       console.error("[v0] Email sending failed:", emailResult.error)
@@ -76,7 +86,7 @@ export async function POST(request: NextRequest) {
       recipientEmail: paypalEmail,
     })
   } catch (error) {
-    console.error("Error sending debt report:", error)
+    console.error("[v0] Error sending debt report:", error)
     return NextResponse.json(
       { error: "Failed to send debt report", details: error instanceof Error ? error.message : "Unknown error" },
       { status: 500 },

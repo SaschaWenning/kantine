@@ -145,27 +145,55 @@ class StorageAPI {
   }
 
   async sendDebtReport(userId: string, paypalEmail: string) {
-    const data = await this.fetchData()
-    const employees = data.employees?.filter((e: Employee) => e.userId === userId) || []
-    const transactions = data.transactions?.filter((t: Transaction | ManualTransaction) => t.userId === userId) || []
+    try {
+      console.log("[v0] sendDebtReport called for userId:", userId)
 
-    const response = await fetch("/api/send-debt-report", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        employees,
-        transactions,
-        userId,
-        paypalEmail,
-      }),
-    })
+      const data = await this.fetchData()
+      console.log(
+        "[v0] Data fetched - total employees:",
+        data.employees?.length,
+        "total transactions:",
+        data.transactions?.length,
+      )
 
-    if (!response.ok) {
-      const error = await response.json()
-      throw new Error(error.details || "Failed to send debt report")
+      const employees = data.employees?.filter((e: Employee) => e.userId === userId) || []
+      const transactions = data.transactions?.filter((t: Transaction | ManualTransaction) => t.userId === userId) || []
+
+      console.log(
+        "[v0] Filtered data - employees for this user:",
+        employees.length,
+        "transactions for this user:",
+        transactions.length,
+      )
+
+      if (!paypalEmail) {
+        throw new Error("PayPal email is required")
+      }
+
+      const response = await fetch("/api/send-debt-report", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          employees,
+          transactions,
+          userId,
+          paypalEmail,
+        }),
+      })
+
+      console.log("[v0] API response status:", response.status)
+
+      if (!response.ok) {
+        const error = await response.json()
+        console.error("[v0] API error response:", error)
+        throw new Error(error.details || error.error || "Failed to send debt report")
+      }
+
+      return response.json()
+    } catch (error) {
+      console.error("[v0] sendDebtReport error:", error)
+      throw error
     }
-
-    return response.json()
   }
 }
 
