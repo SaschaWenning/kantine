@@ -26,34 +26,7 @@ export class EmailService {
     this.resend = new Resend(apiKey)
   }
 
-  async sendDebtReport(data: DebtReportData): Promise<EmailResult> {
-    try {
-      const { employees, totalDebt, reportDate, recipientEmail } = data
-
-      // Create HTML email content
-      const htmlContent = this.createDebtReportHTML(employees, totalDebt, reportDate, recipientEmail)
-
-      const result = await this.resend.emails.send({
-        from: "Kantine System <onboarding@resend.dev>",
-        to: [recipientEmail || "kantinewache4@hotmail.com"],
-        subject: `Kantine Schulden-Report - ${reportDate.toLocaleDateString("de-DE")}`,
-        html: htmlContent,
-      })
-
-      return {
-        success: true,
-        messageId: result.data?.id,
-      }
-    } catch (error) {
-      console.error("Email sending error:", error)
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : "Unknown email error",
-      }
-    }
-  }
-
-  private createDebtReportHTML(
+  public getDebtReportHTML(
     employees: Employee[],
     totalDebt: number,
     reportDate: Date,
@@ -122,6 +95,32 @@ export class EmailService {
         </body>
       </html>
     `
+  }
+
+  async sendDebtReport(data: DebtReportData): Promise<EmailResult> {
+    try {
+      const { employees, totalDebt, reportDate, recipientEmail } = data
+
+      const htmlContent = this.getDebtReportHTML(employees, totalDebt, reportDate, recipientEmail)
+
+      const result = await this.resend.emails.send({
+        from: "Kantine System <onboarding@resend.dev>",
+        to: [recipientEmail || "kantinewache4@hotmail.com"],
+        subject: `Kantine Schulden-Report - ${reportDate.toLocaleDateString("de-DE")}`,
+        html: htmlContent,
+      })
+
+      return {
+        success: true,
+        messageId: result.data?.id,
+      }
+    } catch (error) {
+      console.error("Email sending error:", error)
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown email error",
+      }
+    }
   }
 }
 

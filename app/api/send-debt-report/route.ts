@@ -35,32 +35,25 @@ export async function POST(request: NextRequest) {
     const totalDebt = employeesWithDebts.reduce((sum: number, emp: any) => sum + emp.balance, 0)
 
     const reportDate = new Date()
-    const reportData = {
-      date: reportDate.toISOString(),
-      totalDebt,
-      employeesWithDebts,
-      employeesCount: employeesList.length,
-      transactionsCount: transactionsList.length,
-      transactions: transactionsList.filter((t: any) => employeesWithDebts.some((e: any) => e.id === t.employeeId)),
-    }
 
     console.log("[v0] Report data prepared - total debt:", totalDebt, "employees with debt:", employeesWithDebts.length)
+
+    const emailService = createEmailService()
+    const htmlContent = emailService.getDebtReportHTML(employeesWithDebts, totalDebt, reportDate, paypalEmail)
 
     try {
       // Create reports directory if it doesn't exist
       const reportsDir = join(process.cwd(), "reports")
       await mkdir(reportsDir, { recursive: true })
 
-      // Save report as JSON file
-      const filename = `schulden-report-${reportDate.toISOString().split("T")[0]}-${Date.now()}.json`
+      const filename = `schulden-report-${reportDate.toISOString().split("T")[0]}-${Date.now()}.html`
       const filepath = join(reportsDir, filename)
-      await writeFile(filepath, JSON.stringify(reportData, null, 2))
-      console.log("[v0] Report saved locally:", filepath)
+      await writeFile(filepath, htmlContent)
+      console.log("[v0] Report saved locally as HTML:", filepath)
     } catch (fileError) {
       console.error("[v0] Error saving report locally:", fileError)
     }
 
-    const emailService = createEmailService()
     const emailResult = await emailService.sendDebtReport({
       employees: employeesWithDebts,
       totalDebt,
