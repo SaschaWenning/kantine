@@ -13,7 +13,6 @@ interface EmployeeInterfaceProps {
   onBack: () => void
   onTransaction: (transaction: Transaction) => void
   transactions: Transaction[]
-  updateDailyStats: (productName: string, quantity: number) => void
   addEmployeeToMealList: (employeeName: string) => void
   onUpdateProducts?: (products: Product[]) => void
 }
@@ -24,7 +23,6 @@ export default function EmployeeInterface({
   onBack,
   onTransaction,
   transactions,
-  updateDailyStats,
   addEmployeeToMealList,
   onUpdateProducts,
 }: EmployeeInterfaceProps) {
@@ -180,8 +178,6 @@ export default function EmployeeInterface({
     }
 
     onTransaction(transaction)
-
-    updateDailyStats(selectedProduct.name, selectedQuantity)
 
     if (selectedProduct.name === "Mittagessen") {
       addEmployeeToMealList(employee.name)

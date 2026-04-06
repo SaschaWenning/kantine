@@ -497,7 +497,6 @@ export default function KantineApp() {
             addTransaction(transaction)
           }}
           transactions={transactions}
-          updateDailyStats={updateDailyStats}
           addEmployeeToMealList={(employeeName) => {
             const newList = [...employeesWithLunch, employeeName]
             setEmployeesWithLunch(newList)
