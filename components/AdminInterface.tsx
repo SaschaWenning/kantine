@@ -86,7 +86,8 @@ export default function AdminInterface({
   })
   const [editingGroupNames, setEditingGroupNames] = useState(groupNames)
 
-  const totalDebt = employees.reduce((sum, emp) => sum + emp.balance, 0)
+  // Nur echte Schulden (positive Balance) summieren, Guthaben nicht einrechnen
+  const totalDebt = employees.filter(e => e.balance > 0).reduce((sum, emp) => sum + emp.balance, 0)
   const totalTransactions = transactions.length
   const lowStockProducts = products.filter((p) => p.stock < 5).length
 
@@ -138,12 +139,8 @@ export default function AdminInterface({
     const employee = employees.find((emp) => emp.id === id)
     if (!employee) return
 
-    const employeeTransactions = transactions.filter((t) => t.employeeId === id)
-    const currentBalance = employeeTransactions.reduce((sum, t) => {
-      const val = "price" in t ? (t as Transaction).price : (t as any).amount
-      return sum + val
-    }, 0)
-    const roundedBalance = Math.round(currentBalance * 100) / 100
+    // employee.balance kommt bereits korrekt von calculateEmployeeBalances (ab letzter Bezahlung)
+    const roundedBalance = Math.round(employee.balance * 100) / 100
 
     if (roundedBalance === 0) {
       alert(`${employee.name} hat keinen offenen Betrag.`)
