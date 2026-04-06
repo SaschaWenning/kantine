@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo, useCallback } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -40,27 +40,41 @@ const initialProducts: Omit<Product, "id" | "userId">[] = [
   { name: "Sonstiges 10€", price: 10.0, stock: 100, category: "sonstige" },
 ]
 
+// Zentrale Hilfsfunktion für Produktkategorie-Erkennung - verhindert doppelte Logik
+function getProductCategory(productName: string): "mittagessen" | "fruehstueck" | "kaffee" | "bezahlung" | "sonstiges" {
+  const name = productName.toLowerCase()
+  if (name.includes("mittagessen")) return "mittagessen"
+  if (name.includes("bezahlung") || name.includes("payment")) return "bezahlung"
+  if (name.includes("kaffee")) return "kaffee"
+  if ((name.includes("brötchen") || name === "frühstück") && !name.includes("ausgegeben") && !name.includes("abschied")) return "fruehstueck"
+  return "sonstiges"
+}
+
 function calculateEmployeeBalances(
   employees: Employee[],
   transactions: (Transaction | ManualTransaction)[],
 ): Employee[] {
-  return employees.map((employee) => {
-    const employeeTransactions = transactions
-      .filter((t) => t.employeeId === employee.id)
-      .sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime())
+  // Transaktionen einmal sortieren und nach employeeId gruppieren - O(n log n) statt O(n² log n)
+  const sorted = [...transactions].sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime())
+  const byEmployee = new Map<string, (Transaction | ManualTransaction)[]>()
+  for (const t of sorted) {
+    if (!byEmployee.has(t.employeeId)) byEmployee.set(t.employeeId, [])
+    byEmployee.get(t.employeeId)!.push(t)
+  }
 
-    // Letzten Bezahlungszeitpunkt finden (Transaktion mit productName "Bezahlung")
+  return employees.map((employee) => {
+    const employeeTransactions = byEmployee.get(employee.id) || []
+
+    // Letzten Bezahlungszeitpunkt finden
     let lastPaymentIndex = -1
     for (let i = employeeTransactions.length - 1; i >= 0; i--) {
-      const t = employeeTransactions[i]
-      const name = (t as any).productName ?? ""
-      if (name.toLowerCase().includes("bezahlung") || name.toLowerCase().includes("payment")) {
+      const name = (employeeTransactions[i] as any).productName ?? ""
+      if (getProductCategory(name) === "bezahlung") {
         lastPaymentIndex = i
         break
       }
     }
 
-    // Nur Transaktionen nach der letzten Bezahlung zählen
     const relevantTransactions = lastPaymentIndex >= 0
       ? employeeTransactions.slice(lastPaymentIndex + 1)
       : employeeTransactions
@@ -70,8 +84,7 @@ function calculateEmployeeBalances(
       return sum + val
     }, 0)
 
-    const roundedBalance = Math.round(balance * 100) / 100
-    return { ...employee, balance: roundedBalance }
+    return { ...employee, balance: Math.round(balance * 100) / 100 }
   })
 }
 
@@ -101,6 +114,7 @@ export default function KantineApp() {
     broetchen: 0,
     eier: 0,
     kaffee: 0,
+    gesamtbetrag: 0,
     date: null as string | null,
   })
   const [employeesWithLunch, setEmployeesWithLunch] = useState<string[]>([])
@@ -162,23 +176,57 @@ export default function KantineApp() {
     return () => clearInterval(interval)
   }, [currentUser])
 
+  // Gibt den aktuellen "Tag" zurück - wechselt um 8:00 Uhr morgens
+  const getDayKey = () => {
+    const now = new Date()
+    // Vor 8 Uhr gilt noch der Vortag
+    if (now.getHours() < 8) {
+      const yesterday = new Date(now)
+      yesterday.setDate(yesterday.getDate() - 1)
+      return yesterday.toDateString()
+    }
+    return now.toDateString()
+  }
+
   useEffect(() => {
     if (!currentUser) return
 
     const loadDailyStats = async () => {
       const stats = await storage.getDailyStats(currentUser.id)
-      const today = new Date().toDateString()
+      const today = getDayKey()
 
       if (stats.date === today) {
         setDailyStats({
-          mittagessen: stats.mittagessen,
-          broetchen: stats.broetchen,
-          eier: stats.eier,
-          kaffee: stats.kaffee,
+          mittagessen: stats.mittagessen || 0,
+          broetchen: stats.broetchen || 0,
+          eier: stats.eier || 0,
+          kaffee: stats.kaffee || 0,
+          gesamtbetrag: stats.gesamtbetrag || 0,
           date: today,
         })
       } else {
-        const newStats = { mittagessen: 0, broetchen: 0, eier: 0, kaffee: 0, date: today }
+        // Tageswechsel: zuerst automatisches HTML-Backup der aktuellen Schulden erstellen
+        const currentEmployees = await storage.getEmployees()
+        const currentTransactions = await storage.getTransactions()
+        const userEmps = currentEmployees.filter((e: any) => e.userId === currentUser.id)
+        const userTxs = currentTransactions.filter(
+          (t: any) => t.userId === currentUser.id || (!t.userId && userEmps.some((e: any) => e.id === t.employeeId))
+        )
+        const balancedEmployees = calculateEmployeeBalances(userEmps, userTxs)
+        const hasOpenBalances = balancedEmployees.some((e) => e.balance !== 0)
+        if (hasOpenBalances) {
+          fetch("/api/send-debt-report", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              userId: currentUser.id,
+              kantineName: currentUser.username,
+              employees: balancedEmployees,
+            }),
+          }).catch(() => {}) // Fehler beim Backup ignorieren, Reset trotzdem durchführen
+        }
+
+        const newStats = { mittagessen: 0, broetchen: 0, eier: 0, kaffee: 0, gesamtbetrag: 0, date: today }
         setDailyStats(newStats)
         await storage.setDailyStats(currentUser.id, newStats)
         await storage.setEmployeesWithLunch(currentUser.id, [])
@@ -186,6 +234,10 @@ export default function KantineApp() {
     }
 
     loadDailyStats()
+
+    // Jede Minute prüfen ob es 8:00 Uhr ist und ein Reset nötig wird
+    const interval = setInterval(loadDailyStats, 60 * 1000)
+    return () => clearInterval(interval)
   }, [currentUser])
 
   useEffect(() => {
@@ -280,86 +332,65 @@ export default function KantineApp() {
   }
 
   const addTransaction = async (transaction: Transaction) => {
-    const transactionWithUserId = {
+    const transactionWithUserId: Transaction = {
       ...transaction,
       userId: currentUser!.id,
     }
 
-    // State sofort aktualisieren
-    setTransactions((prev) => {
-      const updated = [...prev, transactionWithUserId]
-      // Alle Transaktionen aller Kantinen in Cache holen und speichern
-      storage.getTransactions().then((allTransactions) => {
-        // Nur Transaktionen anderer Kantinen + neue
-        const otherTransactions = allTransactions.filter((t) => t.userId !== currentUser!.id)
-        const userTransactions = [...allTransactions.filter((t) => t.userId === currentUser!.id), transactionWithUserId]
-        storage.setTransactions([...otherTransactions, ...userTransactions])
-      })
-      return updated
-    })
+    setTransactions((prev) => [...prev, transactionWithUserId])
 
+    const category = getProductCategory(transaction.productName)
     setDailyStats((prevStats) => {
       const newStats = { ...prevStats }
-      if (transaction.productName === "Mittagessen" || transaction.productName.toLowerCase().includes("mittagessen")) {
-        newStats.mittagessen += transaction.quantity
-      } else if (transaction.productName.toLowerCase().includes("brötchen")) {
-        newStats.broetchen += transaction.quantity
-      } else if (transaction.productName === "Ei" || transaction.productName.toLowerCase().includes("eier")) {
-        newStats.eier += transaction.quantity
-      } else if (transaction.productName.toLowerCase().includes("kaffee")) {
-        newStats.kaffee += transaction.quantity
+      if (category === "mittagessen") newStats.mittagessen += transaction.quantity
+      else if (category === "fruehstueck") newStats.broetchen += transaction.quantity
+      else if (category === "kaffee") newStats.kaffee += transaction.quantity
+      if (category !== "bezahlung") {
+        newStats.gesamtbetrag = Math.round(((newStats.gesamtbetrag || 0) + transaction.price) * 100) / 100
       }
-      storage.setDailyStats(currentUser!.id, { ...newStats, date: new Date().toDateString() })
+      storage.setDailyStats(currentUser!.id, { ...newStats, date: getDayKey() })
       return newStats
     })
 
-    if (transaction.productName === "Mittagessen" || transaction.productName.toLowerCase().includes("mittagessen")) {
+    if (category === "mittagessen") {
       const newList = [...employeesWithLunch, transaction.employeeName]
       setEmployeesWithLunch(newList)
       await storage.setEmployeesWithLunch(currentUser!.id, newList)
     }
+
+    await storage.appendTransaction(transactionWithUserId)
   }
 
-  const updateDailyStats = (productName: string, quantity: number) => {
+  const updateDailyStats = useCallback((productName: string, quantity: number) => {
+    const category = getProductCategory(productName)
     setDailyStats((prev) => {
       const updated = { ...prev }
-      if (productName === "Mittagessen") {
-        updated.mittagessen += quantity
-      }
-      if (productName.toLowerCase().includes("brötchen")) {
-        updated.broetchen += quantity
-      }
-      if (productName.toLowerCase().includes("eier") || productName.toLowerCase() === "ei") {
-        updated.eier += quantity
-      }
-      if (productName.toLowerCase().includes("kaffee")) {
-        updated.kaffee += quantity
-      }
-      storage.setDailyStats(currentUser!.id, { ...updated, date: new Date().toDateString() })
+      if (category === "mittagessen") updated.mittagessen += quantity
+      else if (category === "fruehstueck") updated.broetchen += quantity
+      else if (category === "kaffee") updated.kaffee += quantity
+      // gesamtbetrag wird ausschliesslich in addTransaction gesetzt
+      storage.setDailyStats(currentUser!.id, { ...updated, date: getDayKey() })
       return updated
     })
-  }
+  }, [currentUser])
 
   const updateTransactions = async (newTransactions: (Transaction | ManualTransaction)[]) => {
     setTransactions(newTransactions)
-
-    // Prüfen ob eine Bezahlung enthalten ist - dann auch manualTransactions bereinigen
-    const paymentTx = newTransactions.filter(
-      (t) => ("productName" in t && (t as Transaction).productName === "Bezahlung")
-    )
-    const paidEmployeeIds = new Set(paymentTx.map((t) => t.employeeId))
-
-    const allTransactions = await storage.getTransactions()
-    // Andere Kantinen behalten, eigene durch neue ersetzen
-    const otherKantineTransactions = allTransactions.filter((t) => t.userId && t.userId !== currentUser?.id)
-    // Bei bezahlten Mitarbeitern auch alte manualTransactions (ohne userId) entfernen
-    const cleanedOther = otherKantineTransactions.filter(
-      (t) => !(!t.userId && paidEmployeeIds.has(t.employeeId))
-    )
-    await storage.setTransactions([...cleanedOther, ...newTransactions])
-
-    // Balance neu berechnen
     setEmployees(calculateEmployeeBalances(employees, newTransactions))
+
+    // Bezahlte Mitarbeiter-IDs ermitteln um manualTransactions mitzubereinigen
+    const paidEmployeeIds = new Set(
+      newTransactions
+        .filter((t) => ("productName" in t && (t as Transaction).productName === "Bezahlung"))
+        .map((t) => t.employeeId)
+    )
+
+    // Direkt auf Cache arbeiten - kein getTransactions()-Call nötig
+    await storage.setTransactions(
+      newTransactions.filter(
+        (t) => !(!("price" in t) && paidEmployeeIds.has(t.employeeId))
+      )
+    )
   }
 
   const handleUpdateProducts = async (updatedProducts: Product[]) => {
@@ -430,18 +461,23 @@ export default function KantineApp() {
   const handleSendDebtReport = async () => {
     setIsLoadingReport(true)
     try {
-      const result = await storage.sendDebtReport(currentUser.id, currentUser.paypalEmail)
-
-      toast({
-        title: "Schulden-Report erfolgreich gesendet",
-        description: `${result.employeesWithDebts} Mitarbeiter mit Schulden (${result.totalDebt.toFixed(2)}€). Report wurde auch lokal gespeichert.`,
+      const response = await fetch("/api/send-debt-report", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: currentUser!.id,
+          kantineName: currentUser!.username,
+          employees,
+        }),
       })
+      const result = await response.json()
+      if (response.ok) {
+        alert(`Schulden gespeichert: ${result.filename}`)
+      } else {
+        alert(`Fehler: ${result.error}`)
+      }
     } catch (error) {
-      toast({
-        title: "Fehler",
-        description: `Fehler beim Senden: ${error instanceof Error ? error.message : "Unbekannter Fehler"}`,
-        variant: "destructive",
-      })
+      alert(`Fehler beim Speichern: ${error}`)
     } finally {
       setIsLoadingReport(false)
     }
@@ -478,6 +514,7 @@ export default function KantineApp() {
       <QuickBooking
         employees={employees}
         products={products}
+        groupNames={currentUser?.groupNames}
         onAddTransaction={async (transaction) => {
           const fullTransaction = {
             ...transaction,
@@ -689,11 +726,13 @@ export default function KantineApp() {
           </Card>
           <Card>
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium">Transaktionen</CardTitle>
-              <CardDescription className="text-xs">heute: {transactions.length}</CardDescription>
+              <CardTitle className="text-sm font-medium">Gesamtbetrag heute</CardTitle>
+              <CardDescription className="text-xs">Reset um 8:00 Uhr</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{transactions.length}</div>
+              <div className="text-2xl font-bold text-green-600">
+                {(dailyStats.gesamtbetrag || 0).toFixed(2)} €
+              </div>
             </CardContent>
           </Card>
           <Card>
@@ -707,20 +746,11 @@ export default function KantineApp() {
           </Card>
           <Card>
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium">Brötchen</CardTitle>
+              <CardTitle className="text-sm font-medium">Frühstück</CardTitle>
               <CardDescription className="text-xs">heute gebucht</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{dailyStats.broetchen}</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium">Eier</CardTitle>
-              <CardDescription className="text-xs">heute gebucht</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{dailyStats.eier}</div>
             </CardContent>
           </Card>
           <Card>
@@ -781,8 +811,8 @@ export default function KantineApp() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Schulden-Report</CardTitle>
-            <CardDescription>Aktuellen Schulden-Report per E-Mail versenden</CardDescription>
+            <CardTitle>Schulden speichern</CardTitle>
+            <CardDescription>Offene Schulden als HTML-Datei speichern</CardDescription>
           </CardHeader>
           <CardContent>
             <Button
@@ -790,7 +820,7 @@ export default function KantineApp() {
               disabled={isLoadingReport}
               className="w-full bg-blue-600 hover:bg-blue-700"
             >
-              {isLoadingReport ? "Wird gesendet..." : "Schulden-Report jetzt senden"}
+              {isLoadingReport ? "Wird gespeichert..." : "Schulden jetzt speichern"}
             </Button>
           </CardContent>
         </Card>

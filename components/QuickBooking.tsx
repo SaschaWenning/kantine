@@ -2,9 +2,8 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Input } from "@/components/ui/input"
 import { ArrowLeft, Save } from "lucide-react"
 import type { Employee, Product, Transaction } from "@/lib/storage"
 
@@ -14,13 +13,13 @@ interface QuickBookingProps {
   onAddTransaction: (transaction: Omit<Transaction, "id" | "timestamp">) => Promise<void> | void
   addEmployeeToMealList: (employeeId: string) => void
   onBack: () => void
+  groupNames?: { group1: string; group2: string; group3: string }
 }
 
 interface BookingSelection {
   [employeeId: string]: {
     mittagessen: boolean
-    broetchen: number
-    eier: number
+    fruehstueck: boolean
     kaffee: boolean
   }
 }
@@ -29,35 +28,28 @@ export default function QuickBooking({
   employees,
   products,
   onAddTransaction,
-  updateDailyStats,
   addEmployeeToMealList,
   onBack,
+  groupNames,
 }: QuickBookingProps) {
   const [selections, setSelections] = useState<BookingSelection>({})
   const [saving, setSaving] = useState(false)
 
-  // Produkte finden
-  const mittagessen = products.find((p) => p.name.toLowerCase().includes("mittagessen"))
-  const broetchen = products.find((p) => p.name.toLowerCase().includes("brötchen"))
-  const eier = products.find((p) => p.name.toLowerCase().includes("ei"))
-  const kaffee = products.find((p) => p.name.toLowerCase().includes("kaffee"))
+  // Produkte exakt suchen - "Frühstück ausgegeben" (40€ Ausgabe) darf NICHT getroffen werden
+  const mittagessen = products.find((p) => p.name.toLowerCase() === "mittagessen")
+    ?? products.find((p) => p.name.toLowerCase().includes("mittagessen"))
+  const fruehstueck = products.find((p) => p.name.toLowerCase() === "brötchen")
+    ?? products.find((p) => p.name.toLowerCase() === "frühstück")
+    ?? products.find((p) => p.name.toLowerCase().includes("brötchen") && !p.name.toLowerCase().includes("ausgegeben") && !p.name.toLowerCase().includes("abschied"))
+  const kaffee = products.find((p) => p.name.toLowerCase() === "kaffee")
+    ?? products.find((p) => p.name.toLowerCase().includes("kaffee"))
 
-  const toggleCheckbox = (employeeId: string, productType: "mittagessen" | "kaffee") => {
+  const toggle = (employeeId: string, field: "mittagessen" | "fruehstueck" | "kaffee") => {
     setSelections((prev) => ({
       ...prev,
       [employeeId]: {
-        ...(prev[employeeId] || { mittagessen: false, broetchen: 0, eier: 0, kaffee: false }),
-        [productType]: !(prev[employeeId]?.[productType] || false),
-      },
-    }))
-  }
-
-  const updateQuantity = (employeeId: string, productType: "broetchen" | "eier", value: number) => {
-    setSelections((prev) => ({
-      ...prev,
-      [employeeId]: {
-        ...(prev[employeeId] || { mittagessen: false, broetchen: 0, eier: 0, kaffee: false }),
-        [productType]: Math.max(0, value),
+        ...(prev[employeeId] || { mittagessen: false, fruehstueck: false, kaffee: false }),
+        [field]: !(prev[employeeId]?.[field] || false),
       },
     }))
   }
@@ -70,7 +62,6 @@ export default function QuickBooking({
       const employee = employees.find((e) => e.id === employeeId)
       if (!employee) continue
 
-      // Mittagessen buchen
       if (selection.mittagessen && mittagessen) {
         await onAddTransaction({
           employeeId,
@@ -85,35 +76,19 @@ export default function QuickBooking({
         transactionCount++
       }
 
-      // Brötchen buchen
-      if (selection.broetchen > 0 && broetchen) {
+      if (selection.fruehstueck && fruehstueck) {
         await onAddTransaction({
           employeeId,
           employeeName: employee.name,
-          productId: broetchen.id,
-          productName: broetchen.name,
-          price: broetchen.price * selection.broetchen,
-          quantity: selection.broetchen,
+          productId: fruehstueck.id,
+          productName: fruehstueck.name,
+          price: fruehstueck.price,
+          quantity: 1,
           userId: employee.userId,
         })
         transactionCount++
       }
 
-      // Eier buchen
-      if (selection.eier > 0 && eier) {
-        await onAddTransaction({
-          employeeId,
-          employeeName: employee.name,
-          productId: eier.id,
-          productName: eier.name,
-          price: eier.price * selection.eier,
-          quantity: selection.eier,
-          userId: employee.userId,
-        })
-        transactionCount++
-      }
-
-      // Kaffee buchen
       if (selection.kaffee && kaffee && !employee.hideCoffee) {
         await onAddTransaction({
           employeeId,
@@ -133,21 +108,54 @@ export default function QuickBooking({
     alert(`${transactionCount} Buchungen erfolgreich gespeichert!`)
   }
 
-  const totalSelections = Object.values(selections).reduce((acc, sel) => {
-    return acc + (sel.mittagessen ? 1 : 0) + sel.broetchen + sel.eier + (sel.kaffee ? 1 : 0)
-  }, 0)
+  const totalSelections = Object.values(selections).reduce(
+    (acc, sel) => acc + (sel.mittagessen ? 1 : 0) + (sel.fruehstueck ? 1 : 0) + (sel.kaffee ? 1 : 0),
+    0
+  )
 
-  const toggleSelection = (employeeId: string, productType: "mittagessen" | "broetchen" | "eier" | "kaffee") => {
-    if (productType === "mittagessen" || productType === "kaffee") {
-      toggleCheckbox(employeeId, productType)
-    } else {
-      updateQuantity(employeeId, productType, selections[employeeId]?.[productType] ? 0 : 1)
-    }
-  }
+  // Mitarbeiter nach Gruppe aufteilen
+  const groups = [
+    { key: "group1", label: groupNames?.group1 || "Tour 1" },
+    { key: "group2", label: groupNames?.group2 || "Tour 2" },
+    { key: "group3", label: groupNames?.group3 || "Gäste" },
+  ]
+
+  const getGroupEmployees = (groupKey: string) =>
+    employees.filter((e) => e.group === groupKey).sort((a, b) => a.name.localeCompare(b.name))
+
+  const employeeRow = (employee: Employee) => (
+    <div key={employee.id} className="grid grid-cols-[2fr_1fr_1fr_1fr] gap-2 border-b py-2 items-center">
+      <div className="font-medium text-sm">{employee.name}</div>
+      <div className="flex justify-center">
+        <Checkbox
+          checked={selections[employee.id]?.mittagessen || false}
+          onCheckedChange={() => toggle(employee.id, "mittagessen")}
+        />
+      </div>
+      <div className="flex justify-center">
+        <Checkbox
+          checked={selections[employee.id]?.fruehstueck || false}
+          onCheckedChange={() => toggle(employee.id, "fruehstueck")}
+          disabled={!fruehstueck}
+        />
+      </div>
+      <div className="flex justify-center">
+        {employee.hideCoffee ? (
+          <span className="text-xs text-muted-foreground">-</span>
+        ) : (
+          <Checkbox
+            checked={selections[employee.id]?.kaffee || false}
+            onCheckedChange={() => toggle(employee.id, "kaffee")}
+            disabled={!kaffee}
+          />
+        )}
+      </div>
+    </div>
+  )
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
-      <div className="mx-auto max-w-6xl space-y-4">
+      <div className="mx-auto max-w-4xl space-y-4">
         <div className="flex items-center justify-between">
           <Button variant="outline" onClick={onBack} className="gap-2 bg-transparent">
             <ArrowLeft className="h-4 w-4" />
@@ -155,75 +163,31 @@ export default function QuickBooking({
           </Button>
           <Button onClick={handleSaveAll} disabled={totalSelections === 0 || saving} className="gap-2">
             <Save className="h-4 w-4" />
-            {saving ? "Wird gespeichert..." : `Alle Buchen (${totalSelections})`}
+            {saving ? "Wird gespeichert..." : `Alle buchen (${totalSelections})`}
           </Button>
         </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Schnellbuchung</CardTitle>
-            <CardDescription>Wählen Sie für jeden Mitarbeiter die Produkte aus, die gebucht werden sollen</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-2">
-              {/* Header */}
-              <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-4 border-b pb-2 font-semibold">
-                <div>Mitarbeiter</div>
-                <div className="text-center">Mittagessen</div>
-                <div className="text-center">Brötchen</div>
-                <div className="text-center">Eier</div>
-                <div className="text-center">Kaffee</div>
-              </div>
-
-              {/* Mitarbeiter Liste */}
-              {employees
-                .sort((a, b) => a.name.localeCompare(b.name))
-                .map((employee) => (
-                  <div key={employee.id} className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-4 border-b py-3 items-center">
-                    <div className="font-medium">{employee.name}</div>
-                    <div className="flex justify-center">
-                      <Checkbox
-                        checked={selections[employee.id]?.mittagessen || false}
-                        onCheckedChange={() => toggleCheckbox(employee.id, "mittagessen")}
-                      />
-                    </div>
-                    <div className="flex justify-center">
-                      <Input
-                        type="number"
-                        min="0"
-                        className="w-16 text-center"
-                        value={selections[employee.id]?.broetchen || ""}
-                        onChange={(e) => updateQuantity(employee.id, "broetchen", parseInt(e.target.value) || 0)}
-                        onFocus={(e) => e.target.select()}
-                        placeholder="0"
-                      />
-                    </div>
-                    <div className="flex justify-center">
-                      <Input
-                        type="number"
-                        min="0"
-                        className="w-16 text-center"
-                        value={selections[employee.id]?.eier || ""}
-                        onChange={(e) => updateQuantity(employee.id, "eier", parseInt(e.target.value) || 0)}
-                        onFocus={(e) => e.target.select()}
-                        placeholder="0"
-                      />
-                    </div>
-                    <div className="flex justify-center">
-                      {employee.hideCoffee ? (
-                        <span className="text-xs text-gray-400">Ausgeblendet</span>
-                      ) : (
-                        <Checkbox
-                          checked={selections[employee.id]?.kaffee || false}
-                          onCheckedChange={() => toggleCheckbox(employee.id, "kaffee")}
-                        />
-                      )}
-                    </div>
-                  </div>
-                ))}
-            </div>
-          </CardContent>
-        </Card>
+        {groups.map((group) => {
+          const groupEmployees = getGroupEmployees(group.key)
+          if (groupEmployees.length === 0) return null
+          return (
+            <Card key={group.key}>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base">{group.label}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {/* Header */}
+                <div className="grid grid-cols-[2fr_1fr_1fr_1fr] gap-2 border-b pb-2 text-sm font-semibold text-muted-foreground">
+                  <div>Mitarbeiter</div>
+                  <div className="text-center">Mittagessen</div>
+                  <div className="text-center">Frühstück</div>
+                  <div className="text-center">Kaffee</div>
+                </div>
+                {groupEmployees.map(employeeRow)}
+              </CardContent>
+            </Card>
+          )
+        })}
       </div>
     </div>
   )

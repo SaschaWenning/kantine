@@ -210,15 +210,14 @@ export default function AdminInterface({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           userId,
-          kantineName: employees[0]?.userId ? userId : undefined,
+          kantineName: userId,
           employees,
-          transactions,
         }),
       })
 
       const result = await response.json()
       if (response.ok) {
-        alert(`Schulden-Report gespeichert: ${result.filename}`)
+        alert(`Schulden gespeichert: ${result.filename}`)
       } else {
         alert(`Fehler beim Speichern: ${result.error}`)
       }
@@ -395,22 +394,22 @@ export default function AdminInterface({
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <FileText className="h-5 w-5" />
-                  Schulden-Report & Backup
+                  Schulden speichern & Backup
                 </CardTitle>
-                <CardDescription>Schulden-Report manuell speichern oder CSV-Backup herunterladen</CardDescription>
+                <CardDescription>Offene Schulden als HTML-Datei speichern oder CSV-Backup herunterladen</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <Button onClick={saveDebtReport} className="w-full">
-                    Schulden-Report jetzt speichern
+                    Schulden jetzt speichern
                   </Button>
                   <Button onClick={downloadCSVBackup} variant="outline" className="w-full bg-transparent">
                     CSV-Backup herunterladen
                   </Button>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Der Schulden-Report wird automatisch täglich um 8:00 Uhr gespeichert. Sie können ihn auch jederzeit manuell speichern.
-                  Reports werden unter <code>/reports/</code> gespeichert.
+                  Jeden Tag um 8:00 Uhr wird automatisch ein HTML-Backup aller offenen Schulden und Guthaben erstellt.
+                  Dateien werden unter <code>/reports/</code> gespeichert.
                 </p>
               </CardContent>
             </Card>

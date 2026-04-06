@@ -140,40 +140,26 @@ class StorageAPI {
     return [...transactions, ...manualTransactions]
   }
 
+  // Einzelne Transaktion anhängen - nutzt Write-Queue, keine Race Conditions
+  async appendTransaction(transaction: Transaction) {
+    const data = await this.fetchData()
+    const existing = data.transactions || []
+    await this.updateData({ transactions: [...existing, transaction] })
+  }
+
   async setTransactions(transactions: (Transaction | ManualTransaction)[]) {
-    // Käufe und Einzahlungen trennen
-    const purchases = transactions.filter(t => "price" in t)
-    const manual = transactions.filter(t => !("price" in t))
-
-    if (this.cache) {
-      this.cache = { 
-        ...this.cache, 
-        transactions: purchases,
-        manualTransactions: manual.length > 0 ? manual : (this.cache.manualTransactions || [])
-      }
-    } else {
-      this.cache = { transactions: purchases }
-    }
-
-    const response = await fetch("/api/data", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(this.cache),
+    const purchases = transactions.filter((t) => "price" in t)
+    const manual = transactions.filter((t) => !("price" in t))
+    const data = await this.fetchData()
+    const existingManual = data.manualTransactions || []
+    await this.updateData({
+      transactions: purchases,
+      manualTransactions: manual.length > 0 ? manual : existingManual,
     })
-    if (!response.ok) throw new Error("Failed to save transactions")
   }
 
   async setManualTransactions(manualTransactions: ManualTransaction[]) {
-    const data = await this.fetchData()
-    if (this.cache) {
-      this.cache = { ...this.cache, manualTransactions }
-    }
-    const response = await fetch("/api/data", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...data, manualTransactions }),
-    })
-    if (!response.ok) throw new Error("Failed to save manual transactions")
+    await this.updateData({ manualTransactions })
   }
 
   async getDailyStats(userId: string) {

@@ -5,23 +5,21 @@ import { getDebtReportHTML } from "@/lib/report-service"
 
 export async function POST(request: NextRequest) {
   try {
-    const { employees, transactions, userId, kantineName } = await request.json()
+    const { employees, userId, kantineName } = await request.json()
 
     const employeesList = Array.isArray(employees) ? employees : []
-    const transactionsList = Array.isArray(transactions) ? transactions : []
 
-    const employeesWithDebts = employeesList
-      .map((employee: any) => {
-        const employeeTransactions = transactionsList.filter((t: any) => t.employeeId === employee.id)
-        const totalDebt = employeeTransactions.reduce((sum: number, t: any) => sum + (t.price || 0), 0)
-        return { ...employee, balance: totalDebt }
-      })
-      .filter((employee: any) => employee.balance > 0)
+    // Mitarbeiter mit offenem Saldo (positiv = Schulden, negativ = Guthaben)
+    const employeesWithBalance = employeesList
+      .filter((emp: any) => emp.balance !== 0)
+      .map((emp: any) => ({ id: emp.id, name: emp.name, balance: emp.balance }))
 
-    const totalDebt = employeesWithDebts.reduce((sum: number, emp: any) => sum + emp.balance, 0)
+    const totalDebt = employeesWithBalance
+      .filter((emp: any) => emp.balance > 0)
+      .reduce((sum: number, emp: any) => sum + emp.balance, 0)
+
     const reportDate = new Date()
-
-    const htmlContent = getDebtReportHTML(employeesWithDebts, totalDebt, reportDate, kantineName)
+    const htmlContent = getDebtReportHTML(employeesWithBalance, totalDebt, reportDate, kantineName)
 
     const reportsDir = join(process.cwd(), "reports")
     await mkdir(reportsDir, { recursive: true })
@@ -33,8 +31,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: "Schulden-Report erfolgreich gespeichert",
-      filepath: filename,
-      employeesWithDebt: employeesWithDebts.length,
+      filename,
+      employeesWithBalance: employeesWithBalance.length,
       totalDebt,
     })
   } catch (error) {
