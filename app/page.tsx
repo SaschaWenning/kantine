@@ -205,27 +205,8 @@ export default function KantineApp() {
           date: today,
         })
       } else {
-        // Tageswechsel: zuerst automatisches HTML-Backup der aktuellen Schulden erstellen
-        const currentEmployees = await storage.getEmployees()
-        const currentTransactions = await storage.getTransactions()
-        const userEmps = currentEmployees.filter((e: any) => e.userId === currentUser.id)
-        const userTxs = currentTransactions.filter(
-          (t: any) => t.userId === currentUser.id || (!t.userId && userEmps.some((e: any) => e.id === t.employeeId))
-        )
-        const balancedEmployees = calculateEmployeeBalances(userEmps, userTxs)
-        const hasOpenBalances = balancedEmployees.some((e) => e.balance !== 0)
-        if (hasOpenBalances) {
-          fetch("/api/send-debt-report", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              userId: currentUser.id,
-              kantineName: currentUser.username,
-              employees: balancedEmployees,
-            }),
-          }).catch(() => {}) // Fehler beim Backup ignorieren, Reset trotzdem durchführen
-        }
-
+        // Tageswechsel: nur die Tagesstatistik zurücksetzen, nicht die Schulden
+        // Der Backup für alle Kantinen erfolgt durch Cron-Job um 8:00 Uhr
         const newStats = { mittagessen: 0, broetchen: 0, eier: 0, kaffee: 0, gesamtbetrag: 0, date: today }
         setDailyStats(newStats)
         await storage.setDailyStats(currentUser.id, newStats)
@@ -378,19 +359,9 @@ export default function KantineApp() {
     setTransactions(newTransactions)
     setEmployees(calculateEmployeeBalances(employees, newTransactions))
 
-    // Bezahlte Mitarbeiter-IDs ermitteln um manualTransactions mitzubereinigen
-    const paidEmployeeIds = new Set(
-      newTransactions
-        .filter((t) => ("productName" in t && (t as Transaction).productName === "Bezahlung"))
-        .map((t) => t.employeeId)
-    )
-
-    // Direkt auf Cache arbeiten - kein getTransactions()-Call nötig
-    await storage.setTransactions(
-      newTransactions.filter(
-        (t) => !(!("price" in t) && paidEmployeeIds.has(t.employeeId))
-      )
-    )
+    // Alle Transaktionen speichern - KEINE Filterung! 
+    // Die Filterung von manualTransactions bei bezahlten Mitarbeitern erfolgt in AdminInterface
+    await storage.setTransactions(newTransactions)
   }
 
   const handleUpdateProducts = async (updatedProducts: Product[]) => {
