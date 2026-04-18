@@ -4942,6 +4942,215 @@
       "quantity": 1,
       "timestamp": "2026-04-18T06:48:02.215Z",
       "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776501299332",
+      "employeeId": "1765963573810",
+      "employeeName": "Kahlert",
+      "productId": "17657946219350.730619671491713",
+      "productName": "Softgetränk 0,5l",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-18T08:34:59.332Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776501414231",
+      "employeeId": "1765963615757",
+      "employeeName": "Weysters",
+      "productId": "17657946219350.2632216402736717",
+      "productName": "Wasser 0,75l",
+      "price": 0.4,
+      "quantity": 1,
+      "timestamp": "2026-04-18T08:36:54.231Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776505759961",
+      "employeeId": "1765963615757",
+      "employeeName": "Weysters",
+      "productId": "17657946219350.730619671491713",
+      "productName": "Softgetränk 0,5l",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-18T09:49:19.961Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776506070730",
+      "employeeId": "1765963772532",
+      "employeeName": "Schmatz",
+      "productId": "17657946219350.730619671491713",
+      "productName": "Softgetränk 0,5l",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-18T09:54:30.730Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776506715931",
+      "employeeId": "1765963534625",
+      "employeeName": "Geue",
+      "productId": "17657946219350.730619671491713",
+      "productName": "Softgetränk 0,5l",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-18T10:05:15.931Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776507821421",
+      "employeeId": "1765963741755",
+      "employeeName": "Pahlmeyer",
+      "productId": "17657946219350.730619671491713",
+      "productName": "Softgetränk 0,5l",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-18T10:23:41.421Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776509680509",
+      "employeeId": "1765963487907",
+      "employeeName": "Ahlendorf",
+      "productId": "1767346914368",
+      "productName": "Kinderriegel/Duplo/Country",
+      "price": 0.3,
+      "quantity": 1,
+      "timestamp": "2026-04-18T10:54:40.509Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776510140627",
+      "employeeId": "1765963633240",
+      "employeeName": "Siebers (Falck)",
+      "productId": "17657946219350.730619671491713",
+      "productName": "Softgetränk 0,5l",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-18T11:02:20.627Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776510145526",
+      "employeeId": "1765963633240",
+      "employeeName": "Siebers (Falck)",
+      "productId": "17657946219350.10210836026802483",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-04-18T11:02:25.526Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776512278191",
+      "employeeId": "1765963772532",
+      "employeeName": "Schmatz",
+      "productId": "1767346914368",
+      "productName": "Kinderriegel/Duplo/Country",
+      "price": 0.3,
+      "quantity": 1,
+      "timestamp": "2026-04-18T11:37:58.191Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776512786440",
+      "employeeId": "1765963772532",
+      "employeeName": "Schmatz",
+      "productId": "17657946219350.2632216402736717",
+      "productName": "Wasser 0,75l",
+      "price": 0.4,
+      "quantity": 1,
+      "timestamp": "2026-04-18T11:46:26.440Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776512796563",
+      "employeeId": "1765963615757",
+      "employeeName": "Weysters",
+      "productId": "17657946219350.2632216402736717",
+      "productName": "Wasser 0,75l",
+      "price": 0.4,
+      "quantity": 1,
+      "timestamp": "2026-04-18T11:46:36.563Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776516392927",
+      "employeeId": "1765963579473",
+      "employeeName": "Käufer",
+      "productId": "1767346914368",
+      "productName": "Kinderriegel/Duplo/Country",
+      "price": 0.3,
+      "quantity": 1,
+      "timestamp": "2026-04-18T12:46:32.927Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776519879160",
+      "employeeId": "1765963792116",
+      "employeeName": "Wenning",
+      "productId": "1769420877176",
+      "productName": "Protein Riegel",
+      "price": 1,
+      "quantity": 1,
+      "timestamp": "2026-04-18T13:44:39.160Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776519886991",
+      "employeeId": "1765963792116",
+      "employeeName": "Wenning",
+      "productId": "1767346914368",
+      "productName": "Kinderriegel/Duplo/Country",
+      "price": 0.3,
+      "quantity": 1,
+      "timestamp": "2026-04-18T13:44:46.992Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776521152221",
+      "employeeId": "1765963741755",
+      "employeeName": "Pahlmeyer",
+      "productId": "17657946219350.730619671491713",
+      "productName": "Softgetränk 0,5l",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-18T14:05:52.221Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776521261719",
+      "employeeId": "1765963573810",
+      "employeeName": "Kahlert",
+      "productId": "1769420877176",
+      "productName": "Protein Riegel",
+      "price": 1,
+      "quantity": 1,
+      "timestamp": "2026-04-18T14:07:41.719Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776521607735",
+      "employeeId": "1765963487907",
+      "employeeName": "Ahlendorf",
+      "productId": "1767346914368",
+      "productName": "Kinderriegel/Duplo/Country",
+      "price": 0.6,
+      "quantity": 2,
+      "timestamp": "2026-04-18T14:13:27.736Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776522251305",
+      "employeeId": "1765963590810",
+      "employeeName": "Ludewig",
+      "productId": "17657946219350.15105826671034006",
+      "productName": "Gummibärchen 3Stk.",
+      "price": 0.15,
+      "quantity": 1,
+      "timestamp": "2026-04-18T14:24:11.305Z",
+      "userId": "17657945223510.668209242825248"
     }
   ],
   "dailyStats": {
@@ -4950,15 +5159,15 @@
       "broetchen": 0,
       "eier": 0,
       "kaffee": 0,
-      "gesamtbetrag": 0.8,
-      "date": "Tue Apr 14 2026"
+      "gesamtbetrag": 0,
+      "date": "Sat Apr 18 2026"
     },
     "17657945223510.668209242825248": {
-      "mittagessen": 0,
+      "mittagessen": 1,
       "broetchen": 0,
       "eier": 0,
       "kaffee": 0,
-      "gesamtbetrag": 2.2,
+      "gesamtbetrag": 21.75,
       "date": "Sat Apr 18 2026"
     },
     "17658029950100.059270981798738576": {
@@ -4978,7 +5187,21 @@
   },
   "employeesWithLunch": {
     "17657062681610.04116636029909582": [],
-    "17657945223510.668209242825248": [],
+    "17657945223510.668209242825248": [
+      "Ahlendorf",
+      "Käufer",
+      "Schumacher",
+      "Wortelkamp",
+      "Geue",
+      "Honermann",
+      "Groh",
+      "Totaro",
+      "Kahlert",
+      "Schmitz",
+      "Heuser",
+      "Golley",
+      "Siebers (Falck)"
+    ],
     "17658029950100.059270981798738576": [],
     "17658050842420.5272256882194837": []
   }

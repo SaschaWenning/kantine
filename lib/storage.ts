@@ -51,23 +51,31 @@ export interface ManualTransaction {
 
 class StorageAPI {
   private cache: any = null
+  private cacheTimestamp: number = 0
   private writeQueue: Promise<void> = Promise.resolve()
+  private readonly CACHE_MAX_AGE = 5000 // Cache nur 5 Sekunden gültig
 
-  private async fetchData() {
-    if (this.cache) return this.cache
-    const response = await fetch("/api/data")
-    if (!response.ok) throw new Error("Failed to fetch data")
-    this.cache = await response.json()
+  private async fetchData(forceRefresh = false) {
+    const now = Date.now()
+    // Cache invalidieren wenn zu alt oder forceRefresh
+    if (forceRefresh || !this.cache || (now - this.cacheTimestamp) > this.CACHE_MAX_AGE) {
+      const response = await fetch("/api/data", { cache: "no-store" })
+      if (!response.ok) throw new Error("Failed to fetch data")
+      this.cache = await response.json()
+      this.cacheTimestamp = now
+    }
     return this.cache
   }
 
   private async updateData(updates: any) {
-    // Merge updates into cache immediately
-    if (this.cache) {
-      this.cache = { ...this.cache, ...updates }
-    } else {
-      this.cache = updates
-    }
+    // KRITISCH: Immer frische Daten vom Server holen vor dem Schreiben
+    // um Überschreiben von Daten anderer Kantinen zu verhindern
+    const freshData = await this.fetchFreshFromServer()
+    
+    // Updates in frische Daten mergen
+    const merged = { ...freshData, ...updates }
+    this.cache = merged
+    this.cacheTimestamp = Date.now()
 
     // Queue the write so concurrent calls don't race
     this.writeQueue = this.writeQueue.then(async () => {
@@ -82,8 +90,16 @@ class StorageAPI {
     return this.writeQueue
   }
 
+  // Immer frische Daten vom Server holen (kein Cache)
+  private async fetchFreshFromServer() {
+    const response = await fetch("/api/data", { cache: "no-store" })
+    if (!response.ok) throw new Error("Failed to fetch fresh data")
+    return response.json()
+  }
+
   invalidateCache() {
     this.cache = null
+    this.cacheTimestamp = 0
   }
 
   async getUsers(): Promise<KantineUser[]> {
@@ -114,8 +130,16 @@ class StorageAPI {
     return data.employees || []
   }
 
-  async setEmployees(employees: Employee[]) {
-    await this.updateData({ employees })
+  async setEmployees(employees: Employee[], userId?: string) {
+    // KRITISCH: Bei userId nur die Mitarbeiter dieser Kantine ersetzen, andere behalten
+    if (userId) {
+      const freshData = await this.fetchFreshFromServer()
+      const otherKantineEmployees = (freshData.employees || []).filter((e: Employee) => e.userId !== userId)
+      await this.updateData({ employees: [...otherKantineEmployees, ...employees] })
+    } else {
+      // Ohne userId: direktes Überschreiben (für Lösch-Operationen)
+      await this.updateData({ employees })
+    }
   }
 
   async getProducts(): Promise<Product[]> {
@@ -123,8 +147,14 @@ class StorageAPI {
     return data.products || []
   }
 
-  async setProducts(products: Product[]) {
-    await this.updateData({ products })
+  async setProducts(products: Product[], userId?: string) {
+    if (userId) {
+      const freshData = await this.fetchFreshFromServer()
+      const otherKantineProducts = (freshData.products || []).filter((p: Product) => p.userId !== userId)
+      await this.updateData({ products: [...otherKantineProducts, ...products] })
+    } else {
+      await this.updateData({ products })
+    }
   }
 
   async getTransactions(): Promise<(Transaction | ManualTransaction)[]> {
@@ -140,21 +170,22 @@ class StorageAPI {
     return [...transactions, ...manualTransactions]
   }
 
-  // Einzelne Transaktion anhängen - nutzt Write-Queue, keine Race Conditions
+  // Einzelne Transaktion anhängen - holt IMMER frische Daten vom Server
   async appendTransaction(transaction: Transaction) {
-    const data = await this.fetchData()
-    const existing = data.transactions || []
+    const freshData = await this.fetchFreshFromServer()
+    const existing = freshData.transactions || []
     await this.updateData({ transactions: [...existing, transaction] })
   }
 
   async setTransactions(transactions: (Transaction | ManualTransaction)[], userId?: string) {
-    const data = await this.fetchData()
+    // KRITISCH: Immer frische Daten vom Server holen um andere Kantinen nicht zu überschreiben
+    const freshData = await this.fetchFreshFromServer()
     
     // Wenn userId übergeben: nur Transaktionen der aktuellen Kantine ersetzen, andere behalten
     // Wenn keine userId: direkter Überschreib (für Lösch-Operationen)
     if (userId) {
-      const otherKantineTransactions = (data.transactions || []).filter((t: Transaction) => t.userId !== userId)
-      const otherManualTransactions = (data.manualTransactions || []).filter((t: ManualTransaction) => t.userId !== userId)
+      const otherKantineTransactions = (freshData.transactions || []).filter((t: Transaction) => t.userId !== userId)
+      const otherManualTransactions = (freshData.manualTransactions || []).filter((t: ManualTransaction) => t.userId !== userId)
       
       const purchases = transactions.filter((t) => "price" in t)
       const manual = transactions.filter((t) => !("price" in t))
@@ -175,8 +206,8 @@ class StorageAPI {
   }
 
   async setManualTransactions(manualTransactions: ManualTransaction[], userId: string) {
-    const data = await this.fetchData()
-    const otherManuals = (data.manualTransactions || []).filter((t: ManualTransaction) => t.userId !== userId)
+    const freshData = await this.fetchFreshFromServer()
+    const otherManuals = (freshData.manualTransactions || []).filter((t: ManualTransaction) => t.userId !== userId)
     await this.updateData({ manualTransactions: [...otherManuals, ...manualTransactions] })
   }
 

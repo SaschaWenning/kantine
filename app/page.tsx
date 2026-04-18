@@ -300,16 +300,13 @@ export default function KantineApp() {
       userId: currentUser!.id,
     }
 
-    const allEmployees = await storage.getEmployees()
-    await storage.setEmployees([...allEmployees, newEmployee])
+    await storage.setEmployees([...employees, newEmployee], currentUser!.id)
     setEmployees([...employees, newEmployee])
   }
 
   const updateEmployees = async (updatedEmployees: Employee[]) => {
     setEmployees(updatedEmployees)
-    const allEmployees = await storage.getEmployees()
-    const otherEmployees = allEmployees.filter((e) => e.userId !== currentUser?.id)
-    await storage.setEmployees([...otherEmployees, ...updatedEmployees])
+    await storage.setEmployees(updatedEmployees, currentUser!.id)
   }
 
   const addTransaction = async (transaction: Transaction) => {
