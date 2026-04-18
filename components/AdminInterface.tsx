@@ -307,24 +307,23 @@ export default function AdminInterface({
     }
 
     try {
-      const allUsers = await storage.getUsers()
-      const allEmployees = await storage.getEmployees()
-      const allProducts = await storage.getProducts()
-      const allTransactions = await storage.getTransactions()
+      const response = await fetch("/api/delete-kantine", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId }),
+      })
 
-      const updatedUsers = allUsers.filter((u) => u.id !== userId)
-      const updatedEmployees = allEmployees.filter((e) => e.userId !== userId)
-      const updatedProducts = allProducts.filter((p) => p.userId !== userId)
-      const updatedTransactions = allTransactions.filter((t) => t.userId !== userId)
+      if (!response.ok) {
+        const error = await response.json()
+        alert(`Fehler beim Löschen: ${error.error}`)
+        return
+      }
 
-      await storage.setUsers(updatedUsers)
-      await storage.setEmployees(updatedEmployees)
-      await storage.setProducts(updatedProducts)
-      await storage.setTransactions(updatedTransactions)
-
+      storage.invalidateCache()
       onClose()
     } catch (error) {
       console.error("Error deleting kantine:", error)
+      alert("Fehler beim Löschen der Kantine")
     }
   }
 

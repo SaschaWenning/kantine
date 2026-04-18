@@ -142,17 +142,14 @@ export default function KantineApp() {
   useEffect(() => {
     if (!currentUser) return
 
-    const loadData = async () => {
-      const allEmployees = await storage.getEmployees()
-      const allProducts = await storage.getProducts()
-      const allTransactions = await storage.getTransactions()
+    // UserId für Storage setzen
+    storage.setCurrentUserId(currentUser.id)
 
-      const userEmployees = allEmployees.filter((e) => e.userId === currentUser.id)
-      const userProducts = allProducts.filter((p) => p.userId === currentUser.id)
-      const userEmployeeIds = new Set(userEmployees.map((e) => e.id))
-      const userTransactions = allTransactions.filter(
-        (t) => t.userId === currentUser.id || (!t.userId && userEmployeeIds.has(t.employeeId))
-      )
+    const loadData = async () => {
+      // Jetzt laden wir nur noch die Daten DIESER Kantine (separate Datei)
+      const userEmployees = await storage.getEmployees()
+      const userProducts = await storage.getProducts()
+      const userTransactions = await storage.getTransactions()
 
       if (userProducts.length === 0) {
         const newProducts = initialProducts.map((p) => ({
@@ -160,7 +157,7 @@ export default function KantineApp() {
           id: Date.now().toString() + Math.random(),
           userId: currentUser.id,
         }))
-        await storage.setProducts([...allProducts, ...newProducts])
+        await storage.setProducts(newProducts)
         setProducts(newProducts)
       } else {
         setProducts(userProducts)
@@ -192,7 +189,7 @@ export default function KantineApp() {
     if (!currentUser) return
 
     const loadDailyStats = async () => {
-      const stats = await storage.getDailyStats(currentUser.id)
+      const stats = await storage.getDailyStats()
       const today = getDayKey()
 
       if (stats.date === today) {
@@ -209,8 +206,8 @@ export default function KantineApp() {
         // Der Backup für alle Kantinen erfolgt durch Cron-Job um 8:00 Uhr
         const newStats = { mittagessen: 0, broetchen: 0, eier: 0, kaffee: 0, gesamtbetrag: 0, date: today }
         setDailyStats(newStats)
-        await storage.setDailyStats(currentUser.id, newStats)
-        await storage.setEmployeesWithLunch(currentUser.id, [])
+        await storage.setDailyStats(newStats)
+        await storage.setEmployeesWithLunch([])
       }
     }
 
@@ -225,8 +222,8 @@ export default function KantineApp() {
     if (!currentUser) return
 
     const loadEmployeesWithLunch = async () => {
-      const employees = await storage.getEmployeesWithLunch(currentUser.id)
-      setEmployeesWithLunch(employees)
+      const loadedEmployees = await storage.getEmployeesWithLunch()
+      setEmployeesWithLunch(loadedEmployees)
     }
 
     loadEmployeesWithLunch()
@@ -300,13 +297,13 @@ export default function KantineApp() {
       userId: currentUser!.id,
     }
 
-    await storage.setEmployees([...employees, newEmployee], currentUser!.id)
+    await storage.setEmployees([...employees, newEmployee])
     setEmployees([...employees, newEmployee])
   }
 
   const updateEmployees = async (updatedEmployees: Employee[]) => {
     setEmployees(updatedEmployees)
-    await storage.setEmployees(updatedEmployees, currentUser!.id)
+    await storage.setEmployees(updatedEmployees)
   }
 
   const addTransaction = async (transaction: Transaction) => {
@@ -326,14 +323,14 @@ export default function KantineApp() {
       if (category !== "bezahlung") {
         newStats.gesamtbetrag = Math.round(((newStats.gesamtbetrag || 0) + transaction.price) * 100) / 100
       }
-      storage.setDailyStats(currentUser!.id, { ...newStats, date: getDayKey() })
+      storage.setDailyStats({ ...newStats, date: getDayKey() })
       return newStats
     })
 
     if (category === "mittagessen") {
       const newList = [...employeesWithLunch, transaction.employeeName]
       setEmployeesWithLunch(newList)
-      await storage.setEmployeesWithLunch(currentUser!.id, newList)
+      await storage.setEmployeesWithLunch(newList)
     }
 
     await storage.appendTransaction(transactionWithUserId)
@@ -347,7 +344,7 @@ export default function KantineApp() {
       else if (category === "fruehstueck") updated.broetchen += quantity
       else if (category === "kaffee") updated.kaffee += quantity
       // gesamtbetrag wird ausschliesslich in addTransaction gesetzt
-      storage.setDailyStats(currentUser!.id, { ...updated, date: getDayKey() })
+      storage.setDailyStats({ ...updated, date: getDayKey() })
       return updated
     })
   }, [currentUser])
@@ -357,15 +354,12 @@ export default function KantineApp() {
     setEmployees(calculateEmployeeBalances(employees, newTransactions))
 
     // Alle Transaktionen speichern mit userId um andere Kantinen nicht zu überschreiben
-    await storage.setTransactions(newTransactions, currentUser!.id)
+    await storage.setTransactions(newTransactions)
   }
 
   const handleUpdateProducts = async (updatedProducts: Product[]) => {
     setProducts(updatedProducts)
-
-    const allProducts = await storage.getProducts()
-    const otherProducts = allProducts.filter((p) => p.userId !== currentUser.id)
-    await storage.setProducts([...otherProducts, ...updatedProducts])
+    await storage.setProducts(updatedProducts)
   }
 
   const handleGroupNamesUpdate = async (groupNames: { group1: string; group2: string; group3: string }) => {
@@ -467,7 +461,7 @@ export default function KantineApp() {
           addEmployeeToMealList={(employeeName) => {
             const newList = [...employeesWithLunch, employeeName]
             setEmployeesWithLunch(newList)
-            storage.setEmployeesWithLunch(currentUser!.id, newList)
+            storage.setEmployeesWithLunch(newList)
           }}
           onUpdateProducts={handleUpdateProducts}
         />
@@ -494,7 +488,7 @@ export default function KantineApp() {
           if (employee) {
             const newList = [...employeesWithLunch, employee.name]
             setEmployeesWithLunch(newList)
-            storage.setEmployeesWithLunch(currentUser!.id, newList)
+            storage.setEmployeesWithLunch(newList)
           }
         }}
         onBack={() => {

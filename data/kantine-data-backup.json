@@ -1,0 +1,5208 @@
+{
+  "users": [
+    {
+      "id": "17657062681610.04116636029909582",
+      "username": "Kantine 4 Tour",
+      "password": "Kantine4tour",
+      "paypalEmail": "kantinewache4@hotmail.com",
+      "groupNames": {
+        "group1": "4te ",
+        "group2": "2Tour",
+        "group3": "Gäste"
+      }
+    },
+    {
+      "id": "17657945223510.668209242825248",
+      "username": "Kantine 2 Tour",
+      "password": "Kantine2tour",
+      "paypalEmail": "kantine42@gmx.de",
+      "groupNames": {
+        "group1": "2te Tour",
+        "group2": "4teTour",
+        "group3": "Gäste"
+      }
+    }
+  ],
+  "employees": [
+    {
+      "id": "1765804620536",
+      "name": "w",
+      "balance": 1,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17658029950100.059270981798738576"
+    },
+    {
+      "id": "1765963487907",
+      "name": "Ahlendorf",
+      "balance": -24.799999999999994,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963493183",
+      "name": "Boegner",
+      "balance": -17.50000000000001,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963503096",
+      "name": "Casaccia",
+      "balance": -18.2,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963530920",
+      "name": "Frisson",
+      "balance": 5.750000000000004,
+      "group": "group1",
+      "hideCoffee": true,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963518101",
+      "name": "Füllgraf",
+      "balance": -20.25,
+      "group": "group1",
+      "hideCoffee": true,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963534625",
+      "name": "Geue",
+      "balance": -35.550000000000004,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963540315",
+      "name": "Groh",
+      "balance": -24.699999999999992,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963550504",
+      "name": "Grüneis",
+      "balance": -3.552713678800501e-15,
+      "group": "group1",
+      "hideCoffee": true,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963554354",
+      "name": "Heuser",
+      "balance": 24.2,
+      "group": "group1",
+      "hideCoffee": true,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963569191",
+      "name": "Honermann",
+      "balance": -37.94999999999999,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963560944",
+      "name": "Horsten",
+      "balance": -1.9539925233402755e-14,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963573810",
+      "name": "Kahlert",
+      "balance": 1.9761969838327786e-14,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963579473",
+      "name": "Käufer",
+      "balance": -3.499999999999999,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963643868",
+      "name": "Kirsten (Falck)",
+      "balance": 20.4,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963583392",
+      "name": "Knott",
+      "balance": -12,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765802689789",
+      "name": "Kohl",
+      "balance": -41.36,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963590810",
+      "name": "Ludewig",
+      "balance": -40.19999999999999,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963651471",
+      "name": "Rach",
+      "balance": 0,
+      "group": "group1",
+      "hideCoffee": true,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963597858",
+      "name": "Röthel",
+      "balance": -7.500000000000003,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963603562",
+      "name": "Schmitz",
+      "balance": -39,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963608160",
+      "name": "Schumacher",
+      "balance": 10.800000000000017,
+      "group": "group1",
+      "hideCoffee": true,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963633240",
+      "name": "Siebers (Falck)",
+      "balance": -40.79999999999999,
+      "group": "group1",
+      "hideCoffee": true,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963612145",
+      "name": "Totaro",
+      "balance": 1.8499999999999943,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963615757",
+      "name": "Weysters",
+      "balance": -15.29999999999999,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963620182",
+      "name": "Wortelkamp",
+      "balance": -19.900000000000006,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1770808070102",
+      "name": "Zucca",
+      "balance": 1.2,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963660371",
+      "name": "Braun",
+      "balance": 0.6000000000000014,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963667896",
+      "name": "Brönner",
+      "balance": 16.599999999999998,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963677739",
+      "name": "Büllesfeld",
+      "balance": 0,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963682820",
+      "name": "Decka",
+      "balance": 58.3,
+      "group": "group2",
+      "hideCoffee": true,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963691240",
+      "name": "Hamplewski",
+      "balance": 0,
+      "group": "group2",
+      "hideCoffee": true,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963697553",
+      "name": "Karney",
+      "balance": 0,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963705042",
+      "name": "Kehnen",
+      "balance": 17.099999999999998,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963712872",
+      "name": "Kiesewetter",
+      "balance": 12.399999999999999,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963723157",
+      "name": "Lindemann",
+      "balance": 0,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963728997",
+      "name": "Lipka",
+      "balance": 9,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963734778",
+      "name": "Minta",
+      "balance": 11.399999999999999,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1767515830984",
+      "name": "Misera",
+      "balance": -2.1999999999999993,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963741755",
+      "name": "Pahlmeyer",
+      "balance": -4.440892098500626e-16,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963746512",
+      "name": "Paul",
+      "balance": 0,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963751568",
+      "name": "Rautenberg",
+      "balance": 11.9,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963760353",
+      "name": "Roßmüller",
+      "balance": 20.000000000000004,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963772532",
+      "name": "Schmatz",
+      "balance": 0.599999999999997,
+      "group": "group2",
+      "hideCoffee": true,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963818386",
+      "name": "Schmidt (Falck)",
+      "balance": 9.8,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963767872",
+      "name": "Schomaker",
+      "balance": 25.2,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963777161",
+      "name": "Spelleken",
+      "balance": 6.4,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963782474",
+      "name": "Sperrlich",
+      "balance": 0.4500000000000046,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963787599",
+      "name": "Szymkowiak",
+      "balance": 16.7,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963792116",
+      "name": "Wenning",
+      "balance": 2.4,
+      "group": "group2",
+      "hideCoffee": true,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963796384",
+      "name": "Zinser",
+      "balance": 53.7,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1773781786455",
+      "name": "Bitter",
+      "balance": 8.9,
+      "group": "group3",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1772354231850",
+      "name": "Golley",
+      "balance": 0,
+      "group": "group3",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963855007",
+      "name": "Tekath",
+      "balance": 14.899999999999999,
+      "group": "group3",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765963846769",
+      "name": "Urselmann",
+      "balance": 6,
+      "group": "group3",
+      "hideCoffee": false,
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1766326888873",
+      "name": "Barth",
+      "balance": 20,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766326897200",
+      "name": "Braun",
+      "balance": -0.8000000000000087,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766326906727",
+      "name": "Brönner",
+      "balance": -15.229999999999983,
+      "group": "group1",
+      "hideCoffee": true,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766326921465",
+      "name": "Büllesfeld",
+      "balance": 61.599999999999994,
+      "group": "group1",
+      "hideCoffee": true,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766326929777",
+      "name": "Decka",
+      "balance": 16.000000000000004,
+      "group": "group1",
+      "hideCoffee": true,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766326945393",
+      "name": "Hamplewski",
+      "balance": -39.40000000000008,
+      "group": "group1",
+      "hideCoffee": true,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766326972775",
+      "name": "Karney",
+      "balance": -31.299999999999997,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1765712146483",
+      "name": "Kehnen",
+      "balance": -287.77,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766326986147",
+      "name": "Lindemann",
+      "balance": 26.700000000000006,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327008591",
+      "name": "Minta",
+      "balance": 36.499999999999986,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1767867851119",
+      "name": "Misera",
+      "balance": -30.500000000000007,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327015295",
+      "name": "Pahlmeyer",
+      "balance": -12.799999999999988,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327022130",
+      "name": "Paul",
+      "balance": 5.999999999999995,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327031695",
+      "name": "Rautenberg",
+      "balance": 10.79999999999998,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327039793",
+      "name": "Roßmöller",
+      "balance": -27.200000000000003,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327045838",
+      "name": "Schmatz",
+      "balance": -10.249999999999993,
+      "group": "group1",
+      "hideCoffee": true,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327053377",
+      "name": "Schomaker",
+      "balance": 65.9,
+      "group": "group1",
+      "hideCoffee": true,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327064713",
+      "name": "Sperlich",
+      "balance": -2.9399999999999977,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327081628",
+      "name": "Szymkowiak",
+      "balance": -6.159999999999997,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1765802513229",
+      "name": "Wenning",
+      "balance": 59.49999999999999,
+      "group": "group1",
+      "hideCoffee": true,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327092532",
+      "name": "Zinser",
+      "balance": 71.5,
+      "group": "group1",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327194735",
+      "name": "Ahlendorf",
+      "balance": 7.5,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327216757",
+      "name": "Boegner",
+      "balance": 0.6000000000000014,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327232955",
+      "name": "Casaccia",
+      "balance": 36.400000000000006,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327241135",
+      "name": "Frisson",
+      "balance": 0,
+      "group": "group2",
+      "hideCoffee": true,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327252898",
+      "name": "Füllgraf",
+      "balance": 77.4,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327258432",
+      "name": "Geue",
+      "balance": 35.8,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327269848",
+      "name": "Groh",
+      "balance": 3.552713678800501e-15,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327278250",
+      "name": "Grüneis",
+      "balance": 8.7,
+      "group": "group2",
+      "hideCoffee": true,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327295869",
+      "name": "Heuser",
+      "balance": 6,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327345067",
+      "name": "Honermann",
+      "balance": 0,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327353947",
+      "name": "Horsten",
+      "balance": 3.3306690738754696e-16,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327359704",
+      "name": "Kahlert",
+      "balance": 2.3999999999999972,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327365944",
+      "name": "Käufer",
+      "balance": 10.999999999999998,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327374592",
+      "name": "Knott",
+      "balance": 7.900000000000002,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327381895",
+      "name": "Kohl",
+      "balance": 5.7,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327391652",
+      "name": "Ludewig",
+      "balance": 22,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327403546",
+      "name": "Röthel",
+      "balance": 20.4,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327409928",
+      "name": "Schmitz",
+      "balance": 7.5,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327418884",
+      "name": "Schumacher",
+      "balance": 23.4,
+      "group": "group2",
+      "hideCoffee": true,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327425896",
+      "name": "Totaro",
+      "balance": 11.3,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327433416",
+      "name": "Weysters",
+      "balance": 0,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327442759",
+      "name": "Wortelkamp",
+      "balance": -10.499999999999998,
+      "group": "group2",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769254287440",
+      "name": "Bartz",
+      "balance": 1.5,
+      "group": "group3",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327474291",
+      "name": "Bertram",
+      "balance": 10,
+      "group": "group3",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327485722",
+      "name": "Bieling",
+      "balance": 0,
+      "group": "group3",
+      "hideCoffee": true,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327507135",
+      "name": "Bitter",
+      "balance": 0,
+      "group": "group3",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327512445",
+      "name": "Böllert",
+      "balance": 1.5,
+      "group": "group3",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773917560842",
+      "name": "Karczewski",
+      "balance": 0,
+      "group": "group3",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1771184342983",
+      "name": "Lara",
+      "balance": 0,
+      "group": "group3",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327495119",
+      "name": "Omraie",
+      "balance": 12,
+      "group": "group3",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1767867232661",
+      "name": "Piorek",
+      "balance": 13.899999999999999,
+      "group": "group3",
+      "hideCoffee": true,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774078692743",
+      "name": "Sandro",
+      "balance": 2.220446049250313e-15,
+      "group": "group3",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327542188",
+      "name": "Tekath",
+      "balance": 0,
+      "group": "group3",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1767867266119",
+      "name": "ÜPL 1",
+      "balance": 0,
+      "group": "group3",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1767867275468",
+      "name": "ÜPL 2",
+      "balance": 0,
+      "group": "group3",
+      "hideCoffee": false,
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327547991",
+      "name": "Urselmann",
+      "balance": 0,
+      "group": "group3",
+      "hideCoffee": true,
+      "userId": "17657062681610.04116636029909582"
+    }
+  ],
+  "products": [
+    {
+      "name": "Brötchen",
+      "price": 1,
+      "stock": 99,
+      "category": "essen",
+      "id": "17658036622130.7886667563431137",
+      "userId": "17658029950100.059270981798738576"
+    },
+    {
+      "name": "Mittagessen",
+      "price": 4.5,
+      "stock": 50,
+      "category": "essen",
+      "id": "17658036622130.9678813153067919",
+      "userId": "17658029950100.059270981798738576"
+    },
+    {
+      "name": "Frühstück ausgegeben",
+      "price": 40,
+      "stock": 50,
+      "category": "essen",
+      "id": "17658036622130.33615915858462553",
+      "userId": "17658029950100.059270981798738576"
+    },
+    {
+      "name": "Kaffee",
+      "price": 1.5,
+      "stock": 100,
+      "category": "essen",
+      "id": "17658036622130.6421817567602501",
+      "userId": "17658029950100.059270981798738576"
+    },
+    {
+      "name": "Ei",
+      "price": 0.3,
+      "stock": 200,
+      "category": "essen",
+      "id": "17658036622130.0781642079426208",
+      "userId": "17658029950100.059270981798738576"
+    },
+    {
+      "name": "Wasser 0,5l",
+      "price": 0.5,
+      "stock": 100,
+      "category": "getränke",
+      "id": "17658036622130.6597561950348432",
+      "userId": "17658029950100.059270981798738576"
+    },
+    {
+      "name": "Cola 0,5l",
+      "price": 1,
+      "stock": 50,
+      "category": "getränke",
+      "id": "17658036622130.5229716566509511",
+      "userId": "17658029950100.059270981798738576"
+    },
+    {
+      "name": "Sirup 0,5l",
+      "price": 0.3,
+      "stock": 50,
+      "category": "getränke",
+      "id": "17658036622130.8331609928549075",
+      "userId": "17658029950100.059270981798738576"
+    },
+    {
+      "name": "Sirup 1l",
+      "price": 0.6,
+      "stock": 50,
+      "category": "getränke",
+      "id": "17658036622130.06254866749879806",
+      "userId": "17658029950100.059270981798738576"
+    },
+    {
+      "name": "Schokoriegel",
+      "price": 1.2,
+      "stock": 200,
+      "category": "süßigkeiten",
+      "id": "17658036622130.18839740261970106",
+      "userId": "17658029950100.059270981798738576"
+    },
+    {
+      "name": "Gummibärchen",
+      "price": 0.8,
+      "stock": 150,
+      "category": "süßigkeiten",
+      "id": "17658036622130.6511548191992521",
+      "userId": "17658029950100.059270981798738576"
+    },
+    {
+      "name": "Chips",
+      "price": 1.5,
+      "stock": 100,
+      "category": "snacks",
+      "id": "17658036622130.40306662845215446",
+      "userId": "17658029950100.059270981798738576"
+    },
+    {
+      "name": "Nüsse",
+      "price": 2,
+      "stock": 80,
+      "category": "snacks",
+      "id": "17658036622130.048827863245276326",
+      "userId": "17658029950100.059270981798738576"
+    },
+    {
+      "name": "Sonstiges 5€",
+      "price": 5,
+      "stock": 100,
+      "category": "sonstige",
+      "id": "17658036622130.6461680895805862",
+      "userId": "17658029950100.059270981798738576"
+    },
+    {
+      "name": "Sonstiges 10€",
+      "price": 10,
+      "stock": 100,
+      "category": "sonstige",
+      "id": "17658036622130.7796735086235775",
+      "userId": "17658029950100.059270981798738576"
+    },
+    {
+      "name": "Brötchen",
+      "price": 1,
+      "stock": 100,
+      "category": "essen",
+      "id": "17658058542170.050208328347610354",
+      "userId": "17658050842420.5272256882194837"
+    },
+    {
+      "name": "Mittagessen",
+      "price": 4.5,
+      "stock": 50,
+      "category": "essen",
+      "id": "17658058542170.688938333808029",
+      "userId": "17658050842420.5272256882194837"
+    },
+    {
+      "name": "Frühstück ausgegeben",
+      "price": 40,
+      "stock": 50,
+      "category": "essen",
+      "id": "17658058542170.8863749943795233",
+      "userId": "17658050842420.5272256882194837"
+    },
+    {
+      "name": "Kaffee",
+      "price": 1.5,
+      "stock": 100,
+      "category": "essen",
+      "id": "17658058542170.5124639056298808",
+      "userId": "17658050842420.5272256882194837"
+    },
+    {
+      "name": "Ei",
+      "price": 0.3,
+      "stock": 200,
+      "category": "essen",
+      "id": "17658058542170.015588925286004085",
+      "userId": "17658050842420.5272256882194837"
+    },
+    {
+      "name": "Wasser 0,5l",
+      "price": 0.5,
+      "stock": 100,
+      "category": "getränke",
+      "id": "17658058542170.1389576957436437",
+      "userId": "17658050842420.5272256882194837"
+    },
+    {
+      "name": "Cola 0,5l",
+      "price": 1,
+      "stock": 50,
+      "category": "getränke",
+      "id": "17658058542170.31317155820405673",
+      "userId": "17658050842420.5272256882194837"
+    },
+    {
+      "name": "Sirup 0,5l",
+      "price": 0.3,
+      "stock": 50,
+      "category": "getränke",
+      "id": "17658058542170.2814691344699163",
+      "userId": "17658050842420.5272256882194837"
+    },
+    {
+      "name": "Sirup 1l",
+      "price": 0.6,
+      "stock": 50,
+      "category": "getränke",
+      "id": "17658058542170.6840502877016232",
+      "userId": "17658050842420.5272256882194837"
+    },
+    {
+      "name": "Schokoriegel",
+      "price": 1.2,
+      "stock": 200,
+      "category": "süßigkeiten",
+      "id": "17658058542170.6065170151841119",
+      "userId": "17658050842420.5272256882194837"
+    },
+    {
+      "name": "Gummibärchen",
+      "price": 0.8,
+      "stock": 150,
+      "category": "süßigkeiten",
+      "id": "17658058542170.6142462088728194",
+      "userId": "17658050842420.5272256882194837"
+    },
+    {
+      "name": "Chips",
+      "price": 1.5,
+      "stock": 100,
+      "category": "snacks",
+      "id": "17658058542170.8151559638017937",
+      "userId": "17658050842420.5272256882194837"
+    },
+    {
+      "name": "Nüsse",
+      "price": 2,
+      "stock": 80,
+      "category": "snacks",
+      "id": "17658058542170.15602355188500516",
+      "userId": "17658050842420.5272256882194837"
+    },
+    {
+      "name": "Sonstiges 5€",
+      "price": 5,
+      "stock": 100,
+      "category": "sonstige",
+      "id": "17658058542170.09191809634044368",
+      "userId": "17658050842420.5272256882194837"
+    },
+    {
+      "name": "Sonstiges 10€",
+      "price": 10,
+      "stock": 100,
+      "category": "sonstige",
+      "id": "17658058542170.13811708389656763",
+      "userId": "17658050842420.5272256882194837"
+    },
+    {
+      "name": "Mittagessen",
+      "price": 6,
+      "stock": 0,
+      "category": "essen",
+      "id": "17657062883240.6299508239748268",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "name": "Frühstück ausgegeben",
+      "price": 40,
+      "stock": 44,
+      "category": "essen",
+      "id": "17657062883240.08052535149051021",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "name": "Kaffee",
+      "price": 1.5,
+      "stock": 0,
+      "category": "essen",
+      "id": "17657062883240.5907024307546647",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "name": "Wasser",
+      "price": 0.6,
+      "stock": 72,
+      "category": "getränke",
+      "id": "17657062883240.42273806762710353",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "name": "Dose",
+      "price": 0.8,
+      "stock": 0,
+      "category": "getränke",
+      "id": "17657062883240.8397982334676068",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "name": "Sirup 0,5l",
+      "price": 0.3,
+      "stock": 48,
+      "category": "getränke",
+      "id": "17657062883240.3919862353302749",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "name": "Sirup 1l",
+      "price": 0.6,
+      "stock": 34,
+      "category": "getränke",
+      "id": "17657062883240.6012872659077784",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "name": "Kinderriegel/Duplo",
+      "price": 0.4,
+      "stock": 0,
+      "category": "süßigkeiten",
+      "id": "17657062883240.15657017641983895",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "name": "Gummibärchen",
+      "price": 0.8,
+      "stock": 147,
+      "category": "süßigkeiten",
+      "id": "17657062883240.7604380190992254",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "name": "Chips",
+      "price": 1.5,
+      "stock": 100,
+      "category": "snacks",
+      "id": "17657062883240.4887060633105381",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "name": "Nüsse",
+      "price": 1.5,
+      "stock": 80,
+      "category": "snacks",
+      "id": "17657062883240.08940013187649754",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "name": "Sonstiges 5€",
+      "price": 5,
+      "stock": 100,
+      "category": "sonstige",
+      "id": "17657062883240.8050584373436379",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "name": "Sonstiges 10€",
+      "price": 10,
+      "stock": 39,
+      "category": "sonstige",
+      "id": "17657062883240.24522255651420433",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327694360",
+      "name": "1 Weingummi",
+      "price": 0.1,
+      "stock": 0,
+      "category": "süßigkeiten",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327828927",
+      "name": "Eis",
+      "price": 0.8,
+      "stock": 99,
+      "category": "süßigkeiten",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327896796",
+      "name": "Cola/Fanta/Sprite/Schorle",
+      "price": 1.5,
+      "stock": 48,
+      "category": "getränke",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766327960419",
+      "name": "Mars/Snickers/KitKat",
+      "price": 0.8,
+      "stock": 79,
+      "category": "süßigkeiten",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766328008036",
+      "name": "Sonstiges 1€",
+      "price": 1,
+      "stock": 0,
+      "category": "sonstige",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766328072883",
+      "name": "Hanuta",
+      "price": 0.8,
+      "stock": 100,
+      "category": "süßigkeiten",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1768415587184",
+      "name": "Frühstück",
+      "price": 3,
+      "stock": 0,
+      "category": "essen",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1768415767249",
+      "name": "Kinderriegel klein",
+      "price": 0.2,
+      "stock": 0,
+      "category": "süßigkeiten",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1768415853513",
+      "name": "Abendpauschale",
+      "price": 2,
+      "stock": 0,
+      "category": "essen",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1768416366219",
+      "name": "Ei",
+      "price": 0.3,
+      "stock": 0,
+      "category": "essen",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769931336498",
+      "name": "Milchschnitte",
+      "price": 0.4,
+      "stock": 15,
+      "category": "snacks",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "name": "Frühstück",
+      "price": 2.5,
+      "stock": 0,
+      "category": "essen",
+      "id": "17657946219350.9103392691971582",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "name": "Mittagessen",
+      "price": 6,
+      "stock": 0,
+      "category": "essen",
+      "id": "17657946219350.10210836026802483",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "name": "Frühstück ausgegeben",
+      "price": 30,
+      "stock": 0,
+      "category": "essen",
+      "id": "17657946219350.574514672267738",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "name": "Kaffee",
+      "price": 1.5,
+      "stock": 0,
+      "category": "getränke",
+      "id": "17657946219350.5866638566940043",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "name": "Wasser 0,75l",
+      "price": 0.4,
+      "stock": 0,
+      "category": "getränke",
+      "id": "17657946219350.2632216402736717",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "name": "Softgetränk 0,5l",
+      "price": 1.2,
+      "stock": 0,
+      "category": "getränke",
+      "id": "17657946219350.730619671491713",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "name": "Schokoriegel",
+      "price": 0.7,
+      "stock": 0,
+      "category": "süßigkeiten",
+      "id": "17657946219350.7232673587371727",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "name": "Gummibärchen 3Stk.",
+      "price": 0.15,
+      "stock": 0,
+      "category": "süßigkeiten",
+      "id": "17657946219350.15105826671034006",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "name": "Nic Nacs",
+      "price": 1.5,
+      "stock": 0,
+      "category": "snacks",
+      "id": "17657946219350.0341376027106145",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765964178256",
+      "name": "Salzstangen / Nüsse",
+      "price": 0.7,
+      "stock": 0,
+      "category": "essen",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765964204505",
+      "name": "Kakao",
+      "price": 1,
+      "stock": 0,
+      "category": "getränke",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1765964279462",
+      "name": "Eis",
+      "price": 0.7,
+      "stock": 0,
+      "category": "essen",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1767346914368",
+      "name": "Kinderriegel/Duplo/Country",
+      "price": 0.3,
+      "stock": 0,
+      "category": "süßigkeiten",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1769420877176",
+      "name": "Protein Riegel",
+      "price": 1,
+      "stock": 0,
+      "category": "essen",
+      "userId": "17657945223510.668209242825248"
+    }
+  ],
+  "transactions": [
+    {
+      "id": "1776158830330",
+      "employeeId": "1766327495119",
+      "employeeName": "Omraie",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -12,
+      "timestamp": "2026-04-14T09:27:10.330Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158829145",
+      "employeeId": "1766327512445",
+      "employeeName": "Böllert",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -1.5,
+      "timestamp": "2026-04-14T09:27:09.145Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158827125",
+      "employeeId": "1766327474291",
+      "employeeName": "Bertram",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -10,
+      "timestamp": "2026-04-14T09:27:07.125Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158826052",
+      "employeeId": "1769254287440",
+      "employeeName": "Bartz",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -1.5,
+      "timestamp": "2026-04-14T09:27:06.052Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158824025",
+      "employeeId": "1766327425896",
+      "employeeName": "Totaro",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -11.3,
+      "timestamp": "2026-04-14T09:27:04.025Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158822907",
+      "employeeId": "1766327418884",
+      "employeeName": "Schumacher",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -23.4,
+      "timestamp": "2026-04-14T09:27:02.907Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158821881",
+      "employeeId": "1766327409928",
+      "employeeName": "Schmitz",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -7.5,
+      "timestamp": "2026-04-14T09:27:01.881Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158820810",
+      "employeeId": "1766327403546",
+      "employeeName": "Röthel",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -20.4,
+      "timestamp": "2026-04-14T09:27:00.810Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158819705",
+      "employeeId": "1766327391652",
+      "employeeName": "Ludewig",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -22,
+      "timestamp": "2026-04-14T09:26:59.705Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158817773",
+      "employeeId": "1766327381895",
+      "employeeName": "Kohl",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -5.7,
+      "timestamp": "2026-04-14T09:26:57.773Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158816671",
+      "employeeId": "1766327374592",
+      "employeeName": "Knott",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -7.9,
+      "timestamp": "2026-04-14T09:26:56.672Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158815512",
+      "employeeId": "1766327365944",
+      "employeeName": "Käufer",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -11,
+      "timestamp": "2026-04-14T09:26:55.512Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158814387",
+      "employeeId": "1766327359704",
+      "employeeName": "Kahlert",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -11.3,
+      "timestamp": "2026-04-14T09:26:54.387Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158812122",
+      "employeeId": "1766327295869",
+      "employeeName": "Heuser",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -6,
+      "timestamp": "2026-04-14T09:26:52.122Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158810938",
+      "employeeId": "1766327278250",
+      "employeeName": "Grüneis",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -8.7,
+      "timestamp": "2026-04-14T09:26:50.938Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158808586",
+      "employeeId": "1766327258432",
+      "employeeName": "Geue",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -35.8,
+      "timestamp": "2026-04-14T09:26:48.586Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158807432",
+      "employeeId": "1766327252898",
+      "employeeName": "Füllgraf",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -77.4,
+      "timestamp": "2026-04-14T09:26:47.432Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158805013",
+      "employeeId": "1766327232955",
+      "employeeName": "Casaccia",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -36.4,
+      "timestamp": "2026-04-14T09:26:45.013Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158804013",
+      "employeeId": "1766327216757",
+      "employeeName": "Boegner",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -0.6,
+      "timestamp": "2026-04-14T09:26:44.013Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158803009",
+      "employeeId": "1766327194735",
+      "employeeName": "Ahlendorf",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -7.5,
+      "timestamp": "2026-04-14T09:26:43.009Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158800815",
+      "employeeId": "1766327092532",
+      "employeeName": "Zinser",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -71.5,
+      "timestamp": "2026-04-14T09:26:40.815Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158798931",
+      "employeeId": "1765802513229",
+      "employeeName": "Wenning",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -59.5,
+      "timestamp": "2026-04-14T09:26:38.931Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158797709",
+      "employeeId": "1766327081628",
+      "employeeName": "Szymkowiak",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -14.5,
+      "timestamp": "2026-04-14T09:26:37.709Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158796581",
+      "employeeId": "1766327064713",
+      "employeeName": "Sperlich",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": 2.94,
+      "timestamp": "2026-04-14T09:26:36.581Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158795446",
+      "employeeId": "1766327053377",
+      "employeeName": "Schomaker",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -65.9,
+      "timestamp": "2026-04-14T09:26:35.447Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158790311",
+      "employeeId": "1766327045838",
+      "employeeName": "Schmatz",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": 10.25,
+      "timestamp": "2026-04-14T09:26:30.311Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158788803",
+      "employeeId": "1766327039793",
+      "employeeName": "Roßmöller",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -10,
+      "timestamp": "2026-04-14T09:26:28.803Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158787380",
+      "employeeId": "1766327031695",
+      "employeeName": "Rautenberg",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -10.8,
+      "timestamp": "2026-04-14T09:26:27.380Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158786010",
+      "employeeId": "1766327022130",
+      "employeeName": "Paul",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -6,
+      "timestamp": "2026-04-14T09:26:26.010Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158784746",
+      "employeeId": "1766327015295",
+      "employeeName": "Pahlmeyer",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -10.5,
+      "timestamp": "2026-04-14T09:26:24.746Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158783426",
+      "employeeId": "1767867851119",
+      "employeeName": "Misera",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -61.9,
+      "timestamp": "2026-04-14T09:26:23.426Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158781076",
+      "employeeId": "1766327008591",
+      "employeeName": "Minta",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -37.4,
+      "timestamp": "2026-04-14T09:26:21.076Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158779720",
+      "employeeId": "1766326986147",
+      "employeeName": "Lindemann",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -59,
+      "timestamp": "2026-04-14T09:26:19.720Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158778407",
+      "employeeId": "1765712146483",
+      "employeeName": "Kehnen",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": 287.77,
+      "timestamp": "2026-04-14T09:26:18.407Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158777089",
+      "employeeId": "1766326972775",
+      "employeeName": "Karney",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -33.3,
+      "timestamp": "2026-04-14T09:26:17.089Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158775743",
+      "employeeId": "1766326945393",
+      "employeeName": "Hamplewski",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -10,
+      "timestamp": "2026-04-14T09:26:15.743Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158774423",
+      "employeeId": "1766326929777",
+      "employeeName": "Decka",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -16,
+      "timestamp": "2026-04-14T09:26:14.424Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158773201",
+      "employeeId": "1766326921465",
+      "employeeName": "Büllesfeld",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -61.6,
+      "timestamp": "2026-04-14T09:26:13.201Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158771790",
+      "employeeId": "1766326906727",
+      "employeeName": "Brönner",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -26.87,
+      "timestamp": "2026-04-14T09:26:11.790Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158770504",
+      "employeeId": "1766326897200",
+      "employeeName": "Braun",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -16,
+      "timestamp": "2026-04-14T09:26:10.504Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158768607",
+      "employeeId": "1766326888873",
+      "employeeName": "Barth",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -20,
+      "timestamp": "2026-04-14T09:26:08.608Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1775300266843",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -33.5,
+      "quantity": 1,
+      "timestamp": "2026-04-04T10:57:46.843Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774808742129",
+      "employeeId": "1766327542188",
+      "employeeName": "Tekath",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -3,
+      "timestamp": "2026-03-29T18:25:42.129Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774808731026",
+      "employeeId": "1766327507135",
+      "employeeName": "Bitter",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -6,
+      "timestamp": "2026-03-29T18:25:31.027Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774808724559",
+      "employeeId": "1766327345067",
+      "employeeName": "Honermann",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -7.5,
+      "timestamp": "2026-03-29T18:25:24.559Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774808704044",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -65,
+      "timestamp": "2026-03-29T18:25:04.044Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774772681824",
+      "employeeId": "1766327507135",
+      "employeeName": "Bitter",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-03-29T08:24:41.824Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774772569754",
+      "employeeId": "1766327345067",
+      "employeeName": "Honermann",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-03-29T08:22:49.754Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774772566799",
+      "employeeId": "1766327345067",
+      "employeeName": "Honermann",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-03-29T08:22:46.799Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774772492295",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-03-29T08:21:32.295Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774772488220",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-03-29T08:21:28.220Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774772058594",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "manual",
+      "productName": "Frühstück Ausstand ",
+      "price": 50,
+      "quantity": 1,
+      "timestamp": "2026-03-29T08:14:18.594Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774675406152",
+      "employeeId": "1767867266119",
+      "employeeName": "ÜPL 1",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -9,
+      "timestamp": "2026-03-28T05:23:26.152Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774675379232",
+      "employeeId": "1767867266119",
+      "employeeName": "ÜPL 1",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-03-28T05:22:59.232Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774675220688",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-03-28T05:20:20.688Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774675218563",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-03-28T05:20:18.563Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774639309706",
+      "employeeId": "1767867266119",
+      "employeeName": "ÜPL 1",
+      "productId": "1766327896796",
+      "productName": "Cola/Fanta/Sprite/Schorle",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-03-27T19:21:49.706Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774601790924",
+      "employeeId": "1767867266119",
+      "employeeName": "ÜPL 1",
+      "productId": "1766327896796",
+      "productName": "Cola/Fanta/Sprite/Schorle",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-03-27T08:56:30.924Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774120402572",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -54.5,
+      "timestamp": "2026-03-21T19:13:22.572Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774120164547",
+      "employeeId": "1774078692743",
+      "employeeName": "Sandro",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -15.1,
+      "timestamp": "2026-03-21T19:09:24.547Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774120067958",
+      "employeeId": "1773917560842",
+      "employeeName": "Karczewski",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -9.3,
+      "timestamp": "2026-03-21T19:07:47.958Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774120048923",
+      "employeeId": "1766327269848",
+      "employeeName": "Groh",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -38,
+      "timestamp": "2026-03-21T19:07:28.923Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774119626203",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "1768415587184",
+      "productName": "Frühstück",
+      "price": 3,
+      "quantity": 1,
+      "timestamp": "2026-03-21T19:00:26.203Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774119605639",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-03-21T19:00:05.639Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774119602430",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-03-21T19:00:02.430Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774119598587",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "1768415587184",
+      "productName": "Frühstück",
+      "price": 3,
+      "quantity": 1,
+      "timestamp": "2026-03-21T18:59:58.587Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774119380383",
+      "employeeId": "1766327269848",
+      "employeeName": "Groh",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-03-21T18:56:20.383Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774119377269",
+      "employeeId": "1766327269848",
+      "employeeName": "Groh",
+      "productId": "1768415587184",
+      "productName": "Frühstück",
+      "price": 3,
+      "quantity": 1,
+      "timestamp": "2026-03-21T18:56:17.269Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774118092853",
+      "employeeId": "1774078692743",
+      "employeeName": "Sandro",
+      "productId": "17657062883240.8397982334676068",
+      "productName": "Dose",
+      "price": 0.8,
+      "quantity": 1,
+      "timestamp": "2026-03-21T18:34:52.853Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774107757196",
+      "employeeId": "1766327269848",
+      "employeeName": "Groh",
+      "productId": "17657062883240.15657017641983895",
+      "productName": "Kinderriegel/Duplo",
+      "price": 0.8,
+      "quantity": 2,
+      "timestamp": "2026-03-21T15:42:37.197Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774103683984",
+      "employeeId": "1774078692743",
+      "employeeName": "Sandro",
+      "productId": "1766327960419",
+      "productName": "Mars/Snickers/KitKat",
+      "price": 0.8,
+      "quantity": 1,
+      "timestamp": "2026-03-21T14:34:43.984Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774103651846",
+      "employeeId": "1774078692743",
+      "employeeName": "Sandro",
+      "productId": "1766327960419",
+      "productName": "Mars/Snickers/KitKat",
+      "price": 0.8,
+      "quantity": 1,
+      "timestamp": "2026-03-21T14:34:11.846Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774094654032",
+      "employeeId": "1774078692743",
+      "employeeName": "Sandro",
+      "productId": "17657062883240.8397982334676068",
+      "productName": "Dose",
+      "price": 1.6,
+      "quantity": 2,
+      "timestamp": "2026-03-21T12:04:14.032Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774079547180",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-03-21T07:52:27.180Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774079545713",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-03-21T07:52:25.713Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774079494381",
+      "employeeId": "1766327269848",
+      "employeeName": "Groh",
+      "productId": "1768416366219",
+      "productName": "Ei",
+      "price": 0.6,
+      "quantity": 2,
+      "timestamp": "2026-03-21T07:51:34.381Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774079490715",
+      "employeeId": "1766327269848",
+      "employeeName": "Groh",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-03-21T07:51:30.715Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774079489064",
+      "employeeId": "1766327269848",
+      "employeeName": "Groh",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-03-21T07:51:29.064Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774079464423",
+      "employeeId": "1773917560842",
+      "employeeName": "Karczewski",
+      "productId": "1768416366219",
+      "productName": "Ei",
+      "price": 0.3,
+      "quantity": 1,
+      "timestamp": "2026-03-21T07:51:04.423Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774079462605",
+      "employeeId": "1773917560842",
+      "employeeName": "Karczewski",
+      "productId": "1768415587184",
+      "productName": "Frühstück",
+      "price": 3,
+      "quantity": 1,
+      "timestamp": "2026-03-21T07:51:02.605Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774079457113",
+      "employeeId": "1773917560842",
+      "employeeName": "Karczewski",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-03-21T07:50:57.113Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774079376741",
+      "employeeId": "1774078692743",
+      "employeeName": "Sandro",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-03-21T07:49:36.741Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774079367456",
+      "employeeId": "1774078692743",
+      "employeeName": "Sandro",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-03-21T07:49:27.456Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774079363165",
+      "employeeId": "1774078692743",
+      "employeeName": "Sandro",
+      "productId": "1768416366219",
+      "productName": "Ei",
+      "price": 0.6,
+      "quantity": 2,
+      "timestamp": "2026-03-21T07:49:23.165Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1774079350099",
+      "employeeId": "1774078692743",
+      "employeeName": "Sandro",
+      "productId": "1768415587184",
+      "productName": "Frühstück",
+      "price": 3,
+      "quantity": 1,
+      "timestamp": "2026-03-21T07:49:10.099Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773987695018",
+      "employeeId": "1773917517558",
+      "employeeName": "Schunke",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -11.6,
+      "timestamp": "2026-03-20T06:21:35.019Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773987689621",
+      "employeeId": "1773917541919",
+      "employeeName": "Pfahler",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -11.8,
+      "timestamp": "2026-03-20T06:21:29.621Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773987681807",
+      "employeeId": "1773917560842",
+      "employeeName": "Karczewski",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -11.6,
+      "timestamp": "2026-03-20T06:21:21.807Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773950174970",
+      "employeeId": "1773917541919",
+      "employeeName": "Pfahler",
+      "productId": "1766327694360",
+      "productName": "1 Weingummi",
+      "price": 0.1,
+      "quantity": 1,
+      "timestamp": "2026-03-19T19:56:14.970Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773950111697",
+      "employeeId": "1773917541919",
+      "employeeName": "Pfahler",
+      "productId": "1766327694360",
+      "productName": "1 Weingummi",
+      "price": 0.30000000000000004,
+      "quantity": 3,
+      "timestamp": "2026-03-19T19:55:11.697Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773950064863",
+      "employeeId": "1773917560842",
+      "employeeName": "Karczewski",
+      "productId": "1768415587184",
+      "productName": "Frühstück",
+      "price": 3,
+      "quantity": 1,
+      "timestamp": "2026-03-19T19:54:24.863Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773949951944",
+      "employeeId": "1773917560842",
+      "employeeName": "Karczewski",
+      "productId": "1766327960419",
+      "productName": "Mars/Snickers/KitKat",
+      "price": 0.8,
+      "quantity": 1,
+      "timestamp": "2026-03-19T19:52:31.944Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773948863694",
+      "employeeId": "1773917541919",
+      "employeeName": "Pfahler",
+      "productId": "1766327960419",
+      "productName": "Mars/Snickers/KitKat",
+      "price": 0.8,
+      "quantity": 1,
+      "timestamp": "2026-03-19T19:34:23.694Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773945574212",
+      "employeeId": "1773917541919",
+      "employeeName": "Pfahler",
+      "productId": "1766327694360",
+      "productName": "1 Weingummi",
+      "price": 0.1,
+      "quantity": 1,
+      "timestamp": "2026-03-19T18:39:34.212Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773944592159",
+      "employeeId": "1773917541919",
+      "employeeName": "Pfahler",
+      "productId": "17657062883240.15657017641983895",
+      "productName": "Kinderriegel/Duplo",
+      "price": 0.4,
+      "quantity": 1,
+      "timestamp": "2026-03-19T18:23:12.159Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773944549863",
+      "employeeId": "1766327269848",
+      "employeeName": "Groh",
+      "productId": "1766327896796",
+      "productName": "Cola/Fanta/Sprite/Schorle",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-03-19T18:22:29.863Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773934078103",
+      "employeeId": "1773917541919",
+      "employeeName": "Pfahler",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-03-19T15:27:58.104Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773920481405",
+      "employeeId": "1773917541919",
+      "employeeName": "Pfahler",
+      "productId": "1766327960419",
+      "productName": "Mars/Snickers/KitKat",
+      "price": 0.8,
+      "quantity": 1,
+      "timestamp": "2026-03-19T11:41:21.405Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773920470342",
+      "employeeId": "1773917517558",
+      "employeeName": "Schunke",
+      "productId": "1766327960419",
+      "productName": "Mars/Snickers/KitKat",
+      "price": 0.8,
+      "quantity": 1,
+      "timestamp": "2026-03-19T11:41:10.343Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773918734008",
+      "employeeId": "1766327485722",
+      "employeeName": "Bieling",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -21,
+      "timestamp": "2026-03-19T11:12:14.008Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773918172795",
+      "employeeId": "1766327269848",
+      "employeeName": "Groh",
+      "productId": "1768416366219",
+      "productName": "Ei",
+      "price": 0.6,
+      "quantity": 2,
+      "timestamp": "2026-03-19T11:02:52.795Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773918170516",
+      "employeeId": "1766327269848",
+      "employeeName": "Groh",
+      "productId": "1768415587184",
+      "productName": "Frühstück",
+      "price": 3,
+      "quantity": 1,
+      "timestamp": "2026-03-19T11:02:50.516Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773918168630",
+      "employeeId": "1766327269848",
+      "employeeName": "Groh",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-03-19T11:02:48.630Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773918098594",
+      "employeeId": "1766327485722",
+      "employeeName": "Bieling",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-03-19T11:01:38.594Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773917763152",
+      "employeeId": "1773917517558",
+      "employeeName": "Schunke",
+      "productId": "1768416366219",
+      "productName": "Ei",
+      "price": 0.3,
+      "quantity": 1,
+      "timestamp": "2026-03-19T10:56:03.152Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773917748078",
+      "employeeId": "1773917560842",
+      "employeeName": "Karczewski",
+      "productId": "1768416366219",
+      "productName": "Ei",
+      "price": 0.3,
+      "quantity": 1,
+      "timestamp": "2026-03-19T10:55:48.078Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773917714175",
+      "employeeId": "1773917541919",
+      "employeeName": "Pfahler",
+      "productId": "1768415587184",
+      "productName": "Frühstück",
+      "price": 3,
+      "quantity": 1,
+      "timestamp": "2026-03-19T10:55:14.175Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773917706879",
+      "employeeId": "1773917541919",
+      "employeeName": "Pfahler",
+      "productId": "1768416366219",
+      "productName": "Ei",
+      "price": 0.3,
+      "quantity": 1,
+      "timestamp": "2026-03-19T10:55:06.879Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773917670476",
+      "employeeId": "1773917560842",
+      "employeeName": "Karczewski",
+      "productId": "1766327896796",
+      "productName": "Cola/Fanta/Sprite/Schorle",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-03-19T10:54:30.476Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773917662460",
+      "employeeId": "1773917560842",
+      "employeeName": "Karczewski",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-03-19T10:54:22.460Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773917627863",
+      "employeeId": "1773917517558",
+      "employeeName": "Schunke",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-03-19T10:53:47.863Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773917618162",
+      "employeeId": "1773917517558",
+      "employeeName": "Schunke",
+      "productId": "1768415587184",
+      "productName": "Frühstück",
+      "price": 3,
+      "quantity": 1,
+      "timestamp": "2026-03-19T10:53:38.162Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773917613925",
+      "employeeId": "1773917517558",
+      "employeeName": "Schunke",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-03-19T10:53:33.925Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773413677720",
+      "employeeId": "1766327507135",
+      "employeeName": "Bitter",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -15,
+      "timestamp": "2026-03-13T14:54:37.720Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773413464628",
+      "employeeId": "1766327433416",
+      "employeeName": "Weysters",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -5,
+      "timestamp": "2026-03-13T14:51:04.628Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773400107055",
+      "employeeId": "1766327433416",
+      "employeeName": "Weysters",
+      "productId": "17657062883240.8397982334676068",
+      "productName": "Dose",
+      "price": 0.8,
+      "quantity": 1,
+      "timestamp": "2026-03-13T11:08:27.055Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773387642153",
+      "employeeId": "1766327433416",
+      "employeeName": "Weysters",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-03-13T07:40:42.153Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1773255612466",
+      "employeeId": "1766327507135",
+      "employeeName": "Bitter",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-03-11T19:00:12.466Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1772566056826",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -21.299999999999997,
+      "timestamp": "2026-03-03T19:27:36.826Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1772565884014",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-03-03T19:24:44.014Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1772565419426",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "manual",
+      "productName": "Kaffee",
+      "price": -1.5,
+      "quantity": 1,
+      "timestamp": "2026-03-03T19:16:59.426Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1772565364683",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "1768415587184",
+      "productName": "Frühstück",
+      "price": 3,
+      "quantity": 1,
+      "timestamp": "2026-03-03T19:16:04.683Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1772565362565",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-03-03T19:16:02.565Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1772565361022",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-03-03T19:16:01.022Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1772536628666",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "17657062883240.8397982334676068",
+      "productName": "Dose",
+      "price": 0.8,
+      "quantity": 1,
+      "timestamp": "2026-03-03T11:17:08.666Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1772029420827",
+      "employeeId": "1766327059791",
+      "employeeName": "Spelleken",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -74.78999999999999,
+      "timestamp": "2026-02-25T14:23:40.828Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1772029018533",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "17657062883240.24522255651420433",
+      "productName": "Sonstiges 10€",
+      "price": 10,
+      "quantity": 1,
+      "timestamp": "2026-02-25T14:16:58.533Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1772028798684",
+      "employeeId": "1766327059791",
+      "employeeName": "Spelleken",
+      "productId": "manual",
+      "productName": "Pulled pork",
+      "price": 49.79,
+      "quantity": 1,
+      "timestamp": "2026-02-25T14:13:18.684Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1772028600952",
+      "employeeId": "1766327059791",
+      "employeeName": "Spelleken",
+      "productId": "manual",
+      "productName": "Frühstück ",
+      "price": 25,
+      "quantity": 1,
+      "timestamp": "2026-02-25T14:10:00.952Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1771873403736",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "1766327694360",
+      "productName": "1 Weingummi",
+      "price": 0.30000000000000004,
+      "quantity": 3,
+      "timestamp": "2026-02-23T19:03:23.736Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1771858449359",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "17657062883240.15657017641983895",
+      "productName": "Kinderriegel/Duplo",
+      "price": 0.4,
+      "quantity": 1,
+      "timestamp": "2026-02-23T14:54:09.359Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1771852900133",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "17657062883240.8397982334676068",
+      "productName": "Dose",
+      "price": 0.8,
+      "quantity": 1,
+      "timestamp": "2026-02-23T13:21:40.133Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1771833055298",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "1768415587184",
+      "productName": "Frühstück",
+      "price": 3,
+      "quantity": 1,
+      "timestamp": "2026-02-23T07:50:55.298Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1771354805011",
+      "employeeId": "1766327059791",
+      "employeeName": "Spelleken",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -28,
+      "timestamp": "2026-02-17T19:00:05.011Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1771354549378",
+      "employeeId": "1771184342983",
+      "employeeName": "Lara",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -6,
+      "timestamp": "2026-02-17T18:55:49.378Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1771341613349",
+      "employeeId": "1766327059791",
+      "employeeName": "Spelleken",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-02-17T15:20:13.349Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1771341257592",
+      "employeeId": "1766327059791",
+      "employeeName": "Spelleken",
+      "productId": "17657062883240.24522255651420433",
+      "productName": "Sonstiges 10€",
+      "price": 10,
+      "quantity": 1,
+      "timestamp": "2026-02-17T15:14:17.592Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1771341127377",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "17657062883240.24522255651420433",
+      "productName": "Sonstiges 10€",
+      "price": 10,
+      "quantity": 1,
+      "timestamp": "2026-02-17T15:12:07.377Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1771184372059",
+      "employeeId": "1771184342983",
+      "employeeName": "Lara",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-02-15T19:39:32.059Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1770664716411",
+      "employeeId": "1766327353947",
+      "employeeName": "Horsten",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -0.6,
+      "timestamp": "2026-02-09T19:18:36.411Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1770661506948",
+      "employeeId": "1766327353947",
+      "employeeName": "Horsten",
+      "productId": "17657062883240.42273806762710353",
+      "productName": "Wasser",
+      "price": 0.6,
+      "quantity": 1,
+      "timestamp": "2026-02-09T18:25:06.948Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1770649892987",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "1769931336498",
+      "productName": "Milchschnitte",
+      "price": 0.4,
+      "quantity": 1,
+      "timestamp": "2026-02-09T15:11:32.987Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1770645028040",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "17657062883240.15657017641983895",
+      "productName": "Kinderriegel/Duplo",
+      "price": 0.4,
+      "quantity": 1,
+      "timestamp": "2026-02-09T13:50:28.040Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1770625314648",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "1768415587184",
+      "productName": "Frühstück",
+      "price": 3,
+      "quantity": 1,
+      "timestamp": "2026-02-09T08:21:54.648Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1770625312902",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-02-09T08:21:52.902Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1770449740465",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-02-07T07:35:40.465Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769968017033",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "1768415767249",
+      "productName": "Kinderriegel klein",
+      "price": 0.2,
+      "quantity": 1,
+      "timestamp": "2026-02-01T17:46:57.033Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769963078583",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -9.500000000000005,
+      "timestamp": "2026-02-01T16:24:38.583Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769962982966",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "17657062883240.8397982334676068",
+      "productName": "Dose",
+      "price": 0.8,
+      "quantity": 1,
+      "timestamp": "2026-02-01T16:23:02.966Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769962977060",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-02-01T16:22:57.060Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769962972252",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-02-01T16:22:52.252Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769962812187",
+      "employeeId": "1766327059791",
+      "employeeName": "Spelleken",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-02-01T16:20:12.187Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769956115048",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "1769931336498",
+      "productName": "Milchschnitte",
+      "price": 0.4,
+      "quantity": 1,
+      "timestamp": "2026-02-01T14:28:35.048Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769956107876",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "17657062883240.8397982334676068",
+      "productName": "Dose",
+      "price": 0.8,
+      "quantity": 1,
+      "timestamp": "2026-02-01T14:28:27.876Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769771397546",
+      "employeeId": "1766327059791",
+      "employeeName": "Spelleken",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-01-30T11:09:57.546Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769278761695",
+      "employeeId": "1766327353947",
+      "employeeName": "Horsten",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -11.1,
+      "timestamp": "2026-01-24T18:19:21.695Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769278671771",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -11.7,
+      "timestamp": "2026-01-24T18:17:51.771Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769278659392",
+      "employeeId": "1766327059791",
+      "employeeName": "Spelleken",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -6,
+      "timestamp": "2026-01-24T18:17:39.392Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769274149989",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "17657062883240.8397982334676068",
+      "productName": "Dose",
+      "price": 0.8,
+      "quantity": 1,
+      "timestamp": "2026-01-24T17:02:29.989Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769261131097",
+      "employeeId": "1766327442759",
+      "employeeName": "Wortelkamp",
+      "productId": "1766327694360",
+      "productName": "1 Weingummi",
+      "price": 0.4,
+      "quantity": 4,
+      "timestamp": "2026-01-24T13:25:31.097Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769253985410",
+      "employeeId": "1766327059791",
+      "employeeName": "Spelleken",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-01-24T11:26:25.410Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769253712027",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "1768415587184",
+      "productName": "Frühstück",
+      "price": 3,
+      "quantity": 1,
+      "timestamp": "2026-01-24T11:21:52.027Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769253556297",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-01-24T11:19:16.297Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769253548294",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-01-24T11:19:08.294Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769253525630",
+      "employeeId": "1766327353947",
+      "employeeName": "Horsten",
+      "productId": "1768415587184",
+      "productName": "Frühstück",
+      "price": 3,
+      "quantity": 1,
+      "timestamp": "2026-01-24T11:18:45.630Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769253505940",
+      "employeeId": "1766327353947",
+      "employeeName": "Horsten",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-01-24T11:18:25.940Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769253501380",
+      "employeeId": "1766327353947",
+      "employeeName": "Horsten",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-01-24T11:18:21.380Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769250623794",
+      "employeeId": "1766327353947",
+      "employeeName": "Horsten",
+      "productId": "17657062883240.42273806762710353",
+      "productName": "Wasser",
+      "price": 0.6,
+      "quantity": 1,
+      "timestamp": "2026-01-24T10:30:23.794Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769106516143",
+      "employeeId": "1766327485722",
+      "employeeName": "Bieling",
+      "productId": "1768415587184",
+      "productName": "Frühstück",
+      "price": 3,
+      "quantity": 1,
+      "timestamp": "2026-01-22T18:28:36.143Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769106443822",
+      "employeeId": "1766327485722",
+      "employeeName": "Bieling",
+      "productId": "manual",
+      "productName": "Kein Frühstück ",
+      "price": -3,
+      "quantity": 1,
+      "timestamp": "2026-01-22T18:27:23.822Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769106398137",
+      "employeeId": "1766327485722",
+      "employeeName": "Bieling",
+      "productId": "manual",
+      "productName": "Kein Frühstück ",
+      "price": -3,
+      "quantity": 1,
+      "timestamp": "2026-01-22T18:26:38.137Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769106346688",
+      "employeeId": "1766327485722",
+      "employeeName": "Bieling",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-01-22T18:25:46.688Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769106343400",
+      "employeeId": "1766327485722",
+      "employeeName": "Bieling",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-01-22T18:25:43.400Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1769106340876",
+      "employeeId": "1766327485722",
+      "employeeName": "Bieling",
+      "productId": "1768415587184",
+      "productName": "Frühstück",
+      "price": 3,
+      "quantity": 1,
+      "timestamp": "2026-01-22T18:25:40.876Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1768588067010",
+      "employeeId": "1766327542188",
+      "employeeName": "Tekath",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-01-16T18:27:47.010Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1768577372107",
+      "employeeId": "1766327059791",
+      "employeeName": "Spelleken",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -38.5,
+      "timestamp": "2026-01-16T15:29:32.108Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1768550567381",
+      "employeeId": "1766327485722",
+      "employeeName": "Bieling",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-01-16T08:02:47.381Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1768550563907",
+      "employeeId": "1766327485722",
+      "employeeName": "Bieling",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-01-16T08:02:43.907Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1768550521504",
+      "employeeId": "1766327507135",
+      "employeeName": "Bitter",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-01-16T08:02:01.504Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1768550388605",
+      "employeeId": "1766327059791",
+      "employeeName": "Spelleken",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-01-16T07:59:48.605Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1768455804784",
+      "employeeId": "1766327542188",
+      "employeeName": "Tekath",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-01-15T05:43:24.784Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1768416110650",
+      "employeeId": "1766327059791",
+      "employeeName": "Spelleken",
+      "productId": "1768415587184",
+      "productName": "Frühstück",
+      "price": 3,
+      "quantity": 1,
+      "timestamp": "2026-01-14T18:41:50.650Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1768377284240",
+      "employeeId": "1766327507135",
+      "employeeName": "Bitter",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-01-14T07:54:44.240Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1768377282244",
+      "employeeId": "1766327507135",
+      "employeeName": "Bitter",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-01-14T07:54:42.244Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1768377198537",
+      "employeeId": "1766327059791",
+      "employeeName": "Spelleken",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-01-14T07:53:18.537Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1767900784124",
+      "employeeId": "1766327507135",
+      "employeeName": "Bitter",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -10.6,
+      "timestamp": "2026-01-08T19:33:04.124Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1767896498565",
+      "employeeId": "1766327542188",
+      "employeeName": "Tekath",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -1.5,
+      "timestamp": "2026-01-08T18:21:38.565Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1767876430789",
+      "employeeId": "1766327507135",
+      "employeeName": "Bitter",
+      "productId": "17657062883240.8397982334676068",
+      "productName": "Dose",
+      "price": 1.6,
+      "quantity": 2,
+      "timestamp": "2026-01-08T12:47:10.789Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1767726893110",
+      "employeeId": "1766327269848",
+      "employeeName": "Groh",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-01-06T19:14:53.110Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1767723722004",
+      "employeeId": "1766327542188",
+      "employeeName": "Tekath",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-01-06T18:22:02.004Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1767710742305",
+      "employeeId": "1766327507135",
+      "employeeName": "Bitter",
+      "productId": "1766327896796",
+      "productName": "Cola/Fanta/Sprite/Schorle",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-01-06T14:45:42.305Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1767710724765",
+      "employeeId": "1766327507135",
+      "employeeName": "Bitter",
+      "productId": "1766327896796",
+      "productName": "Cola/Fanta/Sprite/Schorle",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2026-01-06T14:45:24.766Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1767710682453",
+      "employeeId": "1766327507135",
+      "employeeName": "Bitter",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-01-06T14:44:42.454Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1767209700822",
+      "employeeId": "1766327059791",
+      "employeeName": "Spelleken",
+      "productId": "manual",
+      "productName": "Silvester 2025",
+      "price": 17.5,
+      "quantity": 1,
+      "timestamp": "2025-12-31T19:35:00.822Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1767075381951",
+      "employeeId": "1766993830621",
+      "employeeName": "Üpl andreas",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -9.3,
+      "timestamp": "2025-12-30T06:16:21.951Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1767075243453",
+      "employeeId": "1766327059791",
+      "employeeName": "Spelleken",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2025-12-30T06:14:03.453Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1767075152233",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2025-12-30T06:12:32.233Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1767074789540",
+      "employeeId": "1766993830621",
+      "employeeName": "Üpl andreas",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2025-12-30T06:06:29.540Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1767074786511",
+      "employeeId": "1766993830621",
+      "employeeName": "Üpl andreas",
+      "productId": "17657062883240.18081986593575305",
+      "productName": "Brötchen",
+      "price": 1,
+      "quantity": 1,
+      "timestamp": "2025-12-30T06:06:26.512Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1767074771859",
+      "employeeId": "1766993830621",
+      "employeeName": "Üpl andreas",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2025-12-30T06:06:11.859Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766993853599",
+      "employeeId": "1766993830621",
+      "employeeName": "Üpl andreas",
+      "productId": "17657062883240.8397982334676068",
+      "productName": "Dose",
+      "price": 0.8,
+      "quantity": 1,
+      "timestamp": "2025-12-29T07:37:33.600Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766513072337",
+      "employeeId": "1766512980449",
+      "employeeName": "Pascal Ernst üpl",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -7.4,
+      "timestamp": "2025-12-23T18:04:32.337Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766513041126",
+      "employeeId": "1766512980449",
+      "employeeName": "Pascal Ernst üpl",
+      "productId": "17657062883240.8397982334676068",
+      "productName": "Dose",
+      "price": 0.8,
+      "quantity": 1,
+      "timestamp": "2025-12-23T18:04:01.126Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766513039011",
+      "employeeId": "1766512980449",
+      "employeeName": "Pascal Ernst üpl",
+      "productId": "17657062883240.42273806762710353",
+      "productName": "Wasser",
+      "price": 0.6,
+      "quantity": 1,
+      "timestamp": "2025-12-23T18:03:59.011Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766513036691",
+      "employeeId": "1766512980449",
+      "employeeName": "Pascal Ernst üpl",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2025-12-23T18:03:56.691Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766512934729",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -22.5,
+      "timestamp": "2025-12-23T18:02:14.729Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766512342217",
+      "employeeId": "1766327059791",
+      "employeeName": "Spelleken",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -12,
+      "timestamp": "2025-12-23T17:52:22.217Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766511174993",
+      "employeeId": "1766327059791",
+      "employeeName": "Spelleken",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2025-12-23T17:32:54.993Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766511137249",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2025-12-23T17:32:17.249Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766511134833",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2025-12-23T17:32:14.833Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766384124502",
+      "employeeId": "1766327542188",
+      "employeeName": "Tekath",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -1.6,
+      "timestamp": "2025-12-22T06:15:24.502Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766347962221",
+      "employeeId": "1766327542188",
+      "employeeName": "Tekath",
+      "productId": "1766327694360",
+      "productName": "1 Weingummi",
+      "price": 0.1,
+      "quantity": 1,
+      "timestamp": "2025-12-21T20:12:42.221Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766347918798",
+      "employeeId": "1766327542188",
+      "employeeName": "Tekath",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2025-12-21T20:11:58.798Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766342054365",
+      "employeeId": "1766327507135",
+      "employeeName": "Bitter",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -7,
+      "timestamp": "2025-12-21T18:34:14.365Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766328724873",
+      "employeeId": "1766327507135",
+      "employeeName": "Bitter",
+      "productId": "manual",
+      "productName": "Übertrag",
+      "price": 7,
+      "quantity": 1,
+      "timestamp": "2025-12-21T14:52:04.873Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766328691992",
+      "employeeId": "1766327433416",
+      "employeeName": "Weysters",
+      "productId": "manual",
+      "productName": "Übertrag",
+      "price": 2.7,
+      "quantity": 1,
+      "timestamp": "2025-12-21T14:51:31.992Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766328561472",
+      "employeeId": "1766327269848",
+      "employeeName": "Groh",
+      "productId": "manual",
+      "productName": "Übertrag",
+      "price": 7.5,
+      "quantity": 1,
+      "timestamp": "2025-12-21T14:49:21.472Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766328393445",
+      "employeeId": "1766327059791",
+      "employeeName": "Spelleken",
+      "productId": "manual",
+      "productName": "Übertrag",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2025-12-21T14:46:33.445Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1766328278089",
+      "employeeId": "1766326994149",
+      "employeeName": "Lipka",
+      "productId": "manual",
+      "productName": "Übertrag",
+      "price": 15,
+      "quantity": 1,
+      "timestamp": "2025-12-21T14:44:38.089Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1765802593669",
+      "employeeId": "1765802527366",
+      "employeeName": "Malaka",
+      "productId": "17657062883240.18081986593575305",
+      "productName": "Brötchen",
+      "price": 2,
+      "quantity": 2,
+      "timestamp": "2025-12-15T12:43:13.669Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1765802566295",
+      "employeeId": "1765802527366",
+      "employeeName": "Malaka",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2025-12-15T12:42:46.295Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1765802564360",
+      "employeeId": "1765802527366",
+      "employeeName": "Malaka",
+      "productId": "17657062883240.18081986593575305",
+      "productName": "Brötchen",
+      "price": 1,
+      "quantity": 1,
+      "timestamp": "2025-12-15T12:42:44.360Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1765712072804",
+      "employeeId": "1765711665749",
+      "employeeName": "Depp",
+      "productId": "1765709987121",
+      "productName": "Ei",
+      "price": 0.3,
+      "quantity": 1,
+      "timestamp": "2025-12-14T11:34:32.804Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1765711675212",
+      "employeeId": "1765711665749",
+      "employeeName": "Depp",
+      "productId": "1765709987121",
+      "productName": "Ei",
+      "price": 0.3,
+      "quantity": 1,
+      "timestamp": "2025-12-14T11:27:55.212Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1765711620909",
+      "employeeId": "1765706444051",
+      "employeeName": "Wenning",
+      "productId": "1765709987121",
+      "productName": "Ei",
+      "price": 0.3,
+      "quantity": 1,
+      "timestamp": "2025-12-14T11:27:00.909Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1765711615856",
+      "employeeId": "1765709828054",
+      "employeeName": "Kehnen",
+      "productId": "1765709987121",
+      "productName": "Ei",
+      "price": 0.3,
+      "quantity": 1,
+      "timestamp": "2025-12-14T11:26:55.856Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1765710264673",
+      "employeeId": "1765706444051",
+      "employeeName": "Wenning",
+      "productId": "1765709987121",
+      "productName": "Ei",
+      "price": -0.3,
+      "quantity": -1,
+      "timestamp": "2025-12-14T11:04:24.673Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1765710003594",
+      "employeeId": "1765706444051",
+      "employeeName": "Wenning",
+      "productId": "1765709987121",
+      "productName": "Ei",
+      "price": 0.3,
+      "quantity": 1,
+      "timestamp": "2025-12-14T11:00:03.594Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1765709969491",
+      "employeeId": "1765706444051",
+      "employeeName": "Wenning",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -322.3,
+      "timestamp": "2025-12-14T10:59:29.491Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1765709931206",
+      "employeeId": "1765709828054",
+      "employeeName": "Kehnen",
+      "productId": "manual",
+      "productName": "Homo",
+      "price": 125324596,
+      "quantity": 1,
+      "timestamp": "2025-12-14T10:58:51.206Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1765708972818",
+      "employeeId": "1765706444051",
+      "employeeName": "Wenning",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 312,
+      "quantity": 52,
+      "timestamp": "2025-12-14T10:42:52.818Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1765707612326",
+      "employeeId": "1765706444051",
+      "employeeName": "Wenning",
+      "productId": "17657062883240.5907024307546647",
+      "productName": "Kaffee",
+      "price": 1.5,
+      "quantity": 1,
+      "timestamp": "2025-12-14T10:20:12.326Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1765706529362",
+      "employeeId": "1765706444051",
+      "employeeName": "Wenning",
+      "productId": "17657062883240.7604380190992254",
+      "productName": "Gummibärchen",
+      "price": 0.8,
+      "quantity": 1,
+      "timestamp": "2025-12-14T10:02:09.362Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1765706528148",
+      "employeeId": "1765706444051",
+      "employeeName": "Wenning",
+      "productId": "17657062883240.8397982334676068",
+      "productName": "Cola 0,5l",
+      "price": 1,
+      "quantity": 1,
+      "timestamp": "2025-12-14T10:02:08.148Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1765706525994",
+      "employeeId": "1765706444051",
+      "employeeName": "Wenning",
+      "productId": "17657062883240.6299508239748268",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2025-12-14T10:02:05.994Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1765706524428",
+      "employeeId": "1765706444051",
+      "employeeName": "Wenning",
+      "productId": "17657062883240.18081986593575305",
+      "productName": "Brötchen",
+      "price": 1,
+      "quantity": 1,
+      "timestamp": "2025-12-14T10:02:04.428Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1776158831384",
+      "employeeId": "1767867232661",
+      "employeeName": "Piorek",
+      "productId": "payment",
+      "productName": "Bezahlung",
+      "price": -22.3,
+      "timestamp": "2026-04-14T09:27:11.385Z",
+      "category": "payment",
+      "userId": "17657062681610.04116636029909582",
+      "quantity": 1
+    },
+    {
+      "id": "1776158846607",
+      "employeeId": "1767867851119",
+      "employeeName": "Misera",
+      "productId": "17657062883240.8397982334676068",
+      "productName": "Dose",
+      "price": 0.8,
+      "quantity": 1,
+      "timestamp": "2026-04-14T09:27:26.607Z",
+      "userId": "17657062681610.04116636029909582"
+    },
+    {
+      "id": "1776160444745",
+      "employeeId": "1765963487907",
+      "employeeName": "Ahlendorf",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 1.35,
+      "quantity": 1,
+      "timestamp": "2026-04-14T09:54:04.745Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160465560",
+      "employeeId": "1765963518101",
+      "employeeName": "Füllgraf",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 16.2,
+      "quantity": 1,
+      "timestamp": "2026-04-14T09:54:25.560Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160479402",
+      "employeeId": "1765963554354",
+      "employeeName": "Heuser",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 24.2,
+      "quantity": 1,
+      "timestamp": "2026-04-14T09:54:39.402Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160491952",
+      "employeeId": "1765963579473",
+      "employeeName": "Käufer",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 9.9,
+      "quantity": 1,
+      "timestamp": "2026-04-14T09:54:51.952Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160506472",
+      "employeeId": "1765963590810",
+      "employeeName": "Ludewig",
+      "productId": "manual",
+      "productName": "Guthaben eingezahlt",
+      "price": -11.4,
+      "quantity": 1,
+      "timestamp": "2026-04-14T09:55:06.472Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160518480",
+      "employeeId": "1765963534625",
+      "employeeName": "Geue",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 20.7,
+      "quantity": 1,
+      "timestamp": "2026-04-14T09:55:18.480Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160533931",
+      "employeeId": "1765963643868",
+      "employeeName": "Kirsten (Falck)",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 20.4,
+      "quantity": 1,
+      "timestamp": "2026-04-14T09:55:33.931Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160547085",
+      "employeeId": "1770808070102",
+      "employeeName": "Zucca",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-14T09:55:47.085Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160641816",
+      "employeeId": "1765963597858",
+      "employeeName": "Röthel",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 31.1,
+      "quantity": 1,
+      "timestamp": "2026-04-14T09:57:21.816Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160659276",
+      "employeeId": "1765802689789",
+      "employeeName": "Kohl",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 43.1,
+      "quantity": 1,
+      "timestamp": "2026-04-14T09:57:39.276Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160671455",
+      "employeeId": "1765963603562",
+      "employeeName": "Schmitz",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 20,
+      "quantity": 1,
+      "timestamp": "2026-04-14T09:57:51.455Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160680946",
+      "employeeId": "1765963615757",
+      "employeeName": "Weysters",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 20.75,
+      "quantity": 1,
+      "timestamp": "2026-04-14T09:58:00.946Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160711102",
+      "employeeId": "1765963772532",
+      "employeeName": "Schmatz",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 0.6,
+      "quantity": 1,
+      "timestamp": "2026-04-14T09:58:31.102Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160723496",
+      "employeeId": "1765963782474",
+      "employeeName": "Sperrlich",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 0.45,
+      "quantity": 1,
+      "timestamp": "2026-04-14T09:58:43.496Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160738882",
+      "employeeId": "1765963667896",
+      "employeeName": "Brönner",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 16.6,
+      "quantity": 1,
+      "timestamp": "2026-04-14T09:58:58.882Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160751194",
+      "employeeId": "1765963728997",
+      "employeeName": "Lipka",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 9,
+      "quantity": 1,
+      "timestamp": "2026-04-14T09:59:11.194Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160765337",
+      "employeeId": "1765963818386",
+      "employeeName": "Schmidt (Falck)",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 9.8,
+      "quantity": 1,
+      "timestamp": "2026-04-14T09:59:25.337Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160777474",
+      "employeeId": "1765963787599",
+      "employeeName": "Szymkowiak",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 16.7,
+      "quantity": 1,
+      "timestamp": "2026-04-14T09:59:37.474Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160793463",
+      "employeeId": "1765963705042",
+      "employeeName": "Kehnen",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 17.1,
+      "quantity": 1,
+      "timestamp": "2026-04-14T09:59:53.463Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160806677",
+      "employeeId": "1765963734778",
+      "employeeName": "Minta",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 11.4,
+      "quantity": 1,
+      "timestamp": "2026-04-14T10:00:06.677Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160818667",
+      "employeeId": "1765963751568",
+      "employeeName": "Rautenberg",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 11.9,
+      "quantity": 1,
+      "timestamp": "2026-04-14T10:00:18.667Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160828605",
+      "employeeId": "1765963767872",
+      "employeeName": "Schomaker",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 25.2,
+      "quantity": 1,
+      "timestamp": "2026-04-14T10:00:28.605Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160838553",
+      "employeeId": "1765963792116",
+      "employeeName": "Wenning",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 2.4,
+      "quantity": 1,
+      "timestamp": "2026-04-14T10:00:38.553Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160860955",
+      "employeeId": "1765963682820",
+      "employeeName": "Decka",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 58.3,
+      "quantity": 1,
+      "timestamp": "2026-04-14T10:01:00.955Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160874817",
+      "employeeId": "1765963712872",
+      "employeeName": "Kiesewetter",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 12.4,
+      "quantity": 1,
+      "timestamp": "2026-04-14T10:01:14.817Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160883280",
+      "employeeId": "1765963760353",
+      "employeeName": "Roßmüller",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 20,
+      "quantity": 1,
+      "timestamp": "2026-04-14T10:01:23.280Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160897019",
+      "employeeId": "1765963796384",
+      "employeeName": "Zinser",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 53.7,
+      "quantity": 1,
+      "timestamp": "2026-04-14T10:01:37.019Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160910306",
+      "employeeId": "1773781786455",
+      "employeeName": "Bitter",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 8.9,
+      "quantity": 1,
+      "timestamp": "2026-04-14T10:01:50.306Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160924048",
+      "employeeId": "1765963855007",
+      "employeeName": "Tekath",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 24.9,
+      "quantity": 1,
+      "timestamp": "2026-04-14T10:02:04.048Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776160932589",
+      "employeeId": "1765963846769",
+      "employeeName": "Urselmann",
+      "productId": "manual",
+      "productName": "Manueller Betrag",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-04-14T10:02:12.589Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776321199073",
+      "employeeId": "1765963569191",
+      "employeeName": "Honermann",
+      "productId": "1765964204505",
+      "productName": "Kakao",
+      "price": 1,
+      "quantity": 1,
+      "timestamp": "2026-04-16T06:33:19.073Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776323346587",
+      "employeeId": "1765963554354",
+      "employeeName": "Heuser",
+      "productId": "17657946219350.2632216402736717",
+      "productName": "Wasser 0,75l",
+      "price": 0.4,
+      "quantity": 1,
+      "timestamp": "2026-04-16T07:09:06.587Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776329342264",
+      "employeeId": "1772354231850",
+      "employeeName": "Golley",
+      "productId": "17657946219350.2632216402736717",
+      "productName": "Wasser 0,75l",
+      "price": 0.4,
+      "quantity": 1,
+      "timestamp": "2026-04-16T08:49:02.264Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776329412322",
+      "employeeId": "1765963573810",
+      "employeeName": "Kahlert",
+      "productId": "17657946219350.730619671491713",
+      "productName": "Softgetränk 0,5l",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-16T08:50:12.322Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776330219932",
+      "employeeId": "1765963569191",
+      "employeeName": "Honermann",
+      "productId": "17657946219350.730619671491713",
+      "productName": "Softgetränk 0,5l",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-16T09:03:39.932Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776330677806",
+      "employeeId": "1765963487907",
+      "employeeName": "Ahlendorf",
+      "productId": "1767346914368",
+      "productName": "Kinderriegel/Duplo/Country",
+      "price": 0.3,
+      "quantity": 1,
+      "timestamp": "2026-04-16T09:11:17.806Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776330681115",
+      "employeeId": "1765963487907",
+      "employeeName": "Ahlendorf",
+      "productId": "1765964204505",
+      "productName": "Kakao",
+      "price": 1,
+      "quantity": 1,
+      "timestamp": "2026-04-16T09:11:21.115Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776331805448",
+      "employeeId": "1765963487907",
+      "employeeName": "Ahlendorf",
+      "productId": "17657946219350.9103392691971582",
+      "productName": "Frühstück",
+      "price": 2.5,
+      "quantity": 1,
+      "timestamp": "2026-04-16T09:30:05.448Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776331807456",
+      "employeeId": "1765963487907",
+      "employeeName": "Ahlendorf",
+      "productId": "17657946219350.10210836026802483",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-04-16T09:30:07.456Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776331817425",
+      "employeeId": "1765963579473",
+      "employeeName": "Käufer",
+      "productId": "17657946219350.10210836026802483",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-04-16T09:30:17.425Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776331831727",
+      "employeeId": "1765963608160",
+      "employeeName": "Schumacher",
+      "productId": "17657946219350.9103392691971582",
+      "productName": "Frühstück",
+      "price": 2.5,
+      "quantity": 1,
+      "timestamp": "2026-04-16T09:30:31.727Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776331834103",
+      "employeeId": "1765963608160",
+      "employeeName": "Schumacher",
+      "productId": "17657946219350.10210836026802483",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-04-16T09:30:34.103Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776331844538",
+      "employeeId": "1765963620182",
+      "employeeName": "Wortelkamp",
+      "productId": "17657946219350.10210836026802483",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-04-16T09:30:44.538Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776331845866",
+      "employeeId": "1765963620182",
+      "employeeName": "Wortelkamp",
+      "productId": "17657946219350.9103392691971582",
+      "productName": "Frühstück",
+      "price": 2.5,
+      "quantity": 1,
+      "timestamp": "2026-04-16T09:30:45.866Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776331853422",
+      "employeeId": "1765963534625",
+      "employeeName": "Geue",
+      "productId": "17657946219350.9103392691971582",
+      "productName": "Frühstück",
+      "price": 2.5,
+      "quantity": 1,
+      "timestamp": "2026-04-16T09:30:53.422Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776331855032",
+      "employeeId": "1765963534625",
+      "employeeName": "Geue",
+      "productId": "17657946219350.10210836026802483",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-04-16T09:30:55.032Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776331859696",
+      "employeeId": "1765963569191",
+      "employeeName": "Honermann",
+      "productId": "17657946219350.10210836026802483",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-04-16T09:30:59.696Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776331861292",
+      "employeeId": "1765963569191",
+      "employeeName": "Honermann",
+      "productId": "17657946219350.9103392691971582",
+      "productName": "Frühstück",
+      "price": 2.5,
+      "quantity": 1,
+      "timestamp": "2026-04-16T09:31:01.292Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776331871335",
+      "employeeId": "1765963540315",
+      "employeeName": "Groh",
+      "productId": "17657946219350.10210836026802483",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-04-16T09:31:11.335Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776331872871",
+      "employeeId": "1765963540315",
+      "employeeName": "Groh",
+      "productId": "17657946219350.9103392691971582",
+      "productName": "Frühstück",
+      "price": 2.5,
+      "quantity": 1,
+      "timestamp": "2026-04-16T09:31:12.871Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776331881058",
+      "employeeId": "1765963612145",
+      "employeeName": "Totaro",
+      "productId": "17657946219350.10210836026802483",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-04-16T09:31:21.058Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776331890148",
+      "employeeId": "1765963612145",
+      "employeeName": "Totaro",
+      "productId": "17657946219350.9103392691971582",
+      "productName": "Frühstück",
+      "price": 2.5,
+      "quantity": 1,
+      "timestamp": "2026-04-16T09:31:30.148Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776331898413",
+      "employeeId": "1765963573810",
+      "employeeName": "Kahlert",
+      "productId": "17657946219350.10210836026802483",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-04-16T09:31:38.413Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776331900020",
+      "employeeId": "1765963573810",
+      "employeeName": "Kahlert",
+      "productId": "17657946219350.9103392691971582",
+      "productName": "Frühstück",
+      "price": 2.5,
+      "quantity": 1,
+      "timestamp": "2026-04-16T09:31:40.020Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776331910041",
+      "employeeId": "1765963603562",
+      "employeeName": "Schmitz",
+      "productId": "17657946219350.10210836026802483",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-04-16T09:31:50.041Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776331961333",
+      "employeeId": "1765963554354",
+      "employeeName": "Heuser",
+      "productId": "17657946219350.10210836026802483",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-04-16T09:32:41.333Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776334021260",
+      "employeeId": "1765963772532",
+      "employeeName": "Schmatz",
+      "productId": "1767346914368",
+      "productName": "Kinderriegel/Duplo/Country",
+      "price": 0.6,
+      "quantity": 2,
+      "timestamp": "2026-04-16T10:07:01.260Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776334148663",
+      "employeeId": "1765963579473",
+      "employeeName": "Käufer",
+      "productId": "manual",
+      "productName": "Brötchen",
+      "price": -11,
+      "quantity": 1,
+      "timestamp": "2026-04-16T10:09:08.663Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776334152851",
+      "employeeId": "1765963579473",
+      "employeeName": "Käufer",
+      "productId": "17657946219350.730619671491713",
+      "productName": "Softgetränk 0,5l",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-16T10:09:12.851Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776335413917",
+      "employeeId": "1765963487907",
+      "employeeName": "Ahlendorf",
+      "productId": "17657946219350.730619671491713",
+      "productName": "Softgetränk 0,5l",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-16T10:30:13.917Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776337740772",
+      "employeeId": "1765963569191",
+      "employeeName": "Honermann",
+      "productId": "17657946219350.15105826671034006",
+      "productName": "Gummibärchen 3Stk.",
+      "price": 0.3,
+      "quantity": 2,
+      "timestamp": "2026-04-16T11:09:00.772Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776340005779",
+      "employeeId": "1772354231850",
+      "employeeName": "Golley",
+      "productId": "17657946219350.2632216402736717",
+      "productName": "Wasser 0,75l",
+      "price": 0.4,
+      "quantity": 1,
+      "timestamp": "2026-04-16T11:46:45.779Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776348762961",
+      "employeeId": "1765963573810",
+      "employeeName": "Kahlert",
+      "productId": "1769420877176",
+      "productName": "Protein Riegel",
+      "price": 1,
+      "quantity": 1,
+      "timestamp": "2026-04-16T14:12:42.961Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776350171642",
+      "employeeId": "1765963620182",
+      "employeeName": "Wortelkamp",
+      "productId": "17657946219350.15105826671034006",
+      "productName": "Gummibärchen 3Stk.",
+      "price": 0.15,
+      "quantity": 1,
+      "timestamp": "2026-04-16T14:36:11.642Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776350916153",
+      "employeeId": "1765963487907",
+      "employeeName": "Ahlendorf",
+      "productId": "1767346914368",
+      "productName": "Kinderriegel/Duplo/Country",
+      "price": 0.6,
+      "quantity": 2,
+      "timestamp": "2026-04-16T14:48:36.153Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776355241448",
+      "employeeId": "1765963573810",
+      "employeeName": "Kahlert",
+      "productId": "17657946219350.2632216402736717",
+      "productName": "Wasser 0,75l",
+      "price": 0.4,
+      "quantity": 1,
+      "timestamp": "2026-04-16T16:00:41.448Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776360393431",
+      "employeeId": "1765963573810",
+      "employeeName": "Kahlert",
+      "productId": "17657946219350.730619671491713",
+      "productName": "Softgetränk 0,5l",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-16T17:26:33.431Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776361135288",
+      "employeeId": "1765963579473",
+      "employeeName": "Käufer",
+      "productId": "17657946219350.730619671491713",
+      "productName": "Softgetränk 0,5l",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-16T17:38:55.288Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776361148623",
+      "employeeId": "1765963487907",
+      "employeeName": "Ahlendorf",
+      "productId": "17657946219350.730619671491713",
+      "productName": "Softgetränk 0,5l",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-16T17:39:08.623Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776364304106",
+      "employeeId": "1772354231850",
+      "employeeName": "Golley",
+      "productId": "17657946219350.10210836026802483",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-04-16T18:31:44.106Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776367761828",
+      "employeeId": "1765963487907",
+      "employeeName": "Ahlendorf",
+      "productId": "1767346914368",
+      "productName": "Kinderriegel/Duplo/Country",
+      "price": 0.3,
+      "quantity": 1,
+      "timestamp": "2026-04-16T19:29:21.828Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776371079524",
+      "employeeId": "1765963569191",
+      "employeeName": "Honermann",
+      "productId": "17657946219350.15105826671034006",
+      "productName": "Gummibärchen 3Stk.",
+      "price": 0.44999999999999996,
+      "quantity": 3,
+      "timestamp": "2026-04-16T20:24:39.524Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776494516615",
+      "employeeId": "1765963772532",
+      "employeeName": "Schmatz",
+      "productId": "17657946219350.730619671491713",
+      "productName": "Softgetränk 0,5l",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-18T06:41:56.615Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776494882215",
+      "employeeId": "1765963534625",
+      "employeeName": "Geue",
+      "productId": "1765964204505",
+      "productName": "Kakao",
+      "price": 1,
+      "quantity": 1,
+      "timestamp": "2026-04-18T06:48:02.215Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776501299332",
+      "employeeId": "1765963573810",
+      "employeeName": "Kahlert",
+      "productId": "17657946219350.730619671491713",
+      "productName": "Softgetränk 0,5l",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-18T08:34:59.332Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776501414231",
+      "employeeId": "1765963615757",
+      "employeeName": "Weysters",
+      "productId": "17657946219350.2632216402736717",
+      "productName": "Wasser 0,75l",
+      "price": 0.4,
+      "quantity": 1,
+      "timestamp": "2026-04-18T08:36:54.231Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776505759961",
+      "employeeId": "1765963615757",
+      "employeeName": "Weysters",
+      "productId": "17657946219350.730619671491713",
+      "productName": "Softgetränk 0,5l",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-18T09:49:19.961Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776506070730",
+      "employeeId": "1765963772532",
+      "employeeName": "Schmatz",
+      "productId": "17657946219350.730619671491713",
+      "productName": "Softgetränk 0,5l",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-18T09:54:30.730Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776506715931",
+      "employeeId": "1765963534625",
+      "employeeName": "Geue",
+      "productId": "17657946219350.730619671491713",
+      "productName": "Softgetränk 0,5l",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-18T10:05:15.931Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776507821421",
+      "employeeId": "1765963741755",
+      "employeeName": "Pahlmeyer",
+      "productId": "17657946219350.730619671491713",
+      "productName": "Softgetränk 0,5l",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-18T10:23:41.421Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776509680509",
+      "employeeId": "1765963487907",
+      "employeeName": "Ahlendorf",
+      "productId": "1767346914368",
+      "productName": "Kinderriegel/Duplo/Country",
+      "price": 0.3,
+      "quantity": 1,
+      "timestamp": "2026-04-18T10:54:40.509Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776510140627",
+      "employeeId": "1765963633240",
+      "employeeName": "Siebers (Falck)",
+      "productId": "17657946219350.730619671491713",
+      "productName": "Softgetränk 0,5l",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-18T11:02:20.627Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776510145526",
+      "employeeId": "1765963633240",
+      "employeeName": "Siebers (Falck)",
+      "productId": "17657946219350.10210836026802483",
+      "productName": "Mittagessen",
+      "price": 6,
+      "quantity": 1,
+      "timestamp": "2026-04-18T11:02:25.526Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776512278191",
+      "employeeId": "1765963772532",
+      "employeeName": "Schmatz",
+      "productId": "1767346914368",
+      "productName": "Kinderriegel/Duplo/Country",
+      "price": 0.3,
+      "quantity": 1,
+      "timestamp": "2026-04-18T11:37:58.191Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776512786440",
+      "employeeId": "1765963772532",
+      "employeeName": "Schmatz",
+      "productId": "17657946219350.2632216402736717",
+      "productName": "Wasser 0,75l",
+      "price": 0.4,
+      "quantity": 1,
+      "timestamp": "2026-04-18T11:46:26.440Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776512796563",
+      "employeeId": "1765963615757",
+      "employeeName": "Weysters",
+      "productId": "17657946219350.2632216402736717",
+      "productName": "Wasser 0,75l",
+      "price": 0.4,
+      "quantity": 1,
+      "timestamp": "2026-04-18T11:46:36.563Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776516392927",
+      "employeeId": "1765963579473",
+      "employeeName": "Käufer",
+      "productId": "1767346914368",
+      "productName": "Kinderriegel/Duplo/Country",
+      "price": 0.3,
+      "quantity": 1,
+      "timestamp": "2026-04-18T12:46:32.927Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776519879160",
+      "employeeId": "1765963792116",
+      "employeeName": "Wenning",
+      "productId": "1769420877176",
+      "productName": "Protein Riegel",
+      "price": 1,
+      "quantity": 1,
+      "timestamp": "2026-04-18T13:44:39.160Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776519886991",
+      "employeeId": "1765963792116",
+      "employeeName": "Wenning",
+      "productId": "1767346914368",
+      "productName": "Kinderriegel/Duplo/Country",
+      "price": 0.3,
+      "quantity": 1,
+      "timestamp": "2026-04-18T13:44:46.992Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776521152221",
+      "employeeId": "1765963741755",
+      "employeeName": "Pahlmeyer",
+      "productId": "17657946219350.730619671491713",
+      "productName": "Softgetränk 0,5l",
+      "price": 1.2,
+      "quantity": 1,
+      "timestamp": "2026-04-18T14:05:52.221Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776521261719",
+      "employeeId": "1765963573810",
+      "employeeName": "Kahlert",
+      "productId": "1769420877176",
+      "productName": "Protein Riegel",
+      "price": 1,
+      "quantity": 1,
+      "timestamp": "2026-04-18T14:07:41.719Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776521607735",
+      "employeeId": "1765963487907",
+      "employeeName": "Ahlendorf",
+      "productId": "1767346914368",
+      "productName": "Kinderriegel/Duplo/Country",
+      "price": 0.6,
+      "quantity": 2,
+      "timestamp": "2026-04-18T14:13:27.736Z",
+      "userId": "17657945223510.668209242825248"
+    },
+    {
+      "id": "1776522251305",
+      "employeeId": "1765963590810",
+      "employeeName": "Ludewig",
+      "productId": "17657946219350.15105826671034006",
+      "productName": "Gummibärchen 3Stk.",
+      "price": 0.15,
+      "quantity": 1,
+      "timestamp": "2026-04-18T14:24:11.305Z",
+      "userId": "17657945223510.668209242825248"
+    }
+  ],
+  "dailyStats": {
+    "17657062681610.04116636029909582": {
+      "mittagessen": 0,
+      "broetchen": 0,
+      "eier": 0,
+      "kaffee": 0,
+      "gesamtbetrag": 0,
+      "date": "Sat Apr 18 2026"
+    },
+    "17657945223510.668209242825248": {
+      "mittagessen": 1,
+      "broetchen": 0,
+      "eier": 0,
+      "kaffee": 0,
+      "gesamtbetrag": 21.75,
+      "date": "Sat Apr 18 2026"
+    },
+    "17658029950100.059270981798738576": {
+      "mittagessen": 0,
+      "broetchen": 1,
+      "eier": 0,
+      "kaffee": 0,
+      "date": "Mon Dec 15 2025"
+    },
+    "17658050842420.5272256882194837": {
+      "mittagessen": 0,
+      "broetchen": 1,
+      "eier": 0,
+      "kaffee": 0,
+      "date": "Mon Dec 15 2025"
+    }
+  },
+  "employeesWithLunch": {
+    "17657062681610.04116636029909582": [],
+    "17657945223510.668209242825248": [
+      "Ahlendorf",
+      "Käufer",
+      "Schumacher",
+      "Wortelkamp",
+      "Geue",
+      "Honermann",
+      "Groh",
+      "Totaro",
+      "Kahlert",
+      "Schmitz",
+      "Heuser",
+      "Golley",
+      "Siebers (Falck)"
+    ],
+    "17658029950100.059270981798738576": [],
+    "17658050842420.5272256882194837": []
+  }
+}
