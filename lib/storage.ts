@@ -147,19 +147,37 @@ class StorageAPI {
     await this.updateData({ transactions: [...existing, transaction] })
   }
 
-  async setTransactions(transactions: (Transaction | ManualTransaction)[]) {
-    const purchases = transactions.filter((t) => "price" in t)
-    const manual = transactions.filter((t) => !("price" in t))
+  async setTransactions(transactions: (Transaction | ManualTransaction)[], userId?: string) {
     const data = await this.fetchData()
-    const existingManual = data.manualTransactions || []
-    await this.updateData({
-      transactions: purchases,
-      manualTransactions: manual.length > 0 ? manual : existingManual,
-    })
+    
+    // Wenn userId übergeben: nur Transaktionen der aktuellen Kantine ersetzen, andere behalten
+    // Wenn keine userId: direkter Überschreib (für Lösch-Operationen)
+    if (userId) {
+      const otherKantineTransactions = (data.transactions || []).filter((t: Transaction) => t.userId !== userId)
+      const otherManualTransactions = (data.manualTransactions || []).filter((t: ManualTransaction) => t.userId !== userId)
+      
+      const purchases = transactions.filter((t) => "price" in t)
+      const manual = transactions.filter((t) => !("price" in t))
+      
+      await this.updateData({
+        transactions: [...otherKantineTransactions, ...purchases],
+        manualTransactions: [...otherManualTransactions, ...manual],
+      })
+    } else {
+      // Direkt überschreiben (für Lösch-Operationen)
+      const purchases = transactions.filter((t) => "price" in t)
+      const manual = transactions.filter((t) => !("price" in t))
+      await this.updateData({
+        transactions: purchases,
+        manualTransactions: manual,
+      })
+    }
   }
 
-  async setManualTransactions(manualTransactions: ManualTransaction[]) {
-    await this.updateData({ manualTransactions })
+  async setManualTransactions(manualTransactions: ManualTransaction[], userId: string) {
+    const data = await this.fetchData()
+    const otherManuals = (data.manualTransactions || []).filter((t: ManualTransaction) => t.userId !== userId)
+    await this.updateData({ manualTransactions: [...otherManuals, ...manualTransactions] })
   }
 
   async getDailyStats(userId: string) {

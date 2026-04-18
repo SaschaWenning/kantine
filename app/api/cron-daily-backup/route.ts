@@ -1,30 +1,23 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { readFile } from "fs/promises"
+import { readFile, writeFile, mkdir } from "fs/promises"
 import { join } from "path"
+import { getDebtReportHTML } from "@/lib/report-service"
 
 export const runtime = "nodejs"
 
 export async function GET(request: NextRequest) {
   try {
-    // Verify Cron Secret
-    const authHeader = request.headers.get("authorization")
-    if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-    }
-
     // Read the main data file
     const dataPath = join(process.cwd(), "data", "kantine-data.json")
     const rawData = await readFile(dataPath, "utf-8")
     const data = JSON.parse(rawData)
 
-    // Get all employees and group by userId (Kantine)
     const employees = data.employees || []
     const transactions = data.transactions || []
     const manualTransactions = data.manualTransactions || []
-
     const allTransactions = [...transactions, ...manualTransactions]
 
-    // Group employees by userId
+    // Group employees by userId (Kantine)
     const kantineGroups = new Map<string, any[]>()
     for (const emp of employees) {
       if (!kantineGroups.has(emp.userId)) {
@@ -34,83 +27,84 @@ export async function GET(request: NextRequest) {
     }
 
     // Create backup for each Kantine
+    const reportDate = new Date()
+    const reportsDir = join(process.cwd(), "reports")
+    await mkdir(reportsDir, { recursive: true })
+
     const backups = []
     for (const [userId, kantineEmployees] of kantineGroups) {
-      const kantineTransactions = allTransactions.filter(
-        (t: any) => t.userId === userId || (!t.userId && kantineEmployees.some((e: any) => e.id === t.employeeId))
-      )
+      try {
+        const kantineTransactions = allTransactions.filter(
+          (t: any) => t.userId === userId || (!t.userId && kantineEmployees.some((e: any) => e.id === t.employeeId))
+        )
 
-      // Calculate balances for this Kantine
-      const balancedEmployees = kantineEmployees.map((employee: any) => {
-        const employeeTransactions = kantineTransactions
-          .filter((t: any) => t.employeeId === employee.id)
-          .sort((a: any, b: any) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime())
+        // Calculate balances für diese Kantine (mit GetProductCategory-Logik)
+        const balancedEmployees = kantineEmployees.map((employee: any) => {
+          const employeeTransactions = kantineTransactions
+            .filter((t: any) => t.employeeId === employee.id)
+            .sort((a: any, b: any) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime())
 
-        // Find last payment
-        let lastPaymentIndex = -1
-        for (let i = employeeTransactions.length - 1; i >= 0; i--) {
-          const name = (employeeTransactions[i] as any).productName ?? ""
-          if (name.toLowerCase().includes("bezahlung") || name.toLowerCase().includes("payment")) {
-            lastPaymentIndex = i
-            break
+          // Find last payment
+          let lastPaymentIndex = -1
+          for (let i = employeeTransactions.length - 1; i >= 0; i--) {
+            const name = (employeeTransactions[i] as any).productName ?? ""
+            if (name.toLowerCase().includes("bezahlung") || name.toLowerCase().includes("payment")) {
+              lastPaymentIndex = i
+              break
+            }
           }
-        }
 
-        const relevantTransactions = lastPaymentIndex >= 0
-          ? employeeTransactions.slice(lastPaymentIndex + 1)
-          : employeeTransactions
+          const relevantTransactions = lastPaymentIndex >= 0
+            ? employeeTransactions.slice(lastPaymentIndex + 1)
+            : employeeTransactions
 
-        const balance = relevantTransactions.reduce((sum: number, t: any) => {
-          const val = "price" in t ? (t as any).price : (t as any).amount
-          return sum + val
-        }, 0)
+          const balance = relevantTransactions.reduce((sum: number, t: any) => {
+            const val = "price" in t ? (t as any).price : (t as any).amount
+            return sum + val
+          }, 0)
 
-        return {
-          id: employee.id,
-          name: employee.name,
-          balance: Math.round(balance * 100) / 100,
-        }
-      })
-
-      // Only create backup if there are open balances
-      const hasOpenBalances = balancedEmployees.some((e) => e.balance !== 0)
-      if (hasOpenBalances) {
-        const totalDebt = balancedEmployees
-          .filter((e) => e.balance > 0)
-          .reduce((s, e) => s + e.balance, 0)
-
-        const response = await fetch(`${process.env.VERCEL_URL ? "https://" + process.env.VERCEL_URL : "http://localhost:3000"}/api/send-debt-report`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            userId,
-            kantineName: kantineEmployees[0]?.userId,
-            employees: balancedEmployees,
-          }),
+          return {
+            id: employee.id,
+            name: employee.name,
+            balance: Math.round(balance * 100) / 100,
+          }
         })
 
-        if (response.ok) {
-          const result = await response.json()
+        // Only create backup if there are open balances
+        const hasOpenBalances = balancedEmployees.some((e) => e.balance !== 0)
+        if (hasOpenBalances) {
+          const totalDebt = balancedEmployees
+            .filter((e) => e.balance > 0)
+            .reduce((s, e) => s + e.balance, 0)
+
+          // Direkt HTML generieren (nicht über API)
+          const htmlContent = getDebtReportHTML(balancedEmployees, totalDebt, reportDate, userId)
+          const filename = `schulden-report-${reportDate.toISOString().split("T")[0]}-${userId}-${Date.now()}.html`
+          const filepath = join(reportsDir, filename)
+          await writeFile(filepath, htmlContent)
+
           backups.push({
-            kantine: kantineEmployees[0]?.userId,
+            kantine: userId,
             success: true,
-            filename: result.filename,
+            filename,
             totalDebt,
             employeeCount: balancedEmployees.filter((e: any) => e.balance !== 0).length,
           })
         } else {
           backups.push({
-            kantine: kantineEmployees[0]?.userId,
-            success: false,
-            error: "API call failed",
+            kantine: userId,
+            success: true,
+            message: "No open balances, backup skipped",
           })
         }
-      } else {
+      } catch (kantineError) {
+        // Fehler bei einer Kantine sollte nicht den ganzen Backup stoppen
         backups.push({
-          kantine: kantineEmployees[0]?.userId,
-          success: true,
-          message: "No open balances, backup skipped",
+          kantine: userId,
+          success: false,
+          error: kantineError instanceof Error ? kantineError.message : "Unknown error",
         })
+        console.error(`Backup failed for Kantine ${userId}:`, kantineError)
       }
     }
 

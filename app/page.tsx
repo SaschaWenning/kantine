@@ -359,9 +359,8 @@ export default function KantineApp() {
     setTransactions(newTransactions)
     setEmployees(calculateEmployeeBalances(employees, newTransactions))
 
-    // Alle Transaktionen speichern - KEINE Filterung! 
-    // Die Filterung von manualTransactions bei bezahlten Mitarbeitern erfolgt in AdminInterface
-    await storage.setTransactions(newTransactions)
+    // Alle Transaktionen speichern mit userId um andere Kantinen nicht zu überschreiben
+    await storage.setTransactions(newTransactions, currentUser!.id)
   }
 
   const handleUpdateProducts = async (updatedProducts: Product[]) => {
